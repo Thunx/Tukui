@@ -30,7 +30,7 @@ DB["media"] = {
 DB["general"] = {
 	["autoscale"] = true,                  -- mainly enabled for users that don't want to mess with the config file
 	["uiscale"] = 0.78,                    -- set your value (between 0.64 and 1) of your uiscale if autoscale is off
-	["multisampleprotect"] = true,         -- i don't recommend this because of shitty border but, voila!
+	["multisampleprotect"] = false,         -- i don't recommend this because of shitty border but, voila!
 	["classcolortheme"] = false,			--class colored theme for panels
 	["fontscale"] = 12,					--Master font
 	["resolutionoverride"] = "NONE",		--override lowversion (Low, High)
@@ -46,7 +46,7 @@ DB["skin"] = {	--Skin addons by Darth Android
 	["bigwigs"] = true,
 	["hookkleright"] = true,			-- force KLE's top bar anchor to be hooked onto the right chat window
 	["hookbwright"] = true,			-- force BigWig's bar anchor to be hooked onto the right chat window
-	["embedright"] = "NONE",				-- Addon to embed to the right frame ("Omen", "Recount", "Skada")
+	["embedright"] = "4",				-- Addon to embed to the right frame ("Omen", "Recount", "Skada", "4")
 }
 
 DB["unitframes"] = {
@@ -54,7 +54,7 @@ DB["unitframes"] = {
 	["enable"] = true,                     -- do i really need to explain this?
 	["fontsize"] = 12,						-- default font height for unitframes
 	["lowThreshold"] = 20,                 -- global low threshold, for low mana warning.
-	["targetpowerplayeronly"] = true,         -- enable power text on pvp target only
+	["targetpowerplayeronly"] = false,         -- enable power text on pvp target only
 	["showfocustarget"] = false,           -- show focus's target
 	["pettarget"] = true,					-- show player's pet's target (DPS)
 	["showtotalhpmp"] = false,             -- change the display of info text on player and target with XXXX/Total.
@@ -70,13 +70,14 @@ DB["unitframes"] = {
 	["debuffhighlight"] = true,				--highlight frame with the debuff color if the frame is dispellable
 	["classbar"] = true,                    -- enable runebar/totembar/holypowerbar/soulshardbar/eclipsebar
 	["combat"] = false,						-- only show main unitframes when in combat/havetarget/or mouseover
-	["mini_powerbar"] = false,
+	["mini_powerbar"] = true,
 	["showboss"] = true,                   -- enable boss unit frames for PVELOL encounters.
-	["arena"] = true,                 -- enable elvui arena unitframes (requirement : Elvui unitframes enabled)	
+	["arena"] = true,                 -- enable elvui arena unitframes (requirement : Elvui unitframes enabled)
+	["exp_rep"] = true,					-- Hide exp/rep bar under powerbar	
 	
 	--frame sizes
 	["playtarwidth"] = 275,					--width of player/target frame
-	["playtarheight"] = 55,					--height of player/target frame
+	["playtarheight"] = 45,					--height of player/target frame
 	["smallwidth"] = 130,					--Width of TargetTarget, Focus, FocusTarget, Player's Pet frames
 	["smallheight"] = 35,					--Height of TargetTarget, Focus, FocusTarget, Player's Pet frames
 	["arenabosswidth"] = 212,				--Width of Arena/Boss Frames
@@ -100,10 +101,10 @@ DB["unitframes"] = {
 	
 	--castbar
 	["unitcastbar"] = true, -- enable Elvui castbar
-	["cblatency"] = false, -- enable castbar latency
+	["cblatency"] = true, -- enable castbar latency
 	["cbicons"] = true, -- enable icons on castbar
 	["spark"] = true, -- enable spark on castbar
-	["castplayerwidth"] = 275,
+	["castplayerwidth"] = 412, -- 12*40(buttonsize)+13*4(buttonspacing)=412 
 	["casttargetwidth"] = 275,
 	["castfocuswidth"] = 275,
 	["castbarcolor"] = DB["media"].bordercolor, -- Color of player castbar
@@ -129,7 +130,7 @@ DB["raidframes"] = {
 	["mainassist"] = true,                -- enable mainassist
 	["partypets"] = true,					-- enable party pets for the healer layout
 	["disableblizz"] = true,				-- fuck fuck fuckin fuck
-	["healthdeficit"] = false,			-- show the health deficit on the raidframes
+	["healthdeficit"] = true,			-- show the health deficit on the raidframes
 	["griddps"] = true,					-- show dps layout in grid style
 	["role"] = false,					--display role on raidframe
 	["partytarget"]	= false,				--display party members targets (DPS ONLY)
@@ -143,7 +144,7 @@ DB["classtimer"] = {
 	["bar_height"] = 17,
 	["bar_spacing"] = 1,
 	["icon_position"] = 2, -- 0 = left, 1 = right, 2 = Outside left, 3 = Outside Right
-	["layout"] = 4, --1 - both player and target auras in one frame right above player frame, 2 - player and target auras separated into two frames above player frame, 3 - player, target and trinket auras separated into three frames above player frame, 4 - player and trinket auras are shown above player frame and target auras are shown above target frame, 5 - Everything above player frame, no target debuffs.
+	["layout"] = 5, --1 - both player and target auras in one frame right above player frame, 2 - player and target auras separated into two frames above player frame, 3 - player, target and trinket auras separated into three frames above player frame, 4 - player and trinket auras are shown above player frame and target auras are shown above target frame, 5 - Everything above player frame, no target debuffs.
 	["showspark"] = true,
 	["cast_suparator"] = true,
 	
@@ -167,7 +168,7 @@ DB["actionbar"] = {
 	["swaptopbottombar"] = false,			--swap the main actionbar position with the bottom actionbar
 	["macrotext"] = false,					--show macro text on actionbuttons
 	["verticalstance"] = false,				--make stance bar vertical
-	["microbar"] = false,					--enable microbar display
+	["microbar"] = true,					--enable microbar display
 	["mousemicro"] = false,					--only show microbar on mouseover
 	
 	["enablecd"] = true,                     -- do i really need to explain this?
@@ -181,14 +182,14 @@ DB["actionbar"] = {
 
 DB["nameplate"] = {
 	["enable"] = true,                     -- enable nice skinned nameplates that fit into Elvui
-	["showhealth"] = false,					-- show health text on nameplate
+	["showhealth"] = true,					-- show health text on nameplate
 	["enhancethreat"] = true,				-- threat features based on if your a tank or not
 	["overlap"] = false,				--allow nameplates to overlap
 	["combat"] = false,					--only show enemy nameplates in-combat.
 	["goodcolor"] = {r = 75/255,  g = 175/255, b = 76/255},			--good threat color (tank shows this with threat, everyone else without)
 	["badcolor"] = {r = 0.78, g = 0.25, b = 0.25},			--bad threat color (opposite of above)
 	["transitioncolor"] = {r = 218/255, g = 197/255, b = 92/255},	--threat color when gaining threat
-	["trackauras"] = false,		--track players debuffs only (debuff list derived from classtimer spell list)
+	["trackauras"] = true,		--track players debuffs only (debuff list derived from classtimer spell list)
 	["trackccauras"] = true,			--track all CC debuffs
 }
 
@@ -207,7 +208,7 @@ DB["datatext"] = {
 	["currency"] = 0,						-- show watched items in backpack
 	["specswitch"] = 0,
 	["battleground"] = true,               -- enable 3 stats in battleground only that replace stat1,stat2,stat3.
-	["time24"] = false,                     -- set time to 24h format.
+	["time24"] = true,                     -- set time to 24h format.
 	["localtime"] = true,                 -- set time to local time instead of server time.
 	["fontsize"] = 12,                     -- font size for panels.
 }
@@ -248,7 +249,9 @@ DB["others"] = {
 	["rolllootframe"] = true,              -- reskin the roll frame to fit Elvui
 	["autogreed"] = true,                  -- auto-dez or auto-greed item at max level.	
 	["sellgrays"] = true,                  -- automaticly sell grays?
-	["autorepair"] = true,                 -- automaticly repair?
+	["autorepair"] = false,                 -- automaticly repair?
+	["guildbankrepair"] = true,        -- when auto repair is on, use guild bank when available  
+	["spincam"] = true,            -- Spin camera while afk
 	
 	["buffreminder"] = true,                     -- this is now the new innerfire warning script for all armor/aspect class.
 	["remindersound"] = true,                      -- enable warning sound notification for reminder.

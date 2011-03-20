@@ -1726,6 +1726,7 @@ function ElvuiConfig.GenerateOptionsInternal()
 							["Recount"] = "Recount",
 							["Omen"] = "Omen",
 							["Skada"] = "Skada",
+							["4"] = "4",
 						},						
 					},
 					SkadaGroup = {
@@ -1868,6 +1869,18 @@ function ElvuiConfig.GenerateOptionsInternal()
 								order = 5,
 								name = L["Map Skin"],
 								desc = L["Enable/Disable the map skin"],										
+							},
+							spincam = {
+								type = "toggle",
+								order = 6,
+								name = L["Spin Cam"],
+								desc = L["Spin camera while afk"],
+							},
+							guildbankrepair = {
+								type = "toggle",
+								order = 7,
+								name = L["Guild Bank Repair"],
+								desc = L["When auto repair is on, use guild bank when available"],
 							},							
 						},
 					},
