@@ -102,6 +102,7 @@ DB["unitframes"] = {
 	["unitcastbar"] = true, -- enable Elvui castbar
 	["cblatency"] = false, -- enable castbar latency
 	["cbicons"] = true, -- enable icons on castbar
+	["spark"] = true, -- enable spark on castbar
 	["castplayerwidth"] = 275,
 	["casttargetwidth"] = 275,
 	["castfocuswidth"] = 275,

@@ -122,6 +122,13 @@ E.LoadUFFunctions = function(layout)
 		castbar:FontString("Text", C["media"].uffont, C["unitframes"].fontsize*E.ResScale, "THINOUTLINE")
 		castbar.Text:SetPoint("LEFT", castbar, "LEFT", 4, 0)
 		castbar.Text:SetTextColor(0.84, 0.75, 0.65)
+		
+		if C["unitframes"].spark == true and self.unit == "player" then
+		castbar.Spark = castbar:CreateTexture(nil, 'OVERLAY')
+		castbar.Spark:SetHeight(height*2)
+		castbar.Spark:SetWidth(15)
+		castbar.Spark:SetBlendMode('ADD')
+		end
 
 		-- cast bar latency on player
 		if C["unitframes"].cblatency == true and self.unit == "player" then
