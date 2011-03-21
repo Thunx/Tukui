@@ -72,8 +72,10 @@ DB["unitframes"] = {
 	["combat"] = false,						-- only show main unitframes when in combat/havetarget/or mouseover
 	["mini_powerbar"] = true,
 	["showboss"] = true,                   -- enable boss unit frames for PVELOL encounters.
-	["arena"] = true,                 -- enable elvui arena unitframes (requirement : Elvui unitframes enabled)
+	["arena"] = true,                 -- enable elvui arena unitframes (requirement : Elvui unitframes enabled)	
+	["swing"] = false,
 	["exp_rep"] = true,					-- Hide exp/rep bar under powerbar	
+
 	
 	--frame sizes
 	["playtarwidth"] = 275,					--width of player/target frame
