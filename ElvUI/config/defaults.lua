@@ -5,13 +5,19 @@ DB["media"] = {
 	["font"] = "ElvUI Font", -- general font of Elvui
 	["uffont"] = "ElvUI Font", -- general font of unitframes
 	["dmgfont"] = "ElvUI Combat", -- general font of dmg / sct
-		
+		["pixelfont"] = [[Interface\AddOns\ElvUI\media\fonts\HOOG0555.ttf]], -- extra pixelfont
+		["pixelfont2"] = [[Interface\AddOns\ElvUI\media\fonts\visitor2.ttf]], -- another pixelfont
+		["pixelfont3"] = [[Interface\AddOns\ElvUI\media\fonts\visitor1.ttf]], -- another pixelfont
+		["pixelfont4"] =  [[Interface\AddOns\ElvUI\media\fonts\Pixelway_Baseline.TTF]], -- another pixelfont
 	-- textures
 	["normTex"] = "ElvUI Norm", -- texture used for Elvui healthbar/powerbar/etc
 	["glossTex"] = "ElvUI Gloss",
 	["glowTex"] = "ElvUI GlowBorder",
 	["blank"] = "ElvUI Blank",
-	
+	["bubbleTex"] = [[Interface\AddOns\ElvUI\media\textures\bubbleTex]], -- unitframes combo points
+	["flat"] = [[Interface\AddOns\ElvUI\media\textures\Flat]], -- unitframes combo points
+	["copyicon"] = [[Interface\AddOns\ElvUI\media\textures\copy]], -- copy icon
+	["buttonhover"] = [[Interface\AddOns\ElvUI\media\textures\button_hover]],
 	["raidicons"] = [[Interface\AddOns\ElvUI\media\textures\raidicons.blp]], -- new raid icon textures by hankthetank
 	
 	-- sound
@@ -261,4 +267,12 @@ DB["others"] = {
 	["announceinterrupt"] = true,			-- announce in party/raid when you interrupt
 	["showthreat"] = true,                 -- enable the threat bar anchored to info right panel.
 	["minimapauras"] = true,				-- enable minimap auras		
+}
+
+C["Interrupted"] = {
+    ["enable"] = false,                     -- enable Interrupt announce by Sideshow
+}
+	
+C["saftExperienceBar"] = {
+    ["enable"] = true,                       -- enable Safturento's XP/REP bar
 }
