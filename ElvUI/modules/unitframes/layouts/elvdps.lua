@@ -302,10 +302,12 @@ local function Shared(self, unit)
 		self:RegisterEvent("PARTY_MEMBERS_CHANGED", E.MLAnchorUpdate)	
 			
 		--Aggro Glow
-		table.insert(self.__elements, E.UpdateThreat)
-		self:RegisterEvent('PLAYER_TARGET_CHANGED', E.UpdateThreat)
-		self:RegisterEvent('UNIT_THREAT_LIST_UPDATE', E.UpdateThreat)
-		self:RegisterEvent('UNIT_THREAT_SITUATION_UPDATE', E.UpdateThreat)
+		if C["unitframes"].displayaggro == true then
+			table.insert(self.__elements, E.UpdateThreat)
+			self:RegisterEvent('PLAYER_TARGET_CHANGED', E.UpdateThreat)
+			self:RegisterEvent('UNIT_THREAT_LIST_UPDATE', E.UpdateThreat)
+			self:RegisterEvent('UNIT_THREAT_SITUATION_UPDATE', E.UpdateThreat)
+		end
 		
 		--Auto Hide
 		if C["unitframes"].combat == true then
@@ -869,12 +871,8 @@ local function Shared(self, unit)
 		--[[This is a little differant than everything else because we have to take into account 
 		the combobar is movable with the /moveele command, this should make it work correctly only 
 		after a reloadui.]]
-		combo:HookScript("OnShow", function()
-			if DPSComboBar then DPSComboBar:SetFrameLevel(DPSComboBar:GetFrameLevel() + 1) end
-			
-			if ElementsPos and DPSComboBar and DPSComboBar["moved"] then
-				if ElementsPos["DPSComboBar"]["moved"] == true and E.CreatedMoveEleFrames["DPSComboBar"] then return end
-			end
+		combo:HookScript("OnShow", function()		
+			if ElementsPos and DPSComboBar and ElementsPos["DPSComboBar"]["moved"] and E.CreatedMoveEleFrames["DPSComboBar"] then return end
 			combo:ClearAllPoints()
 			combo:Point("BOTTOMLEFT", health.backdrop, "TOPLEFT", BORDER, BORDER+SPACING)
 			
