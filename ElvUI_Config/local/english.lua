@@ -25,7 +25,13 @@ L["General Settings"] = true
 		L["Force a specific layout to show."] = true
 		L["DPS"] = true
 		L["Heal"] = true
-
+	L["Sharp Borders"] = true
+		L["Enhance the borders on all frames by making a dark outline around the edges. You will probably need to disable this if you do not play in your monitors max resolution."] = true
+	L["Upper Frame"] = true
+		L["Enable a bar accross the top of the screen, doing this will move the location and coords texts to that bar, and also allow for spaces nine and ten of the datatexts to be used."] = true
+	L["Lower Frame"] = true
+		L["Enable a bar accross the bottom of the screen, mostly for decoration."] = true
+		
 --Media
 L["Media"] = true
 	L["MEDIA_DESC"] = "Setup Textures, Colors, Fonts and Sounds for ElvUI"
@@ -83,7 +89,8 @@ L["Nameplates"] = true
 		L["This is displayed when you don't have threat as a tank, if you do have threat it is displayed as a DPS/Healer"] = true
 	L["Transition Color"] = true
 		L["This color is displayed when gaining/losing threat"] = true
-
+	L["Allow Overlap"] = true
+	
 --Unitframes
 L["Unit Frames"] = true
 	L["UF_DESC"] = "Adjust settings for unitframes"
@@ -123,6 +130,8 @@ L["Unit Frames"] = true
 		L["Display class specific bar (runebar/totembar/holypowerbar/soulshardbar/eclipsebar)"] = true
 	L["Combat Fade"] = true
 		L["Fade main unitframes out when not in combat, unless you cast or mouseover the frame"] = true
+	L["Powerbar Offset"] = true
+		L["Detach and offset the power bar on the main unitframes"] = true
 	L["Mini-Powerbar Theme"] = true
 		L["Style the unitframes with a smaller powerbar"] = true
 	L["Arena Frames"] = true
@@ -132,6 +141,8 @@ L["Unit Frames"] = true
 	L["Display Aggro"] = true
 		L["Enable red glow around the player frame when you have aggro"] = true
 		L["Change the frame's border to red when a unit has aggro"] = true
+	L["Mini-Classbar Theme"] = true
+		L["Make classbars smaller and restyle them"] = true
 	
 L["Frame Sizes"] = true
 	L["Controls the size of the frame"] = true
@@ -145,13 +156,19 @@ L["Frame Sizes"] = true
 	L["Assist/Tank Height"] = true
 
 L["Auras"] = true
-	L["Player Auras"] = true
-		L["Display auras on frame"] = true
-	L["Hide Player's Buffs"] = true
-		L["Don't display player's buffs"] = true
-	L["Target Auras"] = true
+	L["Display auras on frame"] = true
+	L["Player Buffs"] = true
+	L["Player Debuffs"] = true
+	L["Target Buffs"] = true
+	L["Target Debuffs"] = true
+	L["Boss Buffs"] = true
+	L["Boss Debuffs"] = true
+	L["Arena Buffs"] = true
+		L["Display important buffs on the arena unit, these may be changed in the filter section of the config"] = true
+	L["Arena Debuffs"] = true
+		L["Display important debuffs on the arena unit, these may be changed in the filter section of the config"] = true
 	L["Player's Debuffs Only"] = true
-		L["Only display debuffs on the targetframe that are from yourself"] = true
+		L["Only display debuffs on the target, targettarget, boss, and arena frames that are from yourself"] = true
 	L["Aura Timer"] = true
 		L["Display aura timer"] = true
 	L["Aura Text Scale"] = true
@@ -219,7 +236,10 @@ L["Raid Frames"] = true
 	L["Party Target's"] = true
 	L["Mouse Glow"] = true
 		L["Glow the unitframe to the unit's Reaction/Class when mouseover'd"] = true
-
+	L["25 Man Layout Party"] = true
+		L["Use the 25 man layout inside a party group"] = true
+	L["Display Debuffs"] = true
+	
 --Classtimer		
 L["Class Timers"] = true
 	L["CLASSTIMER_DESC"] = "Adjust settings for classtimers"
@@ -280,7 +300,10 @@ L["Action Bars"] = true
 L["Data Texts"] = true
 	L["DATATEXT_DESC"] = "Edit display of informational text on panels"
 	L["DATATEXT_POS"] = "\n\n0 - Disabled\n1 - LEFT PANEL, LEFT\n2 - LEFT PANEL, CENTER\n3 - LEFT PANEL, RIGHT\n4 - RIGHT PANEL, LEFT\n5 - RIGHT PANEL, CENTER\n6 - RIGHT PANEL, RIGHT\n7 - MINIMAP LEFT\n8 - MINIMAP RIGHT"
+	L["DATATEXT_POS2"] = "\n\n0 - Disabled\n1 - LEFT PANEL, LEFT\n2 - LEFT PANEL, CENTER\n3 - LEFT PANEL, RIGHT\n4 - RIGHT PANEL, LEFT\n5 - RIGHT PANEL, CENTER\n6 - RIGHT PANEL, RIGHT\n7 - MINIMAP LEFT\n8 - MINIMAP RIGHT\n9 - TOPBAR LEFT\n10 - TOPBAR RIGHT"
 	L["Text Positions"] = true
+	L["Mastery Spell"] = true
+		L["Display the mastery spell on the mastery datatext"] = true
 	L["BG Text"] = true
 		L["Display special datatexts when inside a battleground"] = true
 		L["Font size for datatexts"] = true
@@ -288,6 +311,7 @@ L["Data Texts"] = true
 		L["Display time datatext on a 24 hour time scale"] = true
 	L["Local Time"] = true
 		L["Display local time instead of server time"] = true
+		L["Color the datatext values based on your class"] = true
 	L["Stat #1"] = true
 		L["Display stat based on your role (Avoidance-Tank, AP-Melee, SP/HP-Caster)"] = true
 	L["Durability"] = true
@@ -314,7 +338,18 @@ L["Data Texts"] = true
 		L["Display current watched items in backpack"] = true
 	L["Talent Spec"] = true	
 		L["Display current spec"] = true
-
+	L["Mastery"] = true
+		L["Display Mastery Rating"] = true
+	L["Hit Rating"] = true
+		L["Display Hit Rating"] = true
+	L["Haste Rating"] = true
+		L["Display Haste Rating"] = true
+	L["Crit Rating"] = true
+		L["Display Critical Strike Rating"] = true
+	L["Mana Regen"] = true
+		L["Display Mana Regen Rate"] = true
+	
+	
 --chat
 L["Chat"] = true
 	L["CHAT_DESC"] = "Adjust chat settings"
@@ -329,8 +364,8 @@ L["Chat"] = true
 		L["Fade chat windows after a long period of no activity"] = true
 	L["Sticky Editbox"] = true
 		L["When pressing enter to open the chat editbox, display the last known channel"] = true
-	L["Animate Chat In Combat"] = true
-		L["When you enter combat, the selected window will animate out of view"] = true
+	L["Toggle Chat In Combat"] = true
+		L["When you enter combat, the selected window will toggle out of view"] = true
 	L["Chat Bubbles"] = true
 		L["Skin Blizzard's Chat Bubbles"] = true
 	L["Left"] = true
@@ -407,6 +442,33 @@ L["Misc"] = true
 	L["Map Skin"] = true
 		L["Enable/Disable the map skin"] = true
 		
+L["Filters"] = true
+L["SPELL_FILTER_DESC"] = "Filter everything from spell names to nameplate names."
+	L["Aura Names"] = true
+	L["Nameplate Names"] = true
+	L["Choose Filter"] = true
+		L["Choose the filter you want to modify."] = true
+		L["Raid Debuffs"] = true
+		L["Debuff Blacklist"] = true
+		L["Debuff Whitelist"] = true
+		L["Arena Buffs"] = true
+		L["Target Debuffs (PvP Only)"] = true
+		L["Nameplate Blacklist"] = true
+		
+	L["Filter whether or not a nameplate is shown by the name of the nameplate"] = true
+	L["Filter the buffs that get displayed on arena units."] = true
+	L["Set buffs that will never get displayed."] = true
+	L["These debuffs will always get displayed on the Target Frame, Arena Frames, and Nameplates."] = true
+	L["These debuffs only get displayed on the target unit when the unit happens to be an enemy player."] = true
+	L["These debuffs will be displayed on your raid frames in addition to any debuff that is dispellable."] = true
+	
+	L["New name"] = true
+		L["Add a new name to the list."] = true
+	L["Remove name"] = true
+		L["Remove a name from the list."] = true
+	L["You may only delete spells that you have added. Default spells can be disabled by unchecking the option"] = true
+	L["Spell not found in list"] = true
+	
 --Profiles
 L["Profiles"] = true
 L["CFG_RELOAD"] = "A setting you have changed requires a ReloadUI for changes to take effect, when you are done configing hit Accept to ReloadUI."

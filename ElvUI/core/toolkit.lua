@@ -11,10 +11,19 @@ local backdropr, backdropg, backdropb, backdropa, borderr, borderg, borderb = 0,
 ---------------------------------------------------
 
 local function GetTemplate(t)
+	backdropa = 1
 	if t == "ClassColor" or C["general"].classcolortheme == true  then
 		local c = E.colors.class[class]
 		borderr, borderg, borderb = c[1], c[2], c[3]
-		backdropr, backdropg, backdropb = unpack(C["media"].backdropcolor)
+		
+		if t ~= "Transparent" then
+			backdropr, backdropg, backdropb = unpack(C["media"].backdropcolor)
+		else
+			backdropr, backdropg, backdropb, backdropa = unpack(C["media"].backdropfadecolor)
+		end
+	elseif t == "Transparent" then
+		borderr, borderg, borderb = unpack(C["media"].bordercolor)
+		backdropr, backdropg, backdropb, backdropa = unpack(C["media"].backdropfadecolor)	
 	else
 		borderr, borderg, borderb = unpack(C["media"].bordercolor)
 		backdropr, backdropg, backdropb = unpack(C["media"].backdropcolor)
@@ -57,15 +66,13 @@ local function SetTemplate(f, t, texture)
 	  tile = false, tileSize = 0, edgeSize = E.mult, 
 	  insets = { left = -E.mult, right = -E.mult, top = -E.mult, bottom = -E.mult}
 	})
-	
-	if t == "Transparent" then
-		backdropa = 0.8		
-	else
-		backdropa = 1
-	end
-	
+
 	if texture and not f.tex then
-		f:SetBackdropColor(0, 0, 0, backdropa)	
+		if C["general"].sharpborders == true then
+			f:SetBackdropColor(0, 0, 0, backdropa)
+		else
+			f:SetBackdropColor(backdropr, backdropg, backdropb, backdropa)
+		end
 		
 		local tex = f:CreateTexture(nil, "BORDER")
 		tex:Point("TOPLEFT", f, "TOPLEFT", 2, -2)
@@ -73,11 +80,12 @@ local function SetTemplate(f, t, texture)
 		tex:SetTexture(C["media"].glossTex)
 		tex:SetVertexColor(backdropr, backdropg, backdropb)
 		tex:SetDrawLayer("BORDER", -8)
+		tex:SetAlpha(backdropa)
 		f.tex = tex
 	else
 		f:SetBackdropColor(backdropr, backdropg, backdropb, backdropa)
 		
-		if not f.oborder and not f.iborder then
+		if not f.oborder and not f.iborder and C["general"].sharpborders == true then
 			local border = CreateFrame("Frame", nil, f)
 			border:Point("TOPLEFT", E.mult, -E.mult)
 			border:Point("BOTTOMRIGHT", -E.mult, E.mult)
@@ -170,8 +178,14 @@ local function FontString(parent, name, fontName, fontHeight, fontStyle)
 end
 
 -- convert datatext E.ValColor from rgb decimal to hex
-local r, g, b = unpack(C["media"].valuecolor)
-E.ValColor = ("|cff%.2x%.2x%.2x"):format(r * 255, g * 255, b * 255)
+if C["datatext"].classcolor ~= true then
+	local r, g, b = unpack(C["media"].valuecolor)
+	E.ValColor = ("|cff%.2x%.2x%.2x"):format(r * 255, g * 255, b * 255)
+else
+	local color = RAID_CLASS_COLORS[class]
+	E.ValColor = ("|cff%.2x%.2x%.2x"):format(color.r * 255, color.g * 255, color.b * 255)
+	C["media"].valuecolor = {color.r, color.g, color.b}
+end
 
 local function StyleButton(b, c) 
     local name = b:GetName()

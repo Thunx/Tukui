@@ -174,6 +174,8 @@ function E.Install()
 		ElvuiData.ufpos = {}
 	end
 	
+	FoolsDay = nil
+	
 	StaticPopup_Show("RELOAD_UI")
 end
 
@@ -186,7 +188,12 @@ local ElvuiOnLogon = CreateFrame("Frame")
 ElvuiOnLogon:RegisterEvent("PLAYER_ENTERING_WORLD")
 ElvuiOnLogon:SetScript("OnEvent", function(self, event)
 	self:UnregisterEvent("PLAYER_ENTERING_WORLD")
-
+	
+	--reset april fools day for next year
+	if not E.FoolDayCheck() then
+		FoolsDay = nil
+	end
+	
 	if E.getscreenresolution == "800x600"
 		or E.getscreenresolution == "1024x768"
 		or E.getscreenresolution == "720x576"
@@ -282,7 +289,6 @@ function E.UIHelp()
 	print(L.core_uihelp5)
 	print(L.core_uihelp6)
 	print(L.core_uihelp7)
-	print(L.core_uihelp9)
 	print(L.core_uihelp10)
 	print(L.core_uihelp11)
 	print(L.core_uihelp12)

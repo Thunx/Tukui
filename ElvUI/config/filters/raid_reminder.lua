@@ -4,8 +4,6 @@
 
 local E, C, L, DB = unpack(select(2, ...)) -- Import Functions/Constants, Config, Locales
 
-if C["others"].raidbuffreminder ~= true then return end
-
 E.BuffReminderRaidBuffs = {
 	Flask = {
 		94160, --"Flask of Flowing Water"
@@ -64,9 +62,3 @@ E.BuffReminderRaidBuffs = {
 		87554, --Seafood Feast
 	},
 }
-
---TEMP FIX TO CRASH ON LOAD
-local _, build = GetBuildInfo()
-if tonumber(build) > 13623 then 
-	E.BuffReminderRaidBuffs.Flask = {}
-end
