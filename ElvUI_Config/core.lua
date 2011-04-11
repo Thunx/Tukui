@@ -25,6 +25,7 @@ function ElvuiConfig:LoadDefaults()
 			chat = DB["chat"],
 			tooltip = DB["tooltip"],
 			others = DB["others"],
+			saftexperiencebar = DB["saftexperiencebar"],
 			spellfilter = {
 				FilterPicker = "RaidDebuffs",
 				RaidDebuffs = E["RaidDebuffs"],
@@ -91,6 +92,7 @@ function ElvuiConfig:SetupOptions()
 	self.optionsFrames.Skins = ACD3:AddToBlizOptions("ElvuiConfig", L["Addon Skins"], "ElvUI", "skin")
 	self.optionsFrames.SpellFilter = ACD3:AddToBlizOptions("ElvuiConfig", L["Filters"], "ElvUI", "spellfilter")
 	self.optionsFrames.Others = ACD3:AddToBlizOptions("ElvuiConfig", L["Misc"], "ElvUI", "others")
+	self.optionsFrames.saftExperienceBar = ACD3:AddToBlizOptions("ElvuiConfig", L["saftExperienceBar"], "ElvUI", "saftexperiencebar")
 	self.optionsFrames.Profiles = ACD3:AddToBlizOptions("ElvProfiles", L["Profiles"], "ElvUI")
 	self.SetupOptions = nil
 end
@@ -791,6 +793,12 @@ function ElvuiConfig.GenerateOptionsInternal()
 								desc = L["Detach and offset the power bar on the main unitframes"],
 								min = 0, max = 12, step = 1,	
 							},
+							exp_rep = {
+								type = "toggle",
+								order = 25,
+								name = L["Exp/Rep Offset"],
+								desc = L["Detach and offset the Exp/Rep bar on the Powerbar"]
+							},								
 						},
 					},
 					UFSizeGroup = {
@@ -997,9 +1005,15 @@ function ElvuiConfig.GenerateOptionsInternal()
 								name = L["Castbar Icons"],
 								desc = L["Show icons on castbars"],								
 							},
+							spark = {
+								type = "toggle",
+								order = 4,
+								name = L["Spark on Castbar"],
+								desc = L["Show Spark on castbars"],								
+							},
 							castplayerwidth = {
 								type = "range",
-								order = 4,
+								order = 5,
 								name = L["Width Player Castbar"],
 								desc = L["The size of the castbar"],
 								type = "range",
@@ -1007,7 +1021,7 @@ function ElvuiConfig.GenerateOptionsInternal()
 							},
 							casttargetwidth = {
 								type = "range",
-								order = 5,
+								order = 6,
 								name = L["Width Target Castbar"],
 								desc = L["The size of the castbar"],
 								type = "range",
@@ -1015,7 +1029,7 @@ function ElvuiConfig.GenerateOptionsInternal()
 							},	
 							castfocuswidth = {
 								type = "range",
-								order = 6,
+								order = 7,
 								name = L["Width Focus Castbar"],
 								desc = L["The size of the castbar"],
 								type = "range",
@@ -1023,7 +1037,7 @@ function ElvuiConfig.GenerateOptionsInternal()
 							},
 							castbarcolor = {
 								type = "color",
-								order = 7,
+								order = 8,
 								name = L["Castbar Color"],
 								desc = L["Color of the castbar"],
 								hasAlpha = false,
@@ -1041,7 +1055,7 @@ function ElvuiConfig.GenerateOptionsInternal()
 							},
 							nointerruptcolor = {
 								type = "color",
-								order = 8,
+								order = 9,
 								name = L["Interrupt Color"],
 								desc = L["Color of the castbar when you can't interrupt the cast"],
 								hasAlpha = false,
@@ -1963,7 +1977,7 @@ function ElvuiConfig.GenerateOptionsInternal()
 							["Recount"] = "Recount",
 							["Omen"] = "Omen",
 							["Skada"] = "Skada",
-							["4"] = "4",
+							["Recount_Omen"] = "Recount and Omen",
 						},						
 					},
 					SkadaGroup = {
@@ -2195,19 +2209,13 @@ function ElvuiConfig.GenerateOptionsInternal()
 								order = 5,
 								name = L["Map Skin"],
 								desc = L["Enable/Disable the map skin"],										
-							},
+							},	
 							spincam = {
 								type = "toggle",
 								order = 6,
-								name = L["Spin Cam"],
-								desc = L["Spin camera while afk"],
-							},
-							guildbankrepair = {
-								type = "toggle",
-								order = 7,
-								name = L["Guild Bank Repair"],
-								desc = L["When auto repair is on, use guild bank when available"],
-							},							
+								name = L["Spincamera"],
+								desc = L["Enable/Disable Spincamera"],										
+							},								
 						},
 					},
 					LootGroup = {
@@ -2298,9 +2306,29 @@ function ElvuiConfig.GenerateOptionsInternal()
 					},
 				},		
 			},
+			saftexperiencebar = {
+			order = 11,
+			type = "group",
+			name = L["saftExperienceBar"],
+			desc = L["saftExperienceBar"],
+			get = function(info) return db.saftexperiencebar[ info[#info] ] end,
+			set = function(info, value) db.saftexperiencebar[ info[#info] ] = value; StaticPopup_Show("CFG_RELOAD") end,
+			args = {
+				intro = {
+				order = 1,
+				type = "description",
+				name = L["saftExperienceBar_DEC"],
+				},
+				enable = {
+					order = 2,
+					type = "toggle",
+					name = ENABLE,
+				},
+			},
 		},
-	}
-	
+	},
+}
+		
 	if C["general"].upperpanel == true then
 		for _, option in pairs(ElvuiConfig.Options.args.datatext.args.DataGroup.args) do
 			option.max = 10

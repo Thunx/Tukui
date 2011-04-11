@@ -143,6 +143,8 @@ L["Unit Frames"] = true
 		L["Change the frame's border to red when a unit has aggro"] = true
 	L["Mini-Classbar Theme"] = true
 		L["Make classbars smaller and restyle them"] = true
+	L["Exp/Rep Offset"] = true
+		L["Detach and offset the Exp/Rep bar on the Powerbar"] = true
 	
 L["Frame Sizes"] = true
 	L["Controls the size of the frame"] = true
@@ -196,6 +198,8 @@ L["Castbar"] = true
 	L["Color of the castbar"] = true
 	L["Interrupt Color"] = true
 	L["Color of the castbar when you can't interrupt the cast"] = true
+	L["Spark on Castbar"] = true
+		L["Show Spark on castbars"] = true
 	
 L["Power Colors"] = true
 	L["Mana"] = true
@@ -441,6 +445,13 @@ L["Misc"] = true
 		L["Enable/Disable the All-In-One Bag, you must disable this if you wish to run another bag addon"] = true
 	L["Map Skin"] = true
 		L["Enable/Disable the map skin"] = true
+	L["Spincamera"] = true
+		L["Enable/Disable Spincamera"] = true
+--saftExperienceBar		
+L["saftexperiencebar"] = true
+	L["saftExperienceBar"] = true	
+	L["Enable/Disable saftExperienceBar"] = true
+	L["saftExperienceBar_DEC"] = "Setup options for saftExperienceBar"
 		
 L["Filters"] = true
 L["SPELL_FILTER_DESC"] = "Filter everything from spell names to nameplate names."

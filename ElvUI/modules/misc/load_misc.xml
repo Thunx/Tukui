@@ -13,5 +13,4 @@
 	<Script file="raidmarker.lua"/>
 	<Script file="damage.lua"/>
 	<Script file="threat.lua"/>
-	<Script file="misc.lua"/>
 </Ui>

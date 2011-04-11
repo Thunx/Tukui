@@ -74,24 +74,7 @@ if C["skin"].embedright == "Recount" then
 		Recount.db.profile.MainWindowWidth = (C["chat"].chatwidth - 4)	
 	end)
 end
-if C["skin"].embedright == "4" then
-	local Omen_Skin = CreateFrame("Frame")
-	Omen_Skin:RegisterEvent("PLAYER_ENTERING_WORLD")
-	Omen_Skin:SetScript("OnEvent", function(self)
-		self:UnregisterAllEvents()
-		self = nil
-
-		Omen.UpdateTitleBar = function() end
-		OmenTitle:Kill()
-		OmenBarList:ClearAllPoints()
-		OmenBarList:SetWidth(ChatRBackground2:GetWidth() / 2)
-		OmenBarList:SetPoint("TOPLEFT", ChatRBackground2, "TOPLEFT", 0, 0)
-		OmenBarList:SetPoint("BOTTOMLEFT", ChatRBackground2, "BOTTOMLEFT", 0, 0)
-		Omen.db.profile.FrameStrata = "4-HIGH"
-	end)
-end
-
-if C["skin"].embedright == "4" then
+if C["skin"].embedright == "Recount_Omen" then
 	local Recount_Skin = CreateFrame("Frame")
 	Recount_Skin:RegisterEvent("PLAYER_ENTERING_WORLD")
 	Recount_Skin:SetScript("OnEvent", function(self)

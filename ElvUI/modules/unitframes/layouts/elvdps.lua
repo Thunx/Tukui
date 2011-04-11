@@ -270,9 +270,10 @@ local function Shared(self, unit)
 
 		--Cast Bar
 		if C["unitframes"].unitcastbar == true then
-			local castbar = E.ConstructCastBar(self, CASTBAR_WIDTH, CASTBAR_HEIGHT, "LEFT")            
+			--local castbar = E.ConstructCastBar(self, CASTBAR_WIDTH, CASTBAR_HEIGHT, "LEFT")
+			--castbar:Point("TOPRIGHT", self, "BOTTOMRIGHT", -BORDER, -(BORDER*2+BORDER))
+			local castbar = E.ConstructCastBar(self, CASTBAR_WIDTH, CASTBAR_HEIGHT, "LEFT")
 			castbar:Point("BOTTOMRIGHT", ElvuiActionBarBackground, "TOPRIGHT", E.Scale(-2), E.Scale(5))
-
 			self.Castbar = castbar
 		end
 		
@@ -419,16 +420,17 @@ local function Shared(self, unit)
 			experience:SetAllPoints(power)
 			experience:SetFrameStrata("HIGH")
 			experience:SetAlpha(0)
-			
+
 			experience:HookScript("OnEnter", function(self) self:SetAlpha(1) end)
 			experience:HookScript("OnLeave", function(self) self:SetAlpha(0) end)
-			
+
 			experience.Rested:SetAllPoints(power)
-			
+
 			experience.backdrop:SetAllPoints(power.backdrop)
 			experience.backdrop:SetFrameLevel(power:GetFrameLevel() + 1)
 			self:RegisterEvent("PLAYER_UPDATE_RESTING", E.RestingIconUpdate)
 			end
+			
 		end
 		
 		if E.level == MAX_PLAYER_LEVEL then
@@ -449,18 +451,20 @@ local function Shared(self, unit)
 			reputation.backdrop:SetFrameLevel(reputation:GetFrameLevel() - 1)
 			self.Reputation = reputation
 			
+			
 			if C["unitframes"].exp_rep == true then
 			reputation:SetFrameLevel(power:GetFrameLevel() + 2)
 			reputation:SetAllPoints(power)
 			reputation:SetAlpha(0)
 			reputation:SetFrameStrata("HIGH")
-			
+
 			reputation:HookScript("OnEnter", function(self) self:SetAlpha(1) end)
 			reputation:HookScript("OnLeave", function(self) self:SetAlpha(0) end)
-			
+
 			reputation.backdrop:SetAllPoints(power.backdrop)
 			reputation.backdrop:SetFrameLevel(power:GetFrameLevel() + 1)
 			end
+			
 		end
 
 		--Class Resource Bars

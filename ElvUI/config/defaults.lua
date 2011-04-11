@@ -5,10 +5,10 @@ DB["media"] = {
 	["font"] = "ElvUI Font", -- general font of Elvui
 	["uffont"] = "ElvUI Font", -- general font of unitframes
 	["dmgfont"] = "ElvUI Combat", -- general font of dmg / sct
-		["pixelfont"] = [[Interface\AddOns\ElvUI\media\fonts\HOOG0555.ttf]], -- extra pixelfont
-		["pixelfont2"] = [[Interface\AddOns\ElvUI\media\fonts\visitor2.ttf]], -- another pixelfont
-		["pixelfont3"] = [[Interface\AddOns\ElvUI\media\fonts\visitor1.ttf]], -- another pixelfont
-		["pixelfont4"] =  [[Interface\AddOns\ElvUI\media\fonts\Pixelway_Baseline.TTF]], -- another pixelfont
+	["pixelfont"] = [[Interface\AddOns\ElvUI\media\fonts\HOOG0555.ttf]], -- extra pixelfont
+	["pixelfont2"] = [[Interface\AddOns\ElvUI\media\fonts\visitor2.ttf]], -- another pixelfont
+	["pixelfont3"] = [[Interface\AddOns\ElvUI\media\fonts\visitor1.ttf]], -- another pixelfont
+	["pixelfont4"] = [[Interface\AddOns\ElvUI\media\fonts\Pixelway_Baseline.TTF]], -- another pixelfont	
 	-- textures
 	["normTex"] = "ElvUI Norm", -- texture used for Elvui healthbar/powerbar/etc
 	["glossTex"] = "ElvUI Gloss",
@@ -18,6 +18,7 @@ DB["media"] = {
 	["flat"] = [[Interface\AddOns\ElvUI\media\textures\Flat]], -- unitframes combo points
 	["copyicon"] = [[Interface\AddOns\ElvUI\media\textures\copy]], -- copy icon
 	["buttonhover"] = [[Interface\AddOns\ElvUI\media\textures\button_hover]],
+
 	["raidicons"] = [[Interface\AddOns\ElvUI\media\textures\raidicons.blp]], -- new raid icon textures by hankthetank
 	
 	-- sound
@@ -36,7 +37,7 @@ DB["media"] = {
 DB["general"] = {
 	["autoscale"] = true,                  -- mainly enabled for users that don't want to mess with the config file
 	["uiscale"] = 0.78,                    -- set your value (between 0.64 and 1) of your uiscale if autoscale is off
-	["multisampleprotect"] = false,         -- i don't recommend this because of shitty border but, voila!
+	["multisampleprotect"] = true,         -- i don't recommend this because of shitty border but, voila!
 	["classcolortheme"] = false,			--class colored theme for panels
 	["fontscale"] = 12,					--Master font
 	["resolutionoverride"] = "NONE",		--override lowversion (Low, High)
@@ -55,7 +56,7 @@ DB["skin"] = {
 	["bigwigs"] = true,
 	["hookkleright"] = true,			-- force KLE's top bar anchor to be hooked onto the right chat window
 	["hookbwright"] = true,			-- force BigWig's bar anchor to be hooked onto the right chat window
-	["embedright"] = "4",				-- Addon to embed to the right frame ("Omen", "Recount", "Skada", "4")
+	["embedright"] = "NONE",				-- Addon to embed to the right frame ("Omen", "Recount", "Skada", "Recount_Omen")
 }
 
 DB["unitframes"] = {
@@ -63,7 +64,7 @@ DB["unitframes"] = {
 	["enable"] = true,                     -- do i really need to explain this?
 	["fontsize"] = 12,						-- default font height for unitframes
 	["lowThreshold"] = 20,                 -- global low threshold, for low mana warning.
-	["targetpowerplayeronly"] = false,         -- enable power text on pvp target only
+	["targetpowerplayeronly"] = true,         -- enable power text on pvp target only
 	["showfocustarget"] = false,           -- show focus's target
 	["pettarget"] = true,					-- show player's pet's target (DPS)
 	["showtotalhpmp"] = false,             -- change the display of info text on player and target with XXXX/Total.
@@ -79,22 +80,18 @@ DB["unitframes"] = {
 	["debuffhighlight"] = true,				--highlight frame with the debuff color if the frame is dispellable
 	["classbar"] = true,                    -- enable runebar/totembar/holypowerbar/soulshardbar/eclipsebar
 	["combat"] = false,						-- only show main unitframes when in combat/havetarget/or mouseover
-	["mini_powerbar"] = true,
+	["mini_powerbar"] = false,
 	["mini_classbar"] = false,
 	["powerbar_offset"] = 0,
 	["showboss"] = true,                   -- enable boss unit frames for PVELOL encounters.
 	["arena"] = true,                 -- enable elvui arena unitframes (requirement : Elvui unitframes enabled)	
 	["swing"] = false,
 	["displayaggro"] = true,
-	["exp_rep"] = true,					-- Hide exp/rep bar under powerbar	
-
-
-	
-
+	["exp_rep"] = true,			-- Hide exp/rep bar under powerbar
 	
 	--frame sizes
 	["playtarwidth"] = 275,					--width of player/target frame
-	["playtarheight"] = 45,					--height of player/target frame
+	["playtarheight"] = 55,					--height of player/target frame
 	["smallwidth"] = 130,					--Width of TargetTarget, Focus, FocusTarget, Player's Pet frames
 	["smallheight"] = 35,					--Height of TargetTarget, Focus, FocusTarget, Player's Pet frames
 	["arenabosswidth"] = 212,				--Width of Arena/Boss Frames
@@ -123,10 +120,10 @@ DB["unitframes"] = {
 	
 	--castbar
 	["unitcastbar"] = true, -- enable Elvui castbar
-	["cblatency"] = true, -- enable castbar latency
+	["cblatency"] = false, -- enable castbar latency
 	["cbicons"] = true, -- enable icons on castbar
-	["spark"] = true, -- enable spark on castbar
-	["castplayerwidth"] = 412, -- 12*40(buttonsize)+13*4(buttonspacing)=412 
+	["spark"] = true,	-- enable spark on castbar
+	["castplayerwidth"] = 412,
 	["casttargetwidth"] = 275,
 	["castfocuswidth"] = 275,
 	["castbarcolor"] = DB["media"].bordercolor, -- Color of player castbar
@@ -152,7 +149,7 @@ DB["raidframes"] = {
 	["mainassist"] = true,                -- enable mainassist
 	["partypets"] = true,					-- enable party pets for the healer layout
 	["disableblizz"] = true,				-- fuck fuck fuckin fuck
-	["healthdeficit"] = true,			-- show the health deficit on the raidframes
+	["healthdeficit"] = false,			-- show the health deficit on the raidframes
 	["griddps"] = true,					-- show dps layout in grid style
 	["role"] = false,					--display role on raidframe
 	["partytarget"]	= false,				--display party members targets (DPS ONLY)
@@ -170,7 +167,7 @@ DB["classtimer"] = {
 	["bar_height"] = 17,
 	["bar_spacing"] = 5,
 	["icon_position"] = 2, -- 0 = left, 1 = right, 2 = Outside left, 3 = Outside Right
-	["layout"] = 5, --1 - both player and target auras in one frame right above player frame, 2 - player and target auras separated into two frames above player frame, 3 - player, target and trinket auras separated into three frames above player frame, 4 - player and trinket auras are shown above player frame and target auras are shown above target frame, 5 - Everything above player frame, no target debuffs.
+	["layout"] = 4, --1 - both player and target auras in one frame right above player frame, 2 - player and target auras separated into two frames above player frame, 3 - player, target and trinket auras separated into three frames above player frame, 4 - player and trinket auras are shown above player frame and target auras are shown above target frame, 5 - Everything above player frame, no target debuffs.
 	["showspark"] = true,
 	["cast_suparator"] = true,
 	
@@ -194,7 +191,7 @@ DB["actionbar"] = {
 	["swaptopbottombar"] = false,			--swap the main actionbar position with the bottom actionbar
 	["macrotext"] = false,					--show macro text on actionbuttons
 	["verticalstance"] = false,				--make stance bar vertical
-	["microbar"] = true,					--enable microbar display
+	["microbar"] = false,					--enable microbar display
 	["mousemicro"] = false,					--only show microbar on mouseover
 	
 	["enablecd"] = true,                     -- do i really need to explain this?
@@ -208,14 +205,14 @@ DB["actionbar"] = {
 
 DB["nameplate"] = {
 	["enable"] = true,                     -- enable nice skinned nameplates that fit into Elvui
-	["showhealth"] = true,					-- show health text on nameplate
+	["showhealth"] = false,					-- show health text on nameplate
 	["enhancethreat"] = true,				-- threat features based on if your a tank or not
 	["overlap"] = false,				--allow nameplates to overlap
 	["combat"] = false,					--only show enemy nameplates in-combat.
 	["goodcolor"] = {r = 75/255,  g = 175/255, b = 76/255},			--good threat color (tank shows this with threat, everyone else without)
 	["badcolor"] = {r = 0.78, g = 0.25, b = 0.25},			--bad threat color (opposite of above)
 	["transitioncolor"] = {r = 218/255, g = 197/255, b = 92/255},	--threat color when gaining threat
-	["trackauras"] = true,		--track players debuffs only (debuff list derived from classtimer spell list)
+	["trackauras"] = false,		--track players debuffs only (debuff list derived from classtimer spell list)
 	["trackccauras"] = true,			--track all CC debuffs
 }
 
@@ -240,7 +237,7 @@ DB["datatext"] = {
 	["manaregen"] = 0,
 	["masteryspell"] = false,	
 	["battleground"] = true,               -- enable 3 stats in battleground only that replace stat1,stat2,stat3.
-	["time24"] = true,                     -- set time to 24h format.
+	["time24"] = false,                     -- set time to 24h format.
 	["localtime"] = true,                 -- set time to local time instead of server time.
 	["fontsize"] = 12,                     -- font size for panels.
 	["classcolor"] = false,
@@ -282,22 +279,16 @@ DB["others"] = {
 	["rolllootframe"] = true,              -- reskin the roll frame to fit Elvui
 	["autogreed"] = true,                  -- auto-dez or auto-greed item at max level.	
 	["sellgrays"] = true,                  -- automaticly sell grays?
-	["autorepair"] = false,                 -- automaticly repair?
-	["guildbankrepair"] = true,        -- when auto repair is on, use guild bank when available  
-	["spincam"] = true,            -- Spin camera while afk
+	["autorepair"] = true,                 -- automaticly repair?
 	
 	["buffreminder"] = true,                     -- this is now the new innerfire warning script for all armor/aspect class.
 	["remindersound"] = true,                      -- enable warning sound notification for reminder.
 	["raidbuffreminder"] = true,			-- buffbar below the minimap, important missing buffs	
 	["announceinterrupt"] = "PARTY",			-- announce in party/raid when you interrupt
 	["showthreat"] = true,                 -- enable the threat bar anchored to info right panel.
-	["minimapauras"] = true,				-- enable minimap auras		
+	["minimapauras"] = true,				-- enable minimap auras	
+	["spincam"] = true,            -- Spin camera while afk
 }
-
-C["Interrupted"] = {
-    ["enable"] = false,                     -- enable Interrupt announce by Sideshow
-}
-	
-C["saftExperienceBar"] = {
-    ["enable"] = true,                       -- enable Safturento's XP/REP bar
+DB["saftexperiencebar"] = {
+    ["enable"] = false, -- enable Safturento's XP/REP bar
 }
