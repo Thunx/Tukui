@@ -123,9 +123,14 @@ DB["unitframes"] = {
 	["cblatency"] = false, -- enable castbar latency
 	["cbicons"] = true, -- enable icons on castbar
 	["spark"] = true,	-- enable spark on castbar
+	["cbticks"] = true,
 	["castplayerwidth"] = 412,
+	["castplayerheight"] = 20,
+
 	["casttargetwidth"] = 275,
+	["casttargetheight"] = 20,
 	["castfocuswidth"] = 275,
+	["castfocusheight"] = 20,
 	["castbarcolor"] = DB["media"].bordercolor, -- Color of player castbar
 	["nointerruptcolor"] = {r = 0.78, g = 0.25, b = 0.25}, -- Color of target castbar
 	

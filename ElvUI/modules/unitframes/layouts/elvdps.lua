@@ -80,7 +80,7 @@ local function Shared(self, unit)
 		local POWERBAR_WIDTH = C["unitframes"].playtarwidth/2*E.ResScale
 		local CLASSBAR_WIDTH = (C["unitframes"].playtarwidth - (2*2))*E.ResScale
 		local POWERBAR_HEIGHT = 10*E.ResScale
-		local CASTBAR_HEIGHT = 20*E.ResScale
+		local CASTBAR_HEIGHT = C["unitframes"].castplayerheight*E.ResScale
 		local CASTBAR_WIDTH = C["unitframes"].castplayerwidth*E.ResScale
 		local PORTRAIT_WIDTH = 45*E.ResScale
 
@@ -844,7 +844,7 @@ local function Shared(self, unit)
 		local POWERBAR_WIDTH = C["unitframes"].playtarwidth/2*E.ResScale
 		local CLASSBAR_WIDTH = (C["unitframes"].playtarwidth - (2*2))*E.ResScale
 		local POWERBAR_HEIGHT = 10*E.ResScale
-		local CASTBAR_HEIGHT = 20*E.ResScale
+		local CASTBAR_HEIGHT = C["unitframes"].casttargetheight*E.ResScale
 		local CASTBAR_WIDTH = C["unitframes"].casttargetwidth*E.ResScale
 		local PORTRAIT_WIDTH = 45*E.ResScale		
 		
@@ -1186,6 +1186,7 @@ local function Shared(self, unit)
 		local POWERBAR_WIDTH = C["unitframes"].smallwidth/1.5*E.ResScale
 		local POWERBAR_HEIGHT = 8
 		local CASTBAR_WIDTH = C["unitframes"].castfocuswidth*E.ResScale
+		local CASTBAR_HEIGHT = C["unitframes"].castfocusheight*E.ResScale
 		
 		--Health Bar
 		local health = E.ContructHealthBar(self, true, nil)
@@ -1271,7 +1272,7 @@ local function Shared(self, unit)
 			end
 		elseif unit == "focus" and C["unitframes"].unitcastbar == true	then
 			--Cast Bar
-			local castbar = E.ConstructCastBar(self, CASTBAR_WIDTH, 20, "LEFT")
+			local castbar = E.ConstructCastBar(self, CASTBAR_WIDTH, CASTBAR_HEIGHT, "LEFT")
 			castbar:Point("TOP", UIParent, "TOP", 0, -150)
 			
 			self.Castbar = castbar
