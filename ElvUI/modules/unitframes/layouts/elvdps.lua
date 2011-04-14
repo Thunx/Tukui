@@ -453,16 +453,17 @@ local function Shared(self, unit)
 			
 			
 			if C["unitframes"].exp_rep == true then
-			reputation:SetFrameLevel(power:GetFrameLevel() + 2)
 			reputation:SetAllPoints(power)
-			reputation:SetAlpha(0)
 			reputation:SetFrameStrata("HIGH")
-
+			reputation:SetAlpha(0)
+			reputation:Size(POWERBAR_WIDTH - (BORDER*2), POWERBAR_HEIGHT - (BORDER*2))
 			reputation:HookScript("OnEnter", function(self) self:SetAlpha(1) end)
 			reputation:HookScript("OnLeave", function(self) self:SetAlpha(0) end)
-
+			
 			reputation.backdrop:SetAllPoints(power.backdrop)
-			reputation.backdrop:SetFrameLevel(power:GetFrameLevel() + 1)
+			reputation.backdrop:SetFrameLevel(power:GetFrameLevel() - 5)
+			
+			
 			end
 			
 		end
