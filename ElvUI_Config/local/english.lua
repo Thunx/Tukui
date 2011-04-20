@@ -201,15 +201,12 @@ L["Castbar"] = true
 	L["Color of the castbar"] = true
 	L["Interrupt Color"] = true
 	L["Color of the castbar when you can't interrupt the cast"] = true
-<<<<<<< HEAD
+	L["Castbar Ticks"] = true
+		L["Display ticks on castbar when you cast a spell that is channeled, this list may be modified under filters"] = true
 	L["Spark on Castbar"] = true
 		L["Show Spark on castbars"] = true
 	
-=======
-	L["Castbar Ticks"] = true
-		L["Display ticks on castbar when you cast a spell that is channeled, this list may be modified under filters"] = true
 		
->>>>>>> upstream/master
 L["Power Colors"] = true
 	L["Mana"] = true
 	L["Rage"] = true

@@ -1107,7 +1107,7 @@ function ElvuiConfig.GenerateOptionsInternal()
 								order = 25,
 								name = L["Exp/Rep Offset"],
 								desc = L["Detach and offset the Exp/Rep bar on the Powerbar"]
-							},								
+							},    
 						},
 					},
 					UFSizeGroup = {
@@ -1314,16 +1314,17 @@ function ElvuiConfig.GenerateOptionsInternal()
 								name = L["Castbar Icons"],
 								desc = L["Show icons on castbars"],								
 							},
-							spark = {
-								type = "toggle",
-								order = 4,
-								name = L["Spark on Castbar"],
-								desc = L["Show Spark on castbars"],								
 							cbticks = {
 								type = "toggle",
-								order = 5,
+								order = 4,
 								name = L["Castbar Ticks"],
 								desc = L["Display ticks on castbar when you cast a spell that is channeled, this list may be modified under filters"],
+							},
+							spark = {
+								type = "toggle",
+								order = 5,
+								name = L["Spark on Castbar"],
+								desc = L["Show Spark on castbars"],                
 							},
 							castplayerwidth = {
 								type = "range",
@@ -1333,49 +1334,25 @@ function ElvuiConfig.GenerateOptionsInternal()
 								type = "range",
 								min = 200, max = math.ceil(ElvuiActionBarBackground:GetWidth()), step = .01,								
 							},
-							castplayerheight = {
-								type = "range",
-								order = 7,
-								name = L["Height Player Castbar"],
-								desc = L["The size of the castbar"],
-								type = "range",
-								min = 10, max = 50, step = 1,								
-							},
 							casttargetwidth = {
 								type = "range",
-								order = 8,
+								order = 7,
 								name = L["Width Target Castbar"],
 								desc = L["The size of the castbar"],
 								type = "range",
 								min = 200, max = math.ceil(ElvuiActionBarBackground:GetWidth()), step = .01,							
-							},								
-							casttargetheight = {
-								type = "range",
-								order = 9,
-								name = L["Height Target Castbar"],
-								desc = L["The size of the castbar"],
-								type = "range",
-								min = 10, max = 50, step = 1,								
 							},	
 							castfocuswidth = {
 								type = "range",
-								order = 10,
+								order = 8,
 								name = L["Width Focus Castbar"],
 								desc = L["The size of the castbar"],
 								type = "range",
 								min = 200, max = math.ceil(ElvuiActionBarBackground:GetWidth()), step = .01,						
-							},							
-							castfocusheight = {
-								type = "range",
-								order = 11,
-								name = L["Height Focus Castbar"],
-								desc = L["The size of the castbar"],
-								type = "range",
-								min = 10, max = 50, step = 1,								
-							},								
+							},
 							castbarcolor = {
 								type = "color",
-								order = 12,
+								order = 9,
 								name = L["Castbar Color"],
 								desc = L["Color of the castbar"],
 								hasAlpha = false,
@@ -1393,7 +1370,7 @@ function ElvuiConfig.GenerateOptionsInternal()
 							},
 							nointerruptcolor = {
 								type = "color",
-								order = 13,
+								order = 10,
 								name = L["Interrupt Color"],
 								desc = L["Color of the castbar when you can't interrupt the cast"],
 								hasAlpha = false,
@@ -2648,13 +2625,13 @@ function ElvuiConfig.GenerateOptionsInternal()
 								order = 5,
 								name = L["Map Skin"],
 								desc = L["Enable/Disable the map skin"],										
-							},	
+							},
 							spincam = {
 								type = "toggle",
 								order = 6,
 								name = L["Spincamera"],
-								desc = L["Enable/Disable Spincamera"],										
-							},								
+								desc = L["Enable/Disable Spincamera"],                    
+							},  								
 						},
 					},
 					LootGroup = {
@@ -2745,29 +2722,29 @@ function ElvuiConfig.GenerateOptionsInternal()
 					},
 				},		
 			},
-			saftexperiencebar = {
-			order = 11,
-			type = "group",
-			name = L["saftExperienceBar"],
-			desc = L["saftExperienceBar"],
-			get = function(info) return db.saftexperiencebar[ info[#info] ] end,
-			set = function(info, value) db.saftexperiencebar[ info[#info] ] = value; StaticPopup_Show("CFG_RELOAD") end,
-			args = {
-				intro = {
-				order = 1,
-				type = "description",
-				name = L["saftExperienceBar_DEC"],
-				},
-				enable = {
-					order = 2,
-					type = "toggle",
-					name = ENABLE,
+				saftexperiencebar = {
+				order = 11,
+				type = "group",
+				name = L["saftExperienceBar"],
+				desc = L["saftExperienceBar"],
+				get = function(info) return db.saftexperiencebar[ info[#info] ] end,
+				set = function(info, value) db.saftexperiencebar[ info[#info] ] = value; StaticPopup_Show("CFG_RELOAD") end,
+				args = {
+					intro = {
+					order = 1,
+					type = "description",
+					name = L["saftExperienceBar_DEC"],
+					},
+					enable = {
+						order = 2,
+						type = "toggle",
+						name = ENABLE,
+					},
 				},
 			},
 		},
-	},
-}
-		
+	}
+	
 	if C["general"].upperpanel == true then
 		for _, option in pairs(ElvuiConfig.Options.args.datatext.args.DataGroup.args) do
 			option.max = 10
