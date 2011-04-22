@@ -270,9 +270,11 @@ local function Shared(self, unit)
 
 		--Cast Bar
 		if C["unitframes"].unitcastbar == true then
+			--local castbar = E.ConstructCastBar(self, CASTBAR_WIDTH, CASTBAR_HEIGHT, "LEFT")
+			--castbar:Point("TOPRIGHT", self, "BOTTOMRIGHT", -BORDER, -(BORDER*2+BORDER))
 			local castbar = E.ConstructCastBar(self, CASTBAR_WIDTH, CASTBAR_HEIGHT, "LEFT")
-			castbar:Point("TOPRIGHT", self, "BOTTOMRIGHT", -BORDER, -(BORDER*2+BORDER))
-
+			castbar:Point("BOTTOMRIGHT", ElvuiActionBarBackground, "TOPRIGHT", E.Scale(-2), E.Scale(5))
+			
 			self.Castbar = castbar
 		end
 		
