@@ -25,6 +25,7 @@ TC = {
 --------------------------------------------------------------------
 -----Rör inget här under-----
 --------------------------------------------------------------------
+
 --------------------------------------------------------------------
 -----Omen toggle knapp-----
 --------------------------------------------------------------------
@@ -33,21 +34,27 @@ if IsAddOnLoaded("Omen") and TC.Omen == true then
 
 	OmenText:SetPoint("TOP", UIParent, "TOP", TC.OposX, TC.OposY)
 	OmenText:SetWidth(50) OmenText:SetHeight(25)
-	OmenText.text=OmenText:CreateFontString(nil,"OVERLAY","GameFontNormalSmall")
-	OmenText.text:SetPoint("CENTER",0,0)
+	OmenText.text= OmenText:CreateFontString(nil,"OVERLAY","GameFontNormalSmall")
+	
+	OmenText.text:SetPoint("CENTER")
 	OmenText.text:SetFont(TC.font, TC.fontsize, "THINOUTLINE")
 	OmenText.text:SetText(TC.textcolor.."Omen")
-	
-	if IsAddOnLoaded("ElvUI") then
-		if E.myname == "Tanix" then
-		OmenText.text:SetText(E.ValColor.."Omen")
-		end
-	end
 	
 	OmenText:SetScript("OnMouseDown", function(self, btn)
 		if btn == "RightButton" then Omen:ShowConfig() else Omen:Toggle()		
 		end 
 	end)
+	
+	if IsAddOnLoaded("ElvUI") then
+		local x = CreateFrame("Frame")
+		x:RegisterEvent("PLAYER_ENTERING_WORLD")
+		x:SetScript("OnEvent", function(self, event)
+		 if not Omen then return end
+		 ChatRBackground:HookScript("OnShow", function() Omen:Toggle(false) OmenText.text:SetText(TC.textcolor.."Omen") end)
+		 ChatRBackground:HookScript("OnHide", function() Omen:Toggle(true) OmenText.text:SetText(TC.textcolor.."") end)
+		 self:UnregisterAllEvents()
+		end)
+	end
 end
 
 --------------------------------------------------------------------
@@ -55,14 +62,15 @@ end
 --------------------------------------------------------------------
 if IsAddOnLoaded("Recount") and TC.Recount == true  then
 	local RecountText=CreateFrame("Button","RecountShowHide",UIParent)
-
+	
+	--RecountText:SetTemplate("Default", false)
 	RecountText:SetPoint("TOP", UIParent, "TOP", TC.RposX, TC.RposY)
 	RecountText:SetWidth(50) RecountText:SetHeight(25)
-	RecountText.text=RecountText:CreateFontString(nil,"OVERLAY","GameFontNormalSmall")
-	RecountText.text:SetPoint("CENTER",0,0)
+	
+	RecountText.text = RecountText:CreateFontString(nil,"OVERLAY","GameFontNormalSmall")
+	--RecountText:FontString(nil, C["media"].font, C["general"].fontscale, "THINOUTLINE")
+	RecountText.text:SetPoint("CENTER")
 	RecountText.text:SetFont(TC.font, TC.fontsize, "THINOUTLINE")
-	--RecountText.text:SetShadowColor(0, 0, 0, 0.4)
-	--RecountText.text:SetShadowOffset(E.mult, -E.mult)
 	RecountText.text:SetText(TC.textcolor.."Recount")
 
 	RecountText:SetScript("OnMouseDown", function(self, btn)
@@ -73,6 +81,17 @@ if IsAddOnLoaded("Recount") and TC.Recount == true  then
 			end 
 		end
 	end)
+	
+	if IsAddOnLoaded("ElvUI") then
+		local x = CreateFrame("Frame")
+		x:RegisterEvent("PLAYER_ENTERING_WORLD")
+		x:SetScript("OnEvent", function(self, event)
+		 if not Recount then return end
+		 ChatRBackground:HookScript("OnShow", function() Recount.MainWindow:Hide() RecountText.text:SetText(TC.textcolor.."Recount") end)
+		 ChatRBackground:HookScript("OnHide", function() Recount.MainWindow:Show() Recount:RefreshMainWindow()  RecountText.text:SetText(TC.textcolor.."") end)
+		 self:UnregisterAllEvents()
+		end)
+	end
 end
 
 --------------------------------------------------------------------
@@ -83,16 +102,11 @@ if IsAddOnLoaded("Atlasloot") and TC.Atlasloot == true  then
 
 	AtlasText:SetPoint("TOP", UIParent, "TOP", TC.AposX, TC.AposY)
 	AtlasText:SetWidth(50) AtlasText:SetHeight(25)
+	
 	AtlasText.text=AtlasText:CreateFontString(nil,"OVERLAY","GameFontNormalSmall")
-	AtlasText.text:SetPoint("CENTER",0,0)
+	AtlasText.text:SetPoint("CENTER")
 	AtlasText.text:SetFont(TC.font, TC.fontsize, "THINOUTLINE")
 	AtlasText.text:SetText(TC.textcolor.."Atlas")
-	
-	if IsAddOnLoaded("ElvUI") then
-		if E.myname == "Tanix" then
-		AtlasText.text:SetText(E.ValColor.."Omen")
-		end
-	end
 	
 	AtlasText:SetScript("OnMouseDown", function(self, btn)
 		if btn == "RightButton" then AtlasLoot:OptionsToggle()
@@ -100,6 +114,17 @@ if IsAddOnLoaded("Atlasloot") and TC.Atlasloot == true  then
 			AtlasLoot:ShowFrame_MiniMap()
 		end 
 	end)
+	
+	if IsAddOnLoaded("ElvUI") then
+		local x = CreateFrame("Frame")
+		x:RegisterEvent("PLAYER_ENTERING_WORLD")
+		x:SetScript("OnEvent", function(self, event)
+		 if not Recount then return end
+		 ChatRBackground:HookScript("OnShow", function() AtlasText.text:SetText(TC.textcolor.."Atlas") end)
+		 ChatRBackground:HookScript("OnHide", function() AtlasText.text:SetText(TC.textcolor.."") end)
+		 self:UnregisterAllEvents()
+		end)
+	end	
 end
 
 --------------------------------------------------------------------
