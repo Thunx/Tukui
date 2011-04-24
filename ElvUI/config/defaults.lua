@@ -285,6 +285,7 @@ DB["others"] = {
 	["autogreed"] = true,                  -- auto-dez or auto-greed item at max level.	
 	["sellgrays"] = true,                  -- automaticly sell grays?
 	["autorepair"] = true,                 -- automaticly repair?
+	["guildbankrepair"] = true,        	   -- when auto repair is on, use guild bank when available 
 	
 	["buffreminder"] = true,                     -- this is now the new innerfire warning script for all armor/aspect class.
 	["remindersound"] = true,                      -- enable warning sound notification for reminder.

@@ -2665,9 +2665,15 @@ function ElvuiConfig.GenerateOptionsInternal()
 							},
 							autorepair = {
 								type = "toggle",
-								order = 4,
+								order = 5,
 								name = L["Auto Repair"],
 								desc = L["Automatically repair when visiting a vendor"],							
+							},
+							guildbankrepair = {
+								type = "toggle",
+								order = 6,
+								name = L["Use guild bank for Auto Repair"],
+								desc = L["Use guildbank for auto repair (when available)"],							
 							},
 						},
 					},

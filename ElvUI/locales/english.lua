@@ -99,6 +99,7 @@ L.popup_reloadui = "The action you have performed requires a ReloadUI."
 L.popup_resetuf = "Do you wish to reset your unitframe positions?"
 
 L.merchant_repairnomoney = "You don't have enough money for repair!"
+L.merchant_guildrepaircost = "Your items have been repaired from |cffff0000guild funds|r for"
 L.merchant_repaircost = "Your items have been repaired for"
 L.merchant_trashsell = "Your vendor trash has been sold and you earned"
 

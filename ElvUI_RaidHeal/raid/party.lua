@@ -290,7 +290,7 @@ oUF:Factory(function(self)
 			"xoffset", 3
 		)		
 	end
-	party:SetPoint("BOTTOM", ElvuiActionBarBackground, "TOP", 0, E.Scale(32))	
+	party:SetPoint("BOTTOM", ElvuiActionBarBackground, "TOP", 0, E.Scale(50))	
 	
 	local partyToggle = CreateFrame("Frame")
 	partyToggle:RegisterEvent("PLAYER_ENTERING_WORLD")

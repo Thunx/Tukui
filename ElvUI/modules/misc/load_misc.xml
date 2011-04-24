@@ -13,4 +13,11 @@
 	<Script file="raidmarker.lua"/>
 	<Script file="damage.lua"/>
 	<Script file="threat.lua"/>
+	<Script file="mail.lua"/>
+	<Script file="tooltipicon.lua"/>
+	<Script file="spincam.lua"/>
+	<Script file="tekKompare.lua"/>
+	<Script file="saftExperienceBar.lua"/>
+	<Script file="fDispelAnnounce.lua"/>
+	<Script file="allertrun.lua"/>
 </Ui>

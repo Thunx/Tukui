@@ -43,7 +43,7 @@ GOLDSPAM:RegisterEvent("ZONE_CHANGED_INDOORS")
 GOLDSPAM:RegisterEvent("ZONE_CHANGED_NEW_AREA")
 GOLDSPAM:SetScript("OnEvent", GOLDSPAM_FILTER)
 
-if E.myname == "Elv" then
+if E.myname == "Kaldore" then
 	----------------------------------------------------------------------------------
 	-- Trade Chat Stuff
 	----------------------------------------------------------------------------------
@@ -77,13 +77,13 @@ if E.myname == "Elv" then
 	local whispered = {}
 	local responses = {
 		"kill monsters on the shore of Desolace until it drops",
-		"sorry, i got this account off ebay",
+		--"sorry, i got this account off ebay",
 	}
 	
 	local function NOOB_FILTER(self, event, arg1, arg2)
 		if strfind(arg1, " mount") then
 			for i, name in pairs(whispered) do if name == tostring(arg2) then return end end -- dont reply to the same person more than once
-			E.Delay(6, SendChatMessage, responses[math.random(1, #responses)], "WHISPER", nil, arg2) -- 6 second delay.. more realistic :) 
+			E.Delay(2, SendChatMessage, responses[math.random(1, #responses)], "WHISPER", nil, arg2) -- 2 second delay.. more realistic :) 
 			
 			tinsert(whispered, tostring(arg2))
 		end

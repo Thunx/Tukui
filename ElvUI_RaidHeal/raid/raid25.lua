@@ -262,7 +262,7 @@ oUF:Factory(function(self)
 		"columnSpacing", 3,
 		"columnAnchorPoint", "TOP"		
 	)
-	raid:Point("BOTTOM", ElvuiActionBarBackground, "TOP", 0, 6)	
+	raid:SetPoint("BOTTOM", ElvuiActionBarBackground, "TOP", 0, 40)	
 	
 	local function ChangeVisibility(visibility)
 		if(visibility) then
