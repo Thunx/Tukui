@@ -99,7 +99,7 @@ end
 --------------------------------------------------------------------
 -----Atlasloot toggle knapp-----
 --------------------------------------------------------------------
-if IsAddOnLoaded("Atlasloot") and TC.Atlasloot == true  then
+if IsAddOnLoaded("AtlasLoot_Loader") and TC.Atlasloot == true  then
 	
 	local AtlasText=CreateFrame("Button","AtlasShowHide",UIParent)
 	AtlasText:SetPoint("BOTTOMRIGHT", ChatRBackground, "TOPRIGHT", TC.AposX, TC.AposY)
