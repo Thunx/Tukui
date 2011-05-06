@@ -125,13 +125,13 @@ local function CreatePanel(f, t, w, h, a1, p, a2, x, y)
 	f:SetTemplate(t)
 end
 
-local function CreateBackdrop(f, t)
+local function CreateBackdrop(f, t, tex)
 	if not t then t = "Default" end
 
 	local b = CreateFrame("Frame", nil, f)
 	b:Point("TOPLEFT", -2, 2)
 	b:Point("BOTTOMRIGHT", 2, -2)
-	b:SetTemplate(t)
+	b:SetTemplate(t, tex)
 
 	if f:GetFrameLevel() - 1 >= 0 then
 		b:SetFrameLevel(f:GetFrameLevel() - 1)
@@ -178,11 +178,15 @@ local function Kill(object)
 	object:Hide()
 end
 
-local function StripTextures(object)
+local function StripTextures(object, kill)
 	for i=1, object:GetNumRegions() do
 		local region = select(i, object:GetRegions())
 		if region:GetObjectType() == "Texture" then
-			region:SetTexture(nil)
+			if kill then
+				region:Kill()
+			else
+				region:SetTexture(nil)
+			end
 		end
 	end		
 end
