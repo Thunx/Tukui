@@ -89,7 +89,7 @@ if C["skin"].embedright == "Omen" then
 		Omen.db.profile.FrameStrata = "4-HIGH"
 	end)
 end
-if C["skin"].embedright == "Recount_Omen" then
+if C["skin"].embedright == "Recount_Omen" or "Skada_Omen" then
 	local Omen_Skin = CreateFrame("Frame")
 	Omen_Skin:RegisterEvent("PLAYER_ENTERING_WORLD")
 	Omen_Skin:SetScript("OnEvent", function(self)

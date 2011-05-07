@@ -20,6 +20,10 @@ TC = {
 	AposX = E.Scale(-100),								-- Position i x-led
 	AposY = E.Scale(3),									-- Position i y-led (ökar värdet så går den längre ner på skärmen)
 	
+	--Skada
+	Skada = false,
+	SposX = E.Scale(-150),								-- Position i x-led
+	SposY = E.Scale(3),									-- Position i y-led (ökar värdet så går den längre ner på skärmen)
 	
 	
 	} 
@@ -62,7 +66,7 @@ end
 --------------------------------------------------------------------
 -----Recount toggle knapp-----
 --------------------------------------------------------------------
-if IsAddOnLoaded("Recount") and TC.Recount == true  then
+if IsAddOnLoaded("Recount") and TC.Recount == true and TC.Skada ~= true  then
 	local RecountText=CreateFrame("Button","RecountShowHide",UIParent)
 	
 	--RecountText:SetTemplate("Default", false)
@@ -128,6 +132,39 @@ if IsAddOnLoaded("AtlasLoot_Loader") and TC.Atlasloot == true  then
 		end)
 	end	
 end
+
+if IsAddOnLoaded("Skada") and TC.Skada == true and TC.Recount ~= true then
+	
+	local skadaText=CreateFrame("Button","SkadaShowHide",UIParent)
+	SkadaText:SetPoint("BOTTOMRIGHT", ChatRBackground, "TOPRIGHT", TC.SposX, TC.SposY)
+	SkadaText:SetWidth(50) SkadaText:SetHeight(25)
+	
+	SkadaText.text=SkadaText:CreateFontString(nil,"OVERLAY","GameFontNormalSmall")
+	SkadaText.text:SetPoint("CENTER")
+	SkadaText.text:SetFont(TC.font, TC.fontsize, "THINOUTLINE")
+	SkadaText.text:SetText(TC.textcolor.."Skada")
+	
+	AtlasText:SetScript("OnMouseDown", function(self, btn)
+		if btn == "RightButton" then AtlasLoot:OptionsToggle()
+		else 
+			if(Skada:SetActive(true))then Skada:SetActive(false)
+			else Skada:SetActive(true)
+			end 
+		end 
+	end)
+	
+	if IsAddOnLoaded("ElvUI") then 
+		local x = CreateFrame("Frame")
+		x:RegisterEvent("PLAYER_ENTERING_WORLD")
+		x:SetScript("OnEvent", function(self, event)
+		if not Skada then return end
+		ChatRBackground:HookScript("OnShow", function() Skada:SetActive(false) end)
+		ChatRBackground:HookScript("OnHide", function() Skada:SetActive(true) end)
+		self:UnregisterAllEvents()
+		end)
+	end	
+end
+
 
 --------------------------------------------------------------------
 -----Test toggle knapp-----
