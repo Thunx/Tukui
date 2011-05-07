@@ -2288,7 +2288,7 @@ function ElvuiConfig.GenerateOptionsInternal()
 							["Omen"] = "Omen",
 							["Skada"] = "Skada",
 							["Recount_Omen"] = "Recount and Omen",
-							["skada_Omen"] = "Skada and Omen",
+							["Skada_Omen"] = "Skada and Omen",
 						},						
 					},
 					SkadaGroup = {

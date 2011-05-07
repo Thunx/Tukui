@@ -56,7 +56,8 @@ DB["skin"] = {
 	["bigwigs"] = true,
 	["hookkleright"] = true,			-- force KLE's top bar anchor to be hooked onto the right chat window
 	["hookbwright"] = true,			-- force BigWig's bar anchor to be hooked onto the right chat window
-	["embedright"] = "NONE",				-- Addon to embed to the right frame ("Omen", "Recount", "Skada", "Recount_Omen", "Skada_Omen")
+	["embedright"] = "Skada_Omen",				-- Addon to embed to the right frame ("Omen", "Recount", "Skada", "Recount_Omen", "Skada_Omen")
+	["skinblizzardframe"] = false, 		-- Skin blizzard frames
 }
 
 DB["unitframes"] = {

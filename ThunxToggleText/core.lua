@@ -11,7 +11,7 @@ TC = {
 	OposY = E.Scale(3),									-- Position i y-led (ökar värdet så går den längre ner på skärmen)
 	
 	--Recount
-	Recount = true,
+	Recount = false,
 	RposX = E.Scale(-150),								-- Position i x-led
 	RposY = E.Scale(3),									-- Position i y-led (ökar värdet så går den längre ner på skärmen)
 	
@@ -21,7 +21,7 @@ TC = {
 	AposY = E.Scale(3),									-- Position i y-led (ökar värdet så går den längre ner på skärmen)
 	
 	--Skada
-	Skada = false,
+	Skada = true,
 	SposX = E.Scale(-150),								-- Position i x-led
 	SposY = E.Scale(3),									-- Position i y-led (ökar värdet så går den längre ner på skärmen)
 	
@@ -109,7 +109,7 @@ if IsAddOnLoaded("AtlasLoot_Loader") and TC.Atlasloot == true  then
 	AtlasText:SetPoint("BOTTOMRIGHT", ChatRBackground, "TOPRIGHT", TC.AposX, TC.AposY)
 	AtlasText:SetWidth(50) AtlasText:SetHeight(25)
 	
-	AtlasText.text=AtlasText:CreateFontString(nil,"OVERLAY","GameFontNormalSmall")
+	AtlasText.text = AtlasText:CreateFontString(nil,"OVERLAY","GameFontNormalSmall")
 	AtlasText.text:SetPoint("CENTER")
 	AtlasText.text:SetFont(TC.font, TC.fontsize, "THINOUTLINE")
 	AtlasText.text:SetText(TC.textcolor.."Atlas")
@@ -130,12 +130,14 @@ if IsAddOnLoaded("AtlasLoot_Loader") and TC.Atlasloot == true  then
 		 ChatRBackground:HookScript("OnHide", function() AtlasText:Hide(); end)
 		 self:UnregisterAllEvents()
 		end)
-	end	
+	end
 end
-
-if IsAddOnLoaded("Skada") and TC.Skada == true and TC.Recount ~= true then
+--------------------------------------------------------------------
+-----Skada toggle knapp-----
+--------------------------------------------------------------------
+if TC.Skada == true then
 	
-	local skadaText=CreateFrame("Button","SkadaShowHide",UIParent)
+	local SkadaText=CreateFrame("Button","SkadaShowHide",UIParent)
 	SkadaText:SetPoint("BOTTOMRIGHT", ChatRBackground, "TOPRIGHT", TC.SposX, TC.SposY)
 	SkadaText:SetWidth(50) SkadaText:SetHeight(25)
 	
@@ -144,12 +146,9 @@ if IsAddOnLoaded("Skada") and TC.Skada == true and TC.Recount ~= true then
 	SkadaText.text:SetFont(TC.font, TC.fontsize, "THINOUTLINE")
 	SkadaText.text:SetText(TC.textcolor.."Skada")
 	
-	AtlasText:SetScript("OnMouseDown", function(self, btn)
-		if btn == "RightButton" then AtlasLoot:OptionsToggle()
-		else 
-			if(Skada:SetActive(true))then Skada:SetActive(false)
-			else Skada:SetActive(true)
-			end 
+	SkadaText:SetScript("OnMouseDown", function(self, btn)
+		if btn == "RightButton" then InterfaceOptionsFrame_OpenToCategory("Skada") else Skada:ToggleWindow()
+			
 		end 
 	end)
 	
@@ -158,8 +157,8 @@ if IsAddOnLoaded("Skada") and TC.Skada == true and TC.Recount ~= true then
 		x:RegisterEvent("PLAYER_ENTERING_WORLD")
 		x:SetScript("OnEvent", function(self, event)
 		if not Skada then return end
-		ChatRBackground:HookScript("OnShow", function() Skada:SetActive(false) end)
-		ChatRBackground:HookScript("OnHide", function() Skada:SetActive(true) end)
+		ChatRBackground:HookScript("OnShow", function() SkadaText:Show(); Skada:SetActive(false) end)
+		ChatRBackground:HookScript("OnHide", function() SkadaText:Hide(); Skada:SetActive(true) end)
 		self:UnregisterAllEvents()
 		end)
 	end	
