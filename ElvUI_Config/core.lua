@@ -93,7 +93,7 @@ function ElvuiConfig:SetupOptions()
 	self.optionsFrames.Datatext = ACD3:AddToBlizOptions("ElvuiConfig", L["Data Texts"], "ElvUI", "datatext")
 	self.optionsFrames.Chat = ACD3:AddToBlizOptions("ElvuiConfig", L["Chat"], "ElvUI", "chat")
 	self.optionsFrames.Tooltip = ACD3:AddToBlizOptions("ElvuiConfig", L["Tooltip"], "ElvUI", "tooltip")
-	self.optionsFrames.Skins = ACD3:AddToBlizOptions("ElvuiConfig", L["Addon Skins"], "ElvUI", "skin")
+	self.optionsFrames.Skins = ACD3:AddToBlizOptions("ElvuiConfig", L["Skins"], "ElvUI", "skin")
 	self.optionsFrames.SpellFilter = ACD3:AddToBlizOptions("ElvuiConfig", L["Filters"], "ElvUI", "spellfilter")
 	self.optionsFrames.Others = ACD3:AddToBlizOptions("ElvuiConfig", L["Misc"], "ElvUI", "others")
 	self.optionsFrames.saftExperienceBar = ACD3:AddToBlizOptions("ElvuiConfig", L["saftExperienceBar"], "ElvUI", "saftexperiencebar")
@@ -1257,25 +1257,65 @@ function ElvuiConfig.GenerateOptionsInternal()
 								name = L["Aura Timer"],
 								desc = L["Display aura timer"],								
 							},
-							playtarbuffperrow = {
+							playeraurasperrow = {
 								type = "range",
 								order = 13,
-								name = L["Player/Target Auras in Row"],
+								name = L["Player Auras in Row"],
 								desc = L["The ammount of auras displayed in a single row"],
 								type = "range",
-								min = 7, max = 13, step = 1,								
+								min = 5, max = 13, step = 1,								
 							},
-							smallbuffperrow = {
+							targetaurasperrow = {
+								type = "range",
+								order = 13,
+								name = L["Target Auras in Row"],
+								desc = L["The ammount of auras displayed in a single row"],
+								type = "range",
+								min = 5, max = 13, step = 1,								
+							},							
+							smallaurasperrow = {
 								type = "range",
 								order = 14,
 								name = L["Small Frames Auras in Row"],
 								desc = L["The ammount of auras displayed in a single row"],
 								type = "range",
 								min = 3, max = 9, step = 1,								
-							},							
-							auratextscale = {
+							},			
+							playernumbuffrows = {
 								type = "range",
 								order = 15,
+								name = L["Player Buff Rows"],
+								desc = L["Ammount of rows of auras"],
+								type = "range",
+								min = 1, max = 5, step = 1,									
+							},
+							playernumdebuffrows = {
+								type = "range",
+								order = 15,
+								name = L["Player Debuff Rows"],
+								desc = L["Ammount of rows of auras"],
+								type = "range",
+								min = 1, max = 5, step = 1,									
+							},	
+							targetnumbuffrows = {
+								type = "range",
+								order = 15,
+								name = L["Target Buff Rows"],
+								desc = L["Ammount of rows of auras"],
+								type = "range",
+								min = 1, max = 5, step = 1,									
+							},
+							targetnumdebuffrows = {
+								type = "range",
+								order = 15,
+								name = L["Target Debuff Rows"],
+								desc = L["Ammount of rows of auras"],
+								type = "range",
+								min = 1, max = 5, step = 1,									
+							},								
+							auratextscale = {
+								type = "range",
+								order = 19,
 								name = L["Aura Text Scale"],
 								desc = L["Controls the size of the aura font"],
 								type = "range",
@@ -2097,6 +2137,13 @@ function ElvuiConfig.GenerateOptionsInternal()
 								desc = L["Display Mana Regen Rate"]..L["DATATEXT_POS"],
 								min = 0, max = 8, step = 1,									
 							},
+							calltoarms = {
+								order = 18,
+								type = "range",
+								name = L["Call to Arms"],
+								desc = L["Display the active roles that will recieve a reward for completing a random dungeon"]..L["DATATEXT_POS"],
+								min = 0, max = 8, step = 1,								
+							},
 						},
 					},
 				},
@@ -2267,18 +2314,253 @@ function ElvuiConfig.GenerateOptionsInternal()
 			skin = {
 				order = 10,
 				type = "group",
-				name = L["Addon Skins"],
-				desc = L["ADDON_DESC"],
+				name = L["Skins"],
+				desc = L["SKIN_DESC"],
 				get = function(info) return db.skin[ info[#info] ] end,
 				set = function(info, value) db.skin[ info[#info] ] = value; StaticPopup_Show("CFG_RELOAD") end,
 				args = {
 					intro = {
 						order = 1,
 						type = "description",
-						name = L["ADDON_DESC"],
+						name = L["SKIN_DESC"],
 					},
-					embedright = {
+					enable = {
 						order = 2,
+						type = "toggle",
+						name = ENABLE,
+						desc = L["Enable/disable skinning of the entire BlizzardUI."]
+					},
+					BlizzardSkinz = {
+						order = 3,
+						type = "group",
+						name = L["Blizzard Skins"],
+						guiInline = true,
+						disabled = function() return not db.skin.enable end,	
+						args = {
+							reforge = {
+								type = "toggle",
+								name = L["Reforge Frame"],
+								desc = L["TOGGLESKIN_DESC"],
+							},
+							calendar = {
+								type = "toggle",
+								name = L["Calendar Frame"],
+								desc = L["TOGGLESKIN_DESC"],
+							},
+							achievement = {
+								type = "toggle",
+								name = L["Achievement Frame"],
+								desc = L["TOGGLESKIN_DESC"],
+							},		
+							lfguild = {
+								type = "toggle",
+								name = L["LF Guild Frame"],
+								desc = L["TOGGLESKIN_DESC"],
+							},	
+							inspect = {
+								type = "toggle",
+								name = L["Inspect Frame"],
+								desc = L["TOGGLESKIN_DESC"],
+							},		
+							binding = {
+								type = "toggle",
+								name = L["KeyBinding Frame"],
+								desc = L["TOGGLESKIN_DESC"],
+							},		
+							gbank = {
+								type = "toggle",
+								name = L["Guild Bank"],
+								desc = L["TOGGLESKIN_DESC"],
+							},	
+							archaeology = {
+								type = "toggle",
+								name = L["Archaeology Frame"],
+								desc = L["TOGGLESKIN_DESC"],
+							},	
+							guildcontrol = {
+								type = "toggle",
+								name = L["Guild Control Frame"],
+								desc = L["TOGGLESKIN_DESC"],
+							},		
+							guild = {
+								type = "toggle",
+								name = L["Guild Frame"],
+								desc = L["TOGGLESKIN_DESC"],							
+							},
+							tradeskill = {
+								type = "toggle",
+								name = L["TradeSkill Frame"],
+								desc = L["TOGGLESKIN_DESC"],							
+							},	
+							raid = {
+								type = "toggle",
+								name = L["Raid Frame"],
+								desc = L["TOGGLESKIN_DESC"],									
+							},
+							talent = {
+								type = "toggle",
+								name = L["Talent Frame"],
+								desc = L["TOGGLESKIN_DESC"],							
+							},
+							glyph = {
+								type = "toggle",
+								name = L["Glyph Frame"],
+								desc = L["TOGGLESKIN_DESC"],							
+							},
+							auctionhouse = {
+								type = "toggle",
+								name = L["Auction Frame"],
+								desc = L["TOGGLESKIN_DESC"],								
+							},
+							timemanager = {
+								type = "toggle",
+								name = L["Time Manager"],
+								desc = L["TOGGLESKIN_DESC"],								
+							},
+							barber = {
+								type = "toggle",
+								name = L["Barbershop Frame"],
+								desc = L["TOGGLESKIN_DESC"],							
+							},
+							macro = {
+								type = "toggle",
+								name = L["Macro Frame"],
+								desc = L["TOGGLESKIN_DESC"],								
+							},
+							debug = {
+								type = "toggle",
+								name = L["Debug Tools"],
+								desc = L["TOGGLESKIN_DESC"],							
+							},
+							trainer = {
+								type = "toggle",
+								name = L["Trainer Frame"],
+								desc = L["TOGGLESKIN_DESC"],							
+							},		
+							socket = {
+								type = "toggle",
+								name = L["Socket Frame"],
+								desc = L["TOGGLESKIN_DESC"],								
+							},
+							achievement_popup = {
+								type = "toggle",
+								name = L["Achievement Popup Frames"],
+								desc = L["TOGGLESKIN_DESC"],								
+							},
+							bgscore = {
+								type = "toggle",
+								name = L["BG Score"],
+								desc = L["TOGGLESKIN_DESC"],								
+							},
+							merchant = {
+								type = "toggle",
+								name = L["Merchant Frame"],
+								desc = L["TOGGLESKIN_DESC"],								
+							},
+							mail = {
+								type = "toggle",
+								name = L["Mail Frame"],
+								desc = L["TOGGLESKIN_DESC"],								
+							},
+							help = {
+								type = "toggle",
+								name = L["Help Frame"],
+								desc = L["TOGGLESKIN_DESC"],								
+							},
+							trade = {
+								type = "toggle",
+								name = L["Trade Frame"],
+								desc = L["TOGGLESKIN_DESC"],								
+							},
+							gossip = {
+								type = "toggle",
+								name = L["Gossip Frame"],
+								desc = L["TOGGLESKIN_DESC"],								
+							},
+							greeting = {
+								type = "toggle",
+								name = L["Greeting Frame"],
+								desc = L["TOGGLESKIN_DESC"],								
+							},
+							worldmap = {
+								type = "toggle",
+								name = L["World Map"],
+								desc = L["TOGGLESKIN_DESC"],								
+							},
+							taxi = {
+								type = "toggle",
+								name = L["Taxi Frame"],
+								desc = L["TOGGLESKIN_DESC"],								
+							},
+							lfd = {
+								type = "toggle",
+								name = L["LFD Frame"],
+								desc = L["TOGGLESKIN_DESC"],								
+							},
+							quest = {
+								type = "toggle",
+								name = L["Quest Frames"],
+								desc = L["TOGGLESKIN_DESC"],								
+							},
+							petition = {
+								type = "toggle",
+								name = L["Petition Frame"],
+								desc = L["TOGGLESKIN_DESC"],								
+							},
+							dressingroom = {
+								type = "toggle",
+								name = L["Dressing Room"],
+								desc = L["TOGGLESKIN_DESC"],								
+							},
+							pvp = {
+								type = "toggle",
+								name = L["PvP Frames"],
+								desc = L["TOGGLESKIN_DESC"],								
+							},
+							nonraid = {
+								type = "toggle",
+								name = L["Non-Raid Frame"],
+								desc = L["TOGGLESKIN_DESC"],								
+							},
+							friends = {
+								type = "toggle",
+								name = L["Friends"],
+								desc = L["TOGGLESKIN_DESC"],								
+							},
+							spellbook = {
+								type = "toggle",
+								name = L["Spellbook"],
+								desc = L["TOGGLESKIN_DESC"],								
+							},
+							character = {
+								type = "toggle",
+								name = L["Character Frame"],
+								desc = L["TOGGLESKIN_DESC"],								
+							},
+							lfr = {
+								type = "toggle",
+								name = L["LFR Frame"],
+								desc = L["TOGGLESKIN_DESC"],
+							},
+							misc = {
+								type = "toggle",
+								name = L["Misc Frames"],
+								desc = L["TOGGLESKIN_DESC"],								
+							},		
+							tabard = {
+								type = "toggle",
+								name = L["Tabard Frame"],
+								desc = L["TOGGLESKIN_DESC"],								
+							},		
+							guildregistrar = {
+								type = "toggle",
+								name = L["Guild Registrar"],
+								desc = L["TOGGLESKIN_DESC"],								
+							},									
+						},
+					},					
+					embedright = {
+						order = 4,
 						type = "select",
 						name = L["Embed Right"],
 						desc = L["EMBED_DESC"],
@@ -2291,86 +2573,52 @@ function ElvuiConfig.GenerateOptionsInternal()
 							["Skada_Omen"] = "Skada and Omen",
 						},						
 					},
-					SkadaGroup = {
-						order = 3,
+					AddOnSkins = {
+						order = 5,
 						type = "group",
-						name = "Skada",
+						name = L["Addon Skins"],
+						guiInline = true,
 						args = {
 							skada = {
 								order = 1,
 								type = "toggle",
-								name = ENABLE,
+								name = "Skada",
 								desc = L["Enable this skin"],
-							},
-						},
-					},
-					RecountGroup = {
-						order = 4,
-						type = "group",
-						name = "Recount",
-						args = {
+							},			
 							recount = {
-								order = 1,
+								order = 2,
 								type = "toggle",
-								name = ENABLE,
+								name = "Recount",
 								desc = L["Enable this skin"],
-							},
-						},
-					},	
-					OmenGroup = {
-						order = 5,
-						type = "group",
-						name = "Omen",
-						args = {
+							},		
 							omen = {
-								order = 1,
+								order = 3,
 								type = "toggle",
-								name = ENABLE,
+								name = "Omen",
 								desc = L["Enable this skin"],
-							},
-						},
-					},		
-					KLEGroup = {
-						order = 6,
-						type = "group",
-						name = "KLE",
-						args = {
+							},		
 							kle = {
-								order = 1,
+								order = 4,
 								type = "toggle",
-								name = ENABLE,
+								name = "KLE",
 								desc = L["Enable this skin"],
 							},
 							hookkleright = {
-								order = 2,
+								order = 5,
 								type = "toggle",
 								name = L["Hook KLE Bars"],
 								desc = L["Attach KLE's Bars to the right window"],
-							},
-						},
-					},	
-					DBMGroup = {
-						order = 7,
-						type = "group",
-						name = "DBM",
-						args = {
+							},	
 							dbm = {
-								order = 1,
+								order = 6,
 								type = "toggle",
-								name = ENABLE,
+								name = "DBM",
 								desc = L["Enable this skin"],
-							},
-						},
-					},		
-					BigWigsGroup = {
-						order = 8,
-						type = "group",
-						name = "BigWigs",
-						args = {
+							},		
 							bigwigs = {
 								order = 1,
 								type = "toggle",
-								name = ENABLE,
+								name = "BigWigs",
 								desc = L["Enable this skin"],
 							},
 							hookbwright = {
@@ -2378,9 +2626,9 @@ function ElvuiConfig.GenerateOptionsInternal()
 								type = "toggle",
 								name = L["Hook BigWigs Bars"],
 								desc = L["Attach BigWigs's Bars to the right window"],
-							},							
+							},								
 						},
-					},						
+					},
 				},
 			},	
 			spellfilter = {
@@ -2615,6 +2863,7 @@ function ElvuiConfig.GenerateOptionsInternal()
 								order = 4,
 								name = L["All-In-One Bag"],
 								desc = L["Enable/Disable the All-In-One Bag, you must disable this if you wish to run another bag addon"],										
+<<<<<<< HEAD
 							},
 							enablemap = {
 								type = "toggle",
@@ -2627,7 +2876,7 @@ function ElvuiConfig.GenerateOptionsInternal()
 								order = 6,
 								name = L["Spincamera"],
 								desc = L["Enable/Disable Spincamera"],                    
-							},  								
+							},  														
 						},
 					},
 					LootGroup = {
@@ -2674,7 +2923,7 @@ function ElvuiConfig.GenerateOptionsInternal()
 						},
 					},
 					AurasGroup = {
-						order = 3,
+						order = 4,
 						type = "group",
 						name = L["Combat"],	
 						args = {

@@ -217,7 +217,7 @@ local function Shared(self, unit)
 		--Auras
 		if C["unitframes"].playerbuffs == true then
 			local buffs = CreateFrame("Frame", nil, self)
-			buffs.num = C["unitframes"].playtarbuffperrow
+			buffs.num = C["unitframes"].playeraurasperrow * C["unitframes"].playernumbuffrows
 			if USE_POWERBAR_OFFSET then
 				buffs:SetWidth(PLAYER_WIDTH - POWERBAR_OFFSET)
 			else
@@ -225,12 +225,12 @@ local function Shared(self, unit)
 			end
 			buffs.spacing = E.Scale(SPACING)
 			if USE_POWERBAR_OFFSET then
-				buffs.size = ((((C["unitframes"].playtarwidth - POWERBAR_OFFSET) - (buffs.spacing*(buffs.num - 1))) / buffs.num))*E.ResScale
+				buffs.size = (((((C["unitframes"].playtarwidth - POWERBAR_OFFSET) - (buffs.spacing*(buffs.num/C["unitframes"].playernumbuffrows - 1))) / buffs.num)) * C["unitframes"].playernumbuffrows)*E.ResScale
 			else
-				buffs.size = (((C["unitframes"].playtarwidth - (buffs.spacing*(buffs.num - 1))) / buffs.num))*E.ResScale
+				buffs.size = ((((C["unitframes"].playtarwidth - (buffs.spacing*(buffs.num/C["unitframes"].playernumbuffrows - 1))) / buffs.num)) * C["unitframes"].playernumbuffrows)*E.ResScale
 			end
 			buffs:Point("BOTTOMLEFT", self, "TOPLEFT", 0, SPACING)
-			buffs:SetHeight(buffs.size)
+			buffs:SetHeight(buffs.size * C["unitframes"].playernumbuffrows)
 			buffs.initialAnchor = 'BOTTOMLEFT'
 			buffs["growth-y"] = "UP"	
 			buffs["growth-x"] = "RIGHT"
@@ -241,7 +241,7 @@ local function Shared(self, unit)
 		
 		if C["unitframes"].playerdebuffs == true then
 			local debuffs = CreateFrame("Frame", nil, self)
-			debuffs.num = C["unitframes"].playtarbuffperrow
+			debuffs.num = C["unitframes"].playeraurasperrow * C["unitframes"].playernumdebuffrows
 			if USE_POWERBAR_OFFSET then
 				debuffs:SetWidth(PLAYER_WIDTH - POWERBAR_OFFSET)
 			else
@@ -249,11 +249,11 @@ local function Shared(self, unit)
 			end
 			debuffs.spacing = E.Scale(SPACING)
 			if USE_POWERBAR_OFFSET then
-				debuffs.size = (((C["unitframes"].playtarwidth - POWERBAR_OFFSET) - (debuffs.spacing*(debuffs.num - 1))) / debuffs.num)*E.ResScale
+				debuffs.size = ((((C["unitframes"].playtarwidth - POWERBAR_OFFSET) - (debuffs.spacing*(debuffs.num/C["unitframes"].playernumdebuffrows - 1))) / debuffs.num) * C["unitframes"].playernumbuffrows)*E.ResScale
 			else
-				debuffs.size = ((C["unitframes"].playtarwidth - (debuffs.spacing*(debuffs.num - 1))) / debuffs.num)*E.ResScale
+				debuffs.size = (((C["unitframes"].playtarwidth - (debuffs.spacing*(debuffs.num/C["unitframes"].playernumdebuffrows - 1))) / debuffs.num) * C["unitframes"].playernumbuffrows)*E.ResScale
 			end
-			debuffs:SetHeight(debuffs.size)
+			debuffs:SetHeight(debuffs.size * C["unitframes"].playernumdebuffrows)
 			if C["unitframes"].playerbuffs == true then
 				debuffs:Point("BOTTOM", self.Buffs, "TOP", 0, SPACING)
 			else
@@ -491,7 +491,7 @@ local function Shared(self, unit)
 				
 				if MINI_CLASSBAR then
 					bars:Point("CENTER", health.backdrop, "TOP", -(BORDER*3 + 6), 0)
-					bars:SetFrameStrata("HIGH")
+					bars:SetFrameStrata("MEDIUM")
 				else
 					bars:Point("BOTTOMLEFT", health.backdrop, "TOPLEFT", BORDER, BORDER+SPACING)
 					bars:SetFrameStrata("LOW")
@@ -583,7 +583,7 @@ local function Shared(self, unit)
 					CLASSBAR_WIDTH = CLASSBAR_WIDTH * 3/2 --Multiply by reciprocal to reset previous setting
 					CLASSBAR_WIDTH = CLASSBAR_WIDTH * 4/5
 					runes:Point("CENTER", health.backdrop, "TOP", -(BORDER*3 + 8), 0)
-					runes:SetFrameStrata("HIGH")
+					runes:SetFrameStrata("MEDIUM")
 				else
 					runes:Point("BOTTOMLEFT", health.backdrop, "TOPLEFT", BORDER, BORDER+SPACING)
 					runes:SetFrameStrata("LOW")
@@ -655,7 +655,7 @@ local function Shared(self, unit)
 					CLASSBAR_WIDTH = CLASSBAR_WIDTH * 3/2 --Multiply by reciprocal to reset previous setting
 					CLASSBAR_WIDTH = CLASSBAR_WIDTH * 4/5
 					totems:Point("CENTER", health.backdrop, "TOP", -(BORDER*3 + 6), 0)
-					totems:SetFrameStrata("HIGH")			
+					totems:SetFrameStrata("MEDIUM")			
 				end
 				totems:Width(CLASSBAR_WIDTH)
 				totems:Height(POWERBAR_HEIGHT - (BORDER*2))
@@ -732,7 +732,7 @@ local function Shared(self, unit)
 					eclipseBar:SetFrameStrata("LOW")
 				else
 					eclipseBar:Point("LEFT", health.backdrop, "TOPLEFT", (BORDER*2 + 4), 0)
-					eclipseBar:SetFrameStrata("HIGH")						
+					eclipseBar:SetFrameStrata("MEDIUM")						
 				end
 				eclipseBar:Width(CLASSBAR_WIDTH)
 				eclipseBar:Height(POWERBAR_HEIGHT - (BORDER*2))
@@ -797,7 +797,7 @@ local function Shared(self, unit)
 		altpower:SetStatusBarTexture(NORMTEX)
 		altpower:GetStatusBarTexture():SetHorizTile(false)
 		altpower:EnableMouse(true)
-		altpower:SetFrameStrata("HIGH")
+		altpower:SetFrameStrata("MEDIUM")
 		altpower.PostUpdate = E.AltPowerBarPostUpdate
 		altpower:Point("TOPLEFT", ElvuiInfoLeft, "TOPLEFT", BORDER, -BORDER)
 		altpower:Point("BOTTOMRIGHT", ElvuiInfoLeft, "BOTTOMRIGHT", -BORDER, BORDER)
@@ -951,19 +951,19 @@ local function Shared(self, unit)
 		--Auras
 		if C["unitframes"].targetbuffs then
 			local buffs = CreateFrame("Frame", nil, self)
-			buffs.num = C["unitframes"].playtarbuffperrow
+			buffs.num = C["unitframes"].targetaurasperrow * C["unitframes"].targetnumbuffrows
 			buffs.spacing = E.Scale(SPACING)
 			if USE_POWERBAR_OFFSET then
 				buffs:SetWidth(TARGET_WIDTH - POWERBAR_OFFSET)
-				buffs.size = ((((C["unitframes"].playtarwidth - POWERBAR_OFFSET) - (buffs.spacing*(buffs.num - 1))) / buffs.num))*E.ResScale
+				buffs.size = (((((C["unitframes"].playtarwidth - POWERBAR_OFFSET) - (buffs.spacing*(buffs.num/C["unitframes"].targetnumbuffrows - 1))) / buffs.num)) * C["unitframes"].targetnumbuffrows)*E.ResScale
 				buffs:Point("BOTTOMRIGHT", self, "TOPRIGHT", 0, SPACING)				
 			else
 				buffs:SetWidth(TARGET_WIDTH)
-				buffs.size = (((C["unitframes"].playtarwidth - (buffs.spacing*(buffs.num - 1))) / buffs.num))*E.ResScale
+				buffs.size = ((((C["unitframes"].playtarwidth - (buffs.spacing*(buffs.num/C["unitframes"].targetnumbuffrows - 1))) / buffs.num)) * C["unitframes"].targetnumbuffrows)*E.ResScale
 				buffs:Point("BOTTOM", self, "TOP", 0, SPACING)
 			end
 			
-			buffs:SetHeight(buffs.size)
+			buffs:SetHeight(buffs.size * C["unitframes"].targetnumbuffrows)
 			buffs.initialAnchor = 'BOTTOMLEFT'
 			buffs["growth-y"] = "UP"	
 			buffs["growth-x"] = "RIGHT"
@@ -974,16 +974,16 @@ local function Shared(self, unit)
 		
 		if C["unitframes"].targetdebuffs then
 			local debuffs = CreateFrame("Frame", nil, self)
-			debuffs.num = C["unitframes"].playtarbuffperrow
+			debuffs.num = C["unitframes"].targetaurasperrow * C["unitframes"].targetnumdebuffrows
 			debuffs.spacing = E.Scale(SPACING)
 			if USE_POWERBAR_OFFSET then
 				debuffs:SetWidth(TARGET_WIDTH - POWERBAR_OFFSET)
-				debuffs.size = ((((C["unitframes"].playtarwidth - POWERBAR_OFFSET) - (debuffs.spacing*(debuffs.num - 1))) / debuffs.num))*E.ResScale
+				debuffs.size = (((((C["unitframes"].playtarwidth - POWERBAR_OFFSET) - (debuffs.spacing*(debuffs.num/C["unitframes"].targetnumdebuffrows - 1))) / debuffs.num)) * C["unitframes"].targetnumbuffrows)*E.ResScale
 			else
 				debuffs:SetWidth(TARGET_WIDTH)
-				debuffs.size = ((C["unitframes"].playtarwidth - (debuffs.spacing*(debuffs.num - 1))) / debuffs.num)*E.ResScale
+				debuffs.size = (((C["unitframes"].playtarwidth - (debuffs.spacing*(debuffs.num/C["unitframes"].targetnumdebuffrows - 1))) / debuffs.num) * C["unitframes"].targetnumdebuffrows)*E.ResScale
 			end
-			debuffs:SetHeight(debuffs.size)
+			debuffs:SetHeight(debuffs.size * C["unitframes"].targetnumdebuffrows)
 			if C["unitframes"].targetbuffs then
 				debuffs:Point("BOTTOM", self.Buffs, "TOP", 0, SPACING)
 			else
@@ -1046,7 +1046,7 @@ local function Shared(self, unit)
 		if MINI_CLASSBAR then
 			CLASSBAR_WIDTH = CLASSBAR_WIDTH * 4/5
 			combo:Point("CENTER", health.backdrop, "TOP", -(BORDER*3 + 6), 0)
-			combo:SetFrameStrata("HIGH")
+			combo:SetFrameStrata("MEDIUM")
 		else
 			combo:Point("BOTTOMLEFT", health.backdrop, "TOPLEFT", BORDER, BORDER+SPACING)
 			combo:SetFrameStrata("LOW")
@@ -1099,7 +1099,7 @@ local function Shared(self, unit)
 			the combobar is movable with the /moveele command, this should make it work correctly only 
 			after a reloadui.]]
 			combo:HookScript("OnShow", function()		
-				if ElementsPos and DPSComboBar and ElementsPos["DPSComboBar"]["moved"] and E.CreatedMoveEleFrames["DPSComboBar"] then return end
+				if ElementsPos and DPSComboBar and ElementsPos["DPSComboBar"]["moved"] == true and E.CreatedMoveEleFrames["DPSComboBar"] then return end
 				combo:ClearAllPoints()
 				combo:Point("BOTTOMLEFT", health.backdrop, "TOPLEFT", BORDER, BORDER+SPACING)
 				
@@ -1110,7 +1110,7 @@ local function Shared(self, unit)
 			end)
 		else
 			combo:HookScript("OnShow", function()
-				if ElementsPos and DPSComboBar and ElementsPos["DPSComboBar"]["moved"] and E.CreatedMoveEleFrames["DPSComboBar"] then return end
+				if ElementsPos and DPSComboBar and ElementsPos["DPSComboBar"]["moved"] == true and E.CreatedMoveEleFrames["DPSComboBar"] then return end
 				combo:ClearAllPoints()
 				combo:Point("CENTER", health.backdrop, "TOP", -(BORDER*3 + 6), 0)
 
@@ -1226,7 +1226,7 @@ local function Shared(self, unit)
 		--Auras
 		if (unit == "targettarget" and C["unitframes"].totdebuffs == true) or (unit == "focus" and C["unitframes"].focusdebuffs == true) then	
 			local debuffs = CreateFrame("Frame", nil, self)
-			debuffs.num = C["unitframes"].smallbuffperrow
+			debuffs.num = C["unitframes"].smallaurasperrow
 			debuffs:SetWidth(SMALL_WIDTH)
 			debuffs.spacing = E.Scale(SPACING)
 			debuffs.size = ((C["unitframes"].smallwidth - (debuffs.spacing*(debuffs.num - 1))) / debuffs.num)*E.ResScale
@@ -1462,8 +1462,8 @@ local function Shared(self, unit)
 	------------------------------------------------------------------------
 	if unit ~= "party" then
 		local x = CreateFrame("Frame", nil, self)
-		x:SetFrameStrata("HIGH")
-		x:SetFrameLevel(20)
+		x:SetFrameStrata("MEDIUM")
+		x:SetFrameLevel(50)
 		local RaidIcon = x:CreateTexture(nil, "OVERLAY")
 		RaidIcon:SetTexture("Interface\\AddOns\\ElvUI\\media\\textures\\raidicons.blp") 
 		RaidIcon:Size(18, 18)
