@@ -143,3 +143,39 @@ local function FOOLS()
 end
 SLASH_FOOLS1 = "/aprilfools"
 SlashCmdList["FOOLS"] = FOOLS
+
+-- Pull Command
+
+SLASH_STOP1 = '/stop'
+SlashCmdList.STOP = function(arg)
+	if arg == "abort" then
+		print("ABORT !!!");
+	end
+ end
+ -- Pull Command
+SLASH_PULL1 = '/pull'
+function SlashCmdList.PULL(command)
+	if tonumber(command) ~= nil then
+		local f, c = CnD or CreateFrame("Frame", "CnD");
+		SendChatMessage("Pull in " .. command .. " sec", "RAID_WARNING");
+		f.e, f.t = command - 1;
+		f.w = math.floor(command * 0.75);
+		f:SetScript("OnUpdate",
+			function(s, e)
+				f.e = f.e - e;
+				c = ceil(f.e);
+				if c ~= f.t then
+				f.t = c;
+					if f.t < 15 and f.t >= 0 and f.t == f.w and arg ~= "abort" then
+						f.w = math.floor(c);
+						SendChatMessage(f.t > 0 and f.t or "PULL !!!", "RAID_WARNING");
+						--print("ABORT !!!");
+					end;
+					if f.t == 0 or arg == "abort" then
+						f:Hide();		
+					end;	  
+				end;
+			end);
+    f:Show();
+  end;
+end;

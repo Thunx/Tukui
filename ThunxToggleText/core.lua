@@ -11,7 +11,7 @@ TC = {
 	OposY = E.Scale(3),									-- Position i y-led (ökar värdet så går den längre ner på skärmen)
 	
 	--Recount
-	Recount = false,
+	Recount = true,
 	RposX = E.Scale(-150),								-- Position i x-led
 	RposY = E.Scale(3),									-- Position i y-led (ökar värdet så går den längre ner på skärmen)
 	
@@ -21,7 +21,7 @@ TC = {
 	AposY = E.Scale(3),									-- Position i y-led (ökar värdet så går den längre ner på skärmen)
 	
 	--Skada
-	Skada = true,
+	Skada = false,
 	SposX = E.Scale(-150),								-- Position i x-led
 	SposY = E.Scale(3),									-- Position i y-led (ökar värdet så går den längre ner på skärmen)
 	

@@ -1,5 +1,4 @@
 local E, C, L, DB = unpack(select(2, ...)) -- Import Functions/Constants, Config, Locales
-if C["skin"].skinblizzardframe == true then
 local FONT = C["media"].font
 local FONTSIZE = 18
 local FONTFLAG = "THINOUTLINE"
@@ -5278,4 +5277,3 @@ ElvuiSkin:SetScript("OnEvent", function(self, event, addon)
 		end
 	end
 end)
-end
