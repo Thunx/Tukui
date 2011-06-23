@@ -71,7 +71,6 @@ E.ArenaBuffWhiteList = {
 -- Target/Arena Frames/ Nameplates use these
 E.DebuffWhiteList = {
 	-- Death Knight
-		[SpellName(51209)] = true, --hungering cold
 		[SpellName(47476)] = true, --strangulate
 	-- Druid
 		[SpellName(33786)] = true, --Cyclone
@@ -129,6 +128,13 @@ E.DebuffWhiteList = {
 	--PVE
 }
 
+if E.IsPTRVersion() then
+	E.DebuffWhiteList[SpellName(49203)] = true
+else
+	E.DebuffWhiteList[SpellName(51209)] = true --hungering cold
+end
+
+
 --List of debuffs for targetframe for pvp only (when inside a bg/arena
 --We do this because in PVE Situations we don't want to see these debuffs on our target frame, arena frames will always show these.
 E.TargetPVPOnly = {
@@ -169,6 +175,7 @@ E.DebuffBlacklist = {
 	[SpellName(24755)] = true, --gay homosexual tricked or treated debuff
 	[SpellName(25163)] = true, --fucking annoying pet debuff oozeling disgusting aura
 	[SpellName(80354)] = true, --timewarp debuff
+	[SpellName(95223)] = true, --group res debuff
 }
 
 --RAID DEBUFFS

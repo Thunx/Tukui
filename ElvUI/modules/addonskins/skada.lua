@@ -117,10 +117,21 @@ end
 
 local windows = {}
 function EmbedSkada()
+
 	if C["skin"].embedright == "Skada_Omen" then
 		if #windows == 1 then
 			EmbedWindow(windows[1], C["chat"].chatwidth/2, (C["chat"].chatheight - (barSpacing * 5)) / 8, C["chat"].chatheight, "TOPRIGHT", ChatRBackground2, "TOPRIGHT", -2, -2)
 		end
+	end
+	if #windows == 1 then
+		EmbedWindow(windows[1], C["chat"].chatwidth - 4, (C["chat"].chatheight - (barSpacing * 5)) / 8, C["chat"].chatheight, "TOPRIGHT", ChatRPlaceHolder, "TOPRIGHT", -2, -2)
+	elseif #windows == 2 then
+		EmbedWindow(windows[1], ((C["chat"].chatwidth - 4) / 2) - (borderWidth + E.mult), (C["chat"].chatheight - (barSpacing * 5)) / 8, C["chat"].chatheight,  "TOPRIGHT", ChatRPlaceHolder, "TOPRIGHT", -2, -2)
+		EmbedWindow(windows[2], ((C["chat"].chatwidth - 4) / 2) - (borderWidth + E.mult), (C["chat"].chatheight - (barSpacing * 5)) / 8, C["chat"].chatheight,  "TOPLEFT", ChatRPlaceHolder, "TOPLEFT", 2, -2)
+	elseif #windows > 2 then
+		EmbedWindow(windows[1], ((C["chat"].chatwidth - 4) / 2) - (borderWidth + E.mult), (C["chat"].chatheight - (barSpacing * 5)) / 8, C["chat"].chatheight,  "TOPRIGHT", ChatRPlaceHolder, "TOPRIGHT", -2, -2)
+		EmbedWindow(windows[2], ((C["chat"].chatwidth - 4) / 2) - (borderWidth + E.mult), (C["chat"].chatheight - (barSpacing * 8)) / 8, C["chat"].chatheight / 2,  "TOPLEFT", ChatRPlaceHolder, "TOPLEFT", 2, -2)
+		EmbedWindow(windows[3], windows[2].db.barwidth, (C["chat"].chatheight - (barSpacing * 8)) / 8, C["chat"].chatheight / 2,  "TOPLEFT", windows[2].bargroup.bgframe, "BOTTOMLEFT", 2, -2)
 	end
 	if C["skin"].embedright ~= "Skada_Omen" then
 		if #windows == 1 then
@@ -175,4 +186,30 @@ if C["skin"].embedright == "Skada" or "Skada_Omen" then
 		
 		EmbedSkada()
 	end)	
+
 end
+	
+	if ChatRBGTab then
+		local button = CreateFrame('Button', 'SkadaToggleSwitch', ChatRBGTab)
+		button:Width(90)
+		button:Height(ChatRBGTab:GetHeight() - 4)
+		button:Point("RIGHT", ChatRBGTab, "RIGHT", -2, 0)
+		
+		button.tex = button:CreateTexture(nil, 'OVERLAY')
+		button.tex:SetTexture([[Interface\AddOns\ElvUI\media\textures\vehicleexit.tga]])
+		button.tex:Point('TOPRIGHT', -2, -2)
+		button.tex:Height(button:GetHeight() - 4)
+		button.tex:Width(16)
+		
+		button:FontString(nil, C["media"].font, 12, 'THINOUTLINE')
+		button.text:SetPoint('RIGHT', button.tex, 'LEFT')
+		button.text:SetTextColor(unpack(C["media"].valuecolor))
+		
+		button:SetScript('OnEnter', function(self) button.text:SetText(L.addons_toggle..' Skada') end)
+		button:SetScript('OnLeave', function(self) self.tex:Point('TOPRIGHT', -2, -2); button.text:SetText(nil) end)
+		button:SetScript('OnMouseDown', function(self) self.tex:Point('TOPRIGHT', -4, -4) end)
+		button:SetScript('OnMouseUp', function(self) self.tex:Point('TOPRIGHT', -2, -2) end)
+		button:SetScript('OnClick', function(self) Skada:ToggleWindow() end)
+	end
+end
+

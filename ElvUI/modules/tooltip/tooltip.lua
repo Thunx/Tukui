@@ -19,7 +19,7 @@ E.CreateMover(TooltipHolder, "TooltipMover", "Tooltip")
 
 local gsub, find, format = string.gsub, string.find, string.format
 
-local Tooltips = {GameTooltip,ItemRefTooltip,ItemRefShoppingTooltip1,ItemRefShoppingTooltip2,ItemRefShoppingTooltip3,ShoppingTooltip1,ShoppingTooltip2,ShoppingTooltip3,WorldMapTooltip}
+local Tooltips = {GameTooltip,ItemRefTooltip,ItemRefShoppingTooltip1,ItemRefShoppingTooltip2,ItemRefShoppingTooltip3,ShoppingTooltip1,ShoppingTooltip2,ShoppingTooltip3,WorldMapTooltip,WorldMapCompareTooltip1,WorldMapCompareTooltip2,WorldMapCompareTooltip3}
 
 local linkTypes = {item = true, enchant = true, spell = true, quest = true, unit = true, talent = true, achievement = true, glyph = true}
 
@@ -55,7 +55,9 @@ local function SetRightTooltipPos(self)
 	else
 		if C["others"].enablebag == true and StuffingFrameBags and StuffingFrameBags:IsShown() then
 			self:SetPoint("BOTTOMRIGHT", StuffingFrameBags, "TOPRIGHT", -1, E.Scale(18))	
-		elseif TooltipMover and E.Movers["TooltipMover"]["moved"] == true then
+		elseif #ContainerFrame1.bags > 0 and _G[ContainerFrame1.bags[#ContainerFrame1.bags]]:IsShown() then
+			self:Point("BOTTOMRIGHT", _G[ContainerFrame1.bags[#ContainerFrame1.bags]], "TOPRIGHT", -2, 18)
+		elseif TooltipMover and E.Movers and E.Movers["TooltipMover"] then
 			local point, _, _, _, _ = TooltipMover:GetPoint()
 			if point == "TOPLEFT" then
 				self:SetPoint("TOPLEFT", TooltipMover, "BOTTOMLEFT", 1, E.Scale(-4))
@@ -69,16 +71,12 @@ local function SetRightTooltipPos(self)
 		else
 			if E.CheckAddOnShown() == true then
 				if C["chat"].showbackdrop == true and E.ChatRightShown == true then
-					if E.RightChat == true then
-						self:SetPoint("BOTTOMRIGHT", ChatRBackground2, "TOPRIGHT", -1, E.Scale(42))	
-					else
-						self:SetPoint("BOTTOMRIGHT", ChatRBackground2, "TOPRIGHT", -1, E.Scale(18))	
-					end
+					self:Point("BOTTOMRIGHT", ChatRBGDummy, "TOPRIGHT", 0, 18)	
 				else
-					self:SetPoint("BOTTOMRIGHT", ChatRBackground2, "TOPRIGHT", -1, E.Scale(18))		
+					self:Point("BOTTOMRIGHT", ChatRBGDummy, "TOPRIGHT", -8, -14)		
 				end	
 			else
-				self:SetPoint("BOTTOMRIGHT", UIParent, "BOTTOMRIGHT", E.Scale(-3), E.Scale(42))	
+				self:Point("BOTTOMRIGHT", UIParent, "BOTTOMRIGHT", -12, 47)	
 			end
 		end
 	end
@@ -418,11 +416,6 @@ ElvuiTooltip:SetScript("OnEvent", function(self, event, addon)
 	ItemRefTooltip:HookScript("OnTooltipSetItem", SetStyle)
 	FriendsTooltip:SetTemplate("Default", true)
 	BNToastFrame:SetTemplate("Default", true)
-	DropDownList1MenuBackdrop:SetTemplate("Default", true)
-	DropDownList2MenuBackdrop:SetTemplate("Default", true)
-	DropDownList1Backdrop:SetTemplate("Default", true)
-	DropDownList2Backdrop:SetTemplate("Default", true)
-	
 	BNToastFrame:HookScript("OnShow", function(self)
 		self:ClearAllPoints()
 		self:SetPoint("TOPLEFT", UIParent, "TOPLEFT", E.Scale(5), E.Scale(-5))

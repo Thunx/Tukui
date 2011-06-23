@@ -30,7 +30,7 @@ L["General Settings"] = true
 	L["Upper Frame"] = true
 		L["Enable a bar accross the top of the screen, doing this will move the location and coords texts to that bar, and also allow for spaces nine and ten of the datatexts to be used."] = true
 	L["Lower Frame"] = true
-		L["Enable a bar accross the bottom of the screen, mostly for decoration."] = true
+		L["Enable a bar accross the bottom of the screen, doing this will allow for four extra datatext positions."] = true
 		
 --Media
 L["Media"] = true
@@ -83,12 +83,18 @@ L["Nameplates"] = true
 		L["Tracks your debuffs on nameplates."] = true
 	L["Track CC Debuffs"] = true
 		L["Tracks CC debuffs on nameplates from you or a friendly player"] = true
+	L["Display Level"] = true
+		L["Display level text on nameplate for nameplates that belong to units that aren't your level."] = true
+	L["Width"] = true
+		L["Controls the width of the nameplate"] = true
 	L["Good Color"] = true
 		L["This is displayed when you have threat as a tank, if you don't have threat it is displayed as a DPS/Healer"] = true
 	L["Bad Color"] = true
 		L["This is displayed when you don't have threat as a tank, if you do have threat it is displayed as a DPS/Healer"] = true
-	L["Transition Color"] = true
-		L["This color is displayed when gaining/losing threat"] = true
+	L["Good Transition Color"] = true
+		L["This color is displayed when gaining/losing threat, for a tank it would be displayed when gaining threat, for a dps/healer it would be displayed when losing threat"] = true
+	L["Bad Transition Color"] = true
+		L["This color is displayed when gaining/losing threat, for a tank it would be displayed when losing threat, for a dps/healer it would be displayed when gaining threat"] = true
 	
 --Unitframes
 L["Unit Frames"] = true
@@ -112,7 +118,12 @@ L["Unit Frames"] = true
 	L["Character Portrait on Health"] = true
 		L["Overlay character portrait on the healthbar available frames"] = true
 	L["Class Color"] = true
+	L["Class Colored Healthbars"] = true
 		L["Color unitframes by class"] = true
+	L["Class Colored Powerbars"] = true
+	L["Class Colored Backdrop"] = true
+		L["Color backdrops by class"] = true
+	L["Color powerbars by class"] = true
 	L["Health Color"] = true
 		L["Color of the healthbar"] = true
 	L["Color Health by Value"] = true
@@ -144,6 +155,10 @@ L["Unit Frames"] = true
 		L["Make classbars smaller and restyle them"] = true
 	L["Exp/Rep Offset"] = true
 		L["Detach and offset the Exp/Rep bar on the Powerbar"] = true
+	L["Powerbar Height"] = true
+		L["Set the height of the powerbar, this is void if you don't have powerbar offset set to zero."] = true
+	L["Classbar Height"] = true
+		L["Set the height of the classbar."] = true
 	
 L["Frame Sizes"] = true
 	L["Controls the size of the frame"] = true
@@ -187,7 +202,7 @@ L["Auras"] = true
 		L["The ammount of auras displayed in a single row"] = true
 		L["Ammount of rows of auras"] = true
 	L["Small Frames Auras in Row"] = true
-	L["Raid Buff Display Size"] = true
+	L["Buff Icon Size"] = true
 	
 L["Castbar"] = true
 	L["Enable/Disable Castbars"] = true
@@ -316,6 +331,8 @@ L["Data Texts"] = true
 	L["DATATEXT_DESC"] = "Edit display of informational text on panels"
 	L["DATATEXT_POS"] = "\n\n0 - Disabled\n1 - LEFT PANEL, LEFT\n2 - LEFT PANEL, CENTER\n3 - LEFT PANEL, RIGHT\n4 - RIGHT PANEL, LEFT\n5 - RIGHT PANEL, CENTER\n6 - RIGHT PANEL, RIGHT\n7 - MINIMAP LEFT\n8 - MINIMAP RIGHT"
 	L["DATATEXT_POS2"] = "\n\n0 - Disabled\n1 - LEFT PANEL, LEFT\n2 - LEFT PANEL, CENTER\n3 - LEFT PANEL, RIGHT\n4 - RIGHT PANEL, LEFT\n5 - RIGHT PANEL, CENTER\n6 - RIGHT PANEL, RIGHT\n7 - MINIMAP LEFT\n8 - MINIMAP RIGHT\n9 - TOPBAR LEFT\n10 - TOPBAR RIGHT"
+	L["DATATEXT_POS3"] = "\n\n0 - Disabled\n1 - LEFT PANEL, LEFT\n2 - LEFT PANEL, CENTER\n3 - LEFT PANEL, RIGHT\n4 - RIGHT PANEL, LEFT\n5 - RIGHT PANEL, CENTER\n6 - RIGHT PANEL, RIGHT\n7 - MINIMAP LEFT\n8 - MINIMAP RIGHT\n9 - TOPBAR LEFT\n10 - TOPBAR RIGHT\n11 - BOTTOMBAR LEFT\n12 - BOTTOMBAR LEFT-MIDDLE\n13 - BOTTOMBAR RIGHT-MIDDLE\n14 - BOTTOMBAR RIGHT"
+	L["DATATEXT_POS4"] = "\n\n0 - Disabled\n1 - LEFT PANEL, LEFT\n2 - LEFT PANEL, CENTER\n3 - LEFT PANEL, RIGHT\n4 - RIGHT PANEL, LEFT\n5 - RIGHT PANEL, CENTER\n6 - RIGHT PANEL, RIGHT\n7 - MINIMAP LEFT\n8 - MINIMAP RIGHT\n9 - BOTTOMBAR LEFT\n10 - BOTTOMBAR LEFT-MIDDLE\n11 - BOTTOMBAR RIGHT-MIDDLE\n12 - BOTTOMBAR RIGHT"
 	L["Text Positions"] = true
 	L["Mastery Spell"] = true
 		L["Display the mastery spell on the mastery datatext"] = true
@@ -365,7 +382,8 @@ L["Data Texts"] = true
 		L["Display Mana Regen Rate"] = true
 	L["Call to Arms"] = true
 		L["Display the active roles that will recieve a reward for completing a random dungeon"] = true
-	
+	L["Expertise Rating"] = true
+		L["Display Expertise Rating"] = true
 --chat
 L["Chat"] = true
 	L["CHAT_DESC"] = "Adjust chat settings"
@@ -413,6 +431,7 @@ L["Skins"] = true
 	L["Enable/disable skinning of the entire BlizzardUI."] = true
 	L["TOGGLESKIN_DESC"] = "Enable/Disable this skin."
 	
+	L["Bags"] = true
 	L["Reforge Frame"] = true
 	L["Calendar Frame"] = true
 	L["Achievement Frame"] = true
@@ -467,7 +486,9 @@ L["Skins"] = true
 	L["Attach KLE's Bars to the right window"] = true
 	L["Hook BigWigs Bars"] = true
 	L["Attach BigWigs's Bars to the right window"] = true
-
+	L["Hook DXE Bars"] = true
+	L["Attach DXE's Bars to the right window"] = true
+	
 --Misc
 L["Misc"] = true
 	L["MISC_DESC"] = "Configure all other options"
@@ -510,12 +531,21 @@ L["Misc"] = true
 		L["Enable/Disable the map skin"] = true
 	L["Spincamera"] = true
 		L["Enable/Disable Spincamera"] = true
+	L["Vertical"] = true
+	L["Horizontal"] = true
+	L["Bag Bar on mouseover"] = true
+		L["Only show the bag bar when you mouseover it"] = true
+	L["Bar Bar Direction"] = true
+		L["Set the direction you want the bag bar to grow"] = true
+	L["Bag Bar"] = true 
+		L["Enable a clickable bar of buttons that allow you to click which bag you wish to open"] = true
+		
 --saftExperienceBar		
 L["saftexperiencebar"] = true
 	L["saftExperienceBar"] = true	
 	L["Enable/Disable saftExperienceBar"] = true
 	L["saftExperienceBar_DEC"] = "Setup options for saftExperienceBar"
-		
+	
 L["Filters"] = true
 L["SPELL_FILTER_DESC"] = "Filter everything from spell names to nameplate names."
 	L["Auras"] = true

@@ -86,8 +86,14 @@ E.LoadUFFunctions = function(layout)
 			power.value:SetParent(self)
 		end
 		
+		if C["unitframes"].classcolorpower == true then
+			power.colorClass = true
+			power.colorReaction = true
+		else
+			power.colorPower = true
+		end
+		
 		power.colorDisconnected = true
-		power.colorPower = true
 		power.colorTapping = false
 		
 		power.backdrop = CreateFrame('Frame', nil, power)
@@ -98,16 +104,18 @@ E.LoadUFFunctions = function(layout)
 	
 		return power
 	end	
-		
+
 	function E.ConstructCastBar(self, width, height, direction)
 		local castbar = CreateFrame("StatusBar", nil, self)
 		castbar:SetStatusBarTexture(C["media"].normTex)
 		castbar:Height(height)
-		castbar:Width(width - 4*E.ResScale)
+		castbar:Width(width - 3*E.ResScale)
 		castbar.CustomDelayText = E.CustomCastDelayText
 		castbar.PostCastStart = E.PostCastStart
 		castbar.PostChannelStart = E.PostCastStart		
-				
+		castbar.PostCastInterruptible = E.PostCastInterruptible
+		castbar.PostCastNotInterruptible = E.PostCastNotInterruptible
+		
 		castbar.bg = CreateFrame("Frame", nil, castbar)
 		castbar.bg:SetTemplate("Default")
 		castbar.bg:SetBackdropBorderColor(unpack(C["media"].bordercolor))
@@ -148,9 +156,9 @@ E.LoadUFFunctions = function(layout)
 			button:SetTemplate("Default")
 			button:SetBackdropBorderColor(unpack(C["media"].bordercolor))
 			if direction == "LEFT" then
-				button:Point("RIGHT", castbar, "LEFT", -4*E.ResScale, 0)
+				button:Point("RIGHT", castbar, "LEFT", -3*E.ResScale, 0)
 			else
-				button:Point("LEFT", castbar, "RIGHT", 4*E.ResScale, 0)
+				button:Point("LEFT", castbar, "RIGHT", 3*E.ResScale, 0)
 			end
 			
 			castbar.Icon = button:CreateTexture(nil, "ARTWORK")
@@ -267,19 +275,13 @@ E.LoadUFFunctions = function(layout)
 		icon.isStealable = isStealable
 		
 		if (unit and unit:find("arena%d")) then --Arena frames
-			if dtype then
-				if E.DebuffWhiteList[name] then
-					return true
-				else
-					return false
-				end			
+			if E.DebuffWhiteList[name] then
+				return true
+			elseif E.ArenaBuffWhiteList[name] then
+				return true
 			else
-				if E.ArenaBuffWhiteList[name] then
-					return true
-				else
-					return false
-				end		
-			end
+				return false
+			end	
 		elseif unit == "target" or (unit and unit:find("boss%d")) then --Target/Boss Only
 			if C["unitframes"].playerdebuffsonly == true then
 				-- Show all debuffs on friendly targets
@@ -330,7 +332,8 @@ E.LoadUFFunctions = function(layout)
 				health:GetParent().Portrait.backdrop:SetBackdropBorderColor(r, g, b)
 			end
 		end
-		
+	
+
 		if C["unitframes"].classcolor == true and C["unitframes"].healthcolorbyvalue == true and not (UnitIsTapped(unit) and not UnitIsTappedByPlayer(unit)) then
 			local newr, newg, newb = ElvUF.ColorGradient(min / max, 1, 0, 0, 1, 1, 0, r, g, b)
 	
@@ -338,6 +341,20 @@ E.LoadUFFunctions = function(layout)
 			if health.bg and health.bg.multiplier then
 				local mu = health.bg.multiplier
 				health.bg:SetVertexColor(newr * mu, newg * mu, newb * mu)
+			end
+		end
+
+		if C["unitframes"].classcolorbackdrop == true then
+			local t
+				if UnitIsPlayer(unit) then
+					local _, class = UnitClass(unit)
+					t = health:GetParent().colors.class[class]
+				elseif UnitReaction(unit, 'player') then
+					t = health:GetParent().colors.reaction[UnitReaction(unit, "player")]
+				end
+				
+			if t then
+				health.bg:SetVertexColor(t[1], t[2], t[3])
 			end
 		end
 		
@@ -505,6 +522,26 @@ E.LoadUFFunctions = function(layout)
 		else
 			self.MasterLooter:Point("TOPRIGHT", -4, 9)
 		end
+	end
+	
+	E.RoleIconUpdate = function(self, event)
+		local lfdrole = self.LFDRole
+
+		local role = UnitGroupRolesAssigned(self.unit)
+
+		if(role == 'TANK' or role == 'HEALER' or role == 'DAMAGER') and UnitIsConnected(self.unit) then
+			if role == 'TANK' then
+				lfdrole:SetTexture([[Interface\AddOns\ElvUI\media\textures\tank.tga]])
+			elseif role == 'HEALER' then
+				lfdrole:SetTexture([[Interface\AddOns\ElvUI\media\textures\healer.tga]])
+			elseif role == 'DAMAGER' then
+				lfdrole:SetTexture([[Interface\AddOns\ElvUI\media\textures\dps.tga]])
+			end
+			
+			lfdrole:Show()
+		else
+			lfdrole:Hide()
+		end	
 	end
 	
 	E.UpdateShards = function(self, event, unit, powerType)
@@ -750,15 +787,25 @@ E.LoadUFFunctions = function(layout)
 			end
 		end
 	end
+
+	function E.PostCastInterruptible(self, unit)
+		if unit == "vehicle" then unit = "player" end
+		if unit ~= "player" then
+			if UnitCanAttack("player", unit) then
+				self:SetStatusBarColor(unpack(C["unitframes"].nointerruptcolor))
+			else
+				self:SetStatusBarColor(unpack(C["unitframes"].castbarcolor))	
+			end		
+		end
+	end
+	
+	function E.PostCastNotInterruptible(self, unit)
+		self:SetStatusBarColor(unpack(C["unitframes"].castbarcolor))
+	end
 	
 	E.PostCastStart = function(self, unit, name, rank, castid)
 		if unit == "vehicle" then unit = "player" end
-		--Fix blank castbar with opening text
-		if name == "Opening" then
-			self.Text:SetText(OPENING)
-		else
-			self.Text:SetText(string.sub(name, 0, math.floor((((32/245) * self:GetWidth()) / C["unitframes"].fontsize) * 12)))
-		end
+		self.Text:SetText(string.sub(name, 0, math.floor((((32/245) * self:GetWidth()) / C["unitframes"].fontsize) * 12)))
 		
 		if C["unitframes"].cbticks == true and unit == "player" then
 			if E.ChannelTicks[name] then
@@ -1030,7 +1077,7 @@ E.LoadUFFunctions = function(layout)
 				border:SetVertexColor(0, 0, 0)
 
 				local count = icon:CreateFontString(nil, "OVERLAY")
-				count:SetFont(C["media"].uffont, 8, "THINOUTLINE")
+				count:SetFont(C["media"].uffont, C["raidframes"].buffindicatorsize + 3, "THINOUTLINE")
 				count:SetPoint("CENTER", unpack(E.countOffsets[spell["point"]]))
 				icon.count = count
 

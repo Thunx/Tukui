@@ -49,6 +49,7 @@ DB["general"] = {
 
 DB["skin"] = {
 	["enable"] = true,
+		["bags"] = true,
 		["reforge"] = true,
 		["calendar"] = true,
 		["achievement"] = true,
@@ -97,11 +98,14 @@ DB["skin"] = {
 	["skada"] = true,
 	["omen"] = true,
 	["kle"] = true,
+	["dxe"] = true,
 	["dbm"] = true,
 	["bigwigs"] = true,
-	["hookkleright"] = true,			-- force KLE's top bar anchor to be hooked onto the right chat window
+	["hookkleright"] = false,			-- force KLE's top bar anchor to be hooked onto the right chat window
+	["hookbwright"] = false,			-- force BigWig's bar anchor to be hooked onto the right chat window
 	["hookbwright"] = true,			-- force BigWig's bar anchor to be hooked onto the right chat window
-	["embedright"] = "Skada_Omen",				-- Addon to embed to the right frame ("Omen", "Recount", "Skada", "Recount_Omen", "Skada_Omen")
+	["hookdxeright"] = false,
+	["embedright"] = "Recount_Omen",				-- Addon to embed to the right frame ("Omen", "Recount", "Skada", "Recount_Omen", "Skada_Omen")
 	["skinblizzardframe"] = false, 		-- Skin blizzard frames
 }
 
@@ -115,9 +119,11 @@ DB["unitframes"] = {
 	["pettarget"] = true,					-- show player's pet's target (DPS)
 	["showtotalhpmp"] = false,             -- change the display of info text on player and target with XXXX/Total.
 	["showsmooth"] = true,                 -- enable smooth bar
-	["charportrait"] = true,              -- enable character portrait
+	["charportrait"] = false,              -- enable character portrait
 	["charportraithealth"] = false,			-- portrait overlay healthbar
 	["classcolor"] = false,                  -- color unitframes by class
+	["classcolorpower"] = false,
+	["classcolorbackdrop"] = false,
 	["healthcolor"] = DB["media"].bordercolor, --color of the unitframe
 	["healthcolorbyvalue"] = true,			-- color health by current health remaining
 	["healthbackdrop"] = false,				-- enable using custom healthbackdrop color
@@ -126,14 +132,17 @@ DB["unitframes"] = {
 	["debuffhighlight"] = true,				--highlight frame with the debuff color if the frame is dispellable
 	["classbar"] = true,                    -- enable runebar/totembar/holypowerbar/soulshardbar/eclipsebar
 	["combat"] = false,						-- only show main unitframes when in combat/havetarget/or mouseover
-	["mini_powerbar"] = false,
-	["mini_classbar"] = false,
+	["mini_powerbar"] = true,
+	["mini_classbar"] = true,
 	["powerbar_offset"] = 0,
 	["showboss"] = true,                   -- enable boss unit frames for PVELOL encounters.
 	["arena"] = true,                 -- enable elvui arena unitframes (requirement : Elvui unitframes enabled)	
 	["swing"] = false,
 	["displayaggro"] = true,
 	["exp_rep"] = true,			-- Hide exp/rep bar under powerbar
+	["powerbar_height"] = 10,
+	["classbar_height"] = 10,
+
 	
 	--frame sizes
 	["playtarwidth"] = 275,					--width of player/target frame
@@ -177,10 +186,9 @@ DB["unitframes"] = {
 	["cbticks"] = true,
 	["castplayerwidth"] = 412,
 	["castplayerheight"] = 20,
-
-	["casttargetwidth"] = 275,
+	["casttargetwidth"] = 276,
 	["casttargetheight"] = 20,
-	["castfocuswidth"] = 275,
+	["castfocuswidth"] = 276,
 	["castfocusheight"] = 20,
 	["castbarcolor"] = DB["media"].bordercolor, -- Color of player castbar
 	["nointerruptcolor"] = {r = 0.78, g = 0.25, b = 0.25}, -- Color of target castbar
@@ -214,7 +222,7 @@ DB["raidframes"] = {
 	["buffindicatorsize"] = 6,				-- size of the buff indicator on raid/party frames
 	["debuffs"] = true,
 	["displayaggro"] = true,
-	["mini_powerbar"] = false,
+	["mini_powerbar"] = true,
 	["gridonly"] = false,
 }
 
@@ -261,12 +269,15 @@ DB["actionbar"] = {
 
 DB["nameplate"] = {
 	["enable"] = true,                     -- enable nice skinned nameplates that fit into Elvui
+	["showlevel"] = true,
+	["width"] = 105,
 	["showhealth"] = false,					-- show health text on nameplate
 	["enhancethreat"] = true,				-- threat features based on if your a tank or not
 	["combat"] = false,					--only show enemy nameplates in-combat.
 	["goodcolor"] = {r = 75/255,  g = 175/255, b = 76/255},			--good threat color (tank shows this with threat, everyone else without)
 	["badcolor"] = {r = 0.78, g = 0.25, b = 0.25},			--bad threat color (opposite of above)
-	["transitioncolor"] = {r = 218/255, g = 197/255, b = 92/255},	--threat color when gaining threat
+	["goodtransitioncolor"] = {r = 218/255, g = 197/255, b = 92/255},	--threat color when gaining threat
+	["badtransitioncolor"] = {r = 240/255, g = 154/255, b = 17/255}, 
 	["trackauras"] = false,		--track players debuffs only (debuff list derived from classtimer spell list)
 	["trackccauras"] = true,			--track all CC debuffs
 }
@@ -287,6 +298,7 @@ DB["datatext"] = {
 	["currency"] = 0,						-- show watched items in backpack
 	["specswitch"] = 0,
 	["hit"] = 0,
+	["expertise"] = 0,
 	["haste"] = 0,
 	["mastery"] = 0,
 	["crit"] = 0,
@@ -328,7 +340,9 @@ DB["others"] = {
 	["errorenable"] = true,                     -- true to enable this mod, false to disable
 	["autoacceptinv"] = true,                 -- auto-accept invite from guildmate and friends.
 	["enablebag"] = true,                     -- enable an all in one bag mod that fit Elvui perfectly
-	
+	["bagbar"] = false,
+	["bagbardirection"] = "VERTICAL",
+	["bagbarmouseover"] = true,
 
 	["lootframe"] = true,                  -- reskin the loot frame to fit Elvui
 	["rolllootframe"] = true,              -- reskin the roll frame to fit Elvui
