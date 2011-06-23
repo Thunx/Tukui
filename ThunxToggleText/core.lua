@@ -35,9 +35,9 @@ TC = {
 -----Omen toggle knapp-----
 --------------------------------------------------------------------
 if IsAddOnLoaded("Omen") and TC.Omen == true then
-	local OmenText=CreateFrame("Button","rOmenShowHide",UIParent)
+	local OmenText=CreateFrame("Button","rOmenShowHide", ChatRBGTab)
 
-	OmenText:SetPoint("BOTTOMRIGHT", ChatRBackground, "TOPRIGHT", TC.OposX, TC.OposY)
+	OmenText:SetPoint("BOTTOMRIGHT", ChatRBG, "TOPRIGHT", TC.OposX, TC.OposY)
 	OmenText:SetWidth(50) OmenText:SetHeight(25)
 	OmenText.text= OmenText:CreateFontString(nil,"OVERLAY","GameFontNormalSmall")
 	
@@ -56,8 +56,8 @@ if IsAddOnLoaded("Omen") and TC.Omen == true then
 		x:RegisterEvent("PLAYER_ENTERING_WORLD")
 		x:SetScript("OnEvent", function(self, event)
 		 if not Omen then return end
-		 ChatRBackground:HookScript("OnShow", function() Omen:Toggle(false) OmenText:Show(); end)
-		 ChatRBackground:HookScript("OnHide", function() Omen:Toggle(true) OmenText:Hide(); end)
+		 ChatRBG:HookScript("OnShow", function() Omen:Toggle(false) OmenText:Show(); end)
+		 ChatRBG:HookScript("OnHide", function() Omen:Toggle(true) OmenText:Hide(); end)
 		 self:UnregisterAllEvents()
 		end)
 	end
@@ -70,7 +70,7 @@ if IsAddOnLoaded("Recount") and TC.Recount == true and TC.Skada ~= true  then
 	local RecountText=CreateFrame("Button","RecountShowHide",UIParent)
 	
 	--RecountText:SetTemplate("Default", false)
-	RecountText:SetPoint("BOTTOMRIGHT", ChatRBackground, "TOPRIGHT", TC.RposX, TC.RposY)
+	RecountText:SetPoint("BOTTOMRIGHT", ChatRBG, "TOPRIGHT", TC.RposX, TC.RposY)
 	RecountText:SetWidth(50) RecountText:SetHeight(25)
 	
 	RecountText.text = RecountText:CreateFontString(nil,"OVERLAY","GameFontNormalSmall")
@@ -93,8 +93,8 @@ if IsAddOnLoaded("Recount") and TC.Recount == true and TC.Skada ~= true  then
 		x:RegisterEvent("PLAYER_ENTERING_WORLD")
 		x:SetScript("OnEvent", function(self, event)
 		 if not Recount then return end
-		 ChatRBackground:HookScript("OnShow", function() Recount.MainWindow:Hide() RecountText:Show(); end)
-		 ChatRBackground:HookScript("OnHide", function() Recount.MainWindow:Show() Recount:RefreshMainWindow()  RecountText:Hide(); end)
+		 ChatRBG:HookScript("OnShow", function() Recount.MainWindow:Hide() RecountText:Show(); end)
+		 ChatRBG:HookScript("OnHide", function() Recount.MainWindow:Show() Recount:RefreshMainWindow()  RecountText:Hide(); end)
 		 self:UnregisterAllEvents()
 		end)
 	end
@@ -106,7 +106,7 @@ end
 if IsAddOnLoaded("AtlasLoot_Loader") and TC.Atlasloot == true  then
 	
 	local AtlasText=CreateFrame("Button","AtlasShowHide",UIParent)
-	AtlasText:SetPoint("BOTTOMRIGHT", ChatRBackground, "TOPRIGHT", TC.AposX, TC.AposY)
+	AtlasText:SetPoint("BOTTOMRIGHT", ChatRBG, "TOPRIGHT", TC.AposX, TC.AposY)
 	AtlasText:SetWidth(50) AtlasText:SetHeight(25)
 	
 	AtlasText.text = AtlasText:CreateFontString(nil,"OVERLAY","GameFontNormalSmall")
@@ -126,8 +126,8 @@ if IsAddOnLoaded("AtlasLoot_Loader") and TC.Atlasloot == true  then
 		x:RegisterEvent("PLAYER_ENTERING_WORLD")
 		x:SetScript("OnEvent", function(self, event)
 		 if not Recount then return end
-		 ChatRBackground:HookScript("OnShow", function() AtlasText:Show(); end)
-		 ChatRBackground:HookScript("OnHide", function() AtlasText:Hide(); end)
+		 ChatRBG:HookScript("OnShow", function() AtlasText:Show(); end)
+		 ChatRBG:HookScript("OnHide", function() AtlasText:Hide(); end)
 		 self:UnregisterAllEvents()
 		end)
 	end
@@ -138,7 +138,7 @@ end
 if TC.Skada == true then
 	
 	local SkadaText=CreateFrame("Button","SkadaShowHide",UIParent)
-	SkadaText:SetPoint("BOTTOMRIGHT", ChatRBackground, "TOPRIGHT", TC.SposX, TC.SposY)
+	SkadaText:SetPoint("BOTTOMRIGHT", ChatRBG, "TOPRIGHT", TC.SposX, TC.SposY)
 	SkadaText:SetWidth(50) SkadaText:SetHeight(25)
 	
 	SkadaText.text=SkadaText:CreateFontString(nil,"OVERLAY","GameFontNormalSmall")
@@ -157,8 +157,8 @@ if TC.Skada == true then
 		x:RegisterEvent("PLAYER_ENTERING_WORLD")
 		x:SetScript("OnEvent", function(self, event)
 		if not Skada then return end
-		ChatRBackground:HookScript("OnShow", function() SkadaText:Show(); Skada:SetActive(false) end)
-		ChatRBackground:HookScript("OnHide", function() SkadaText:Hide(); Skada:SetActive(true) end)
+		ChatRBG:HookScript("OnShow", function() SkadaText:Show(); Skada:SetActive(false) end)
+		ChatRBG:HookScript("OnHide", function() SkadaText:Hide(); Skada:SetActive(true) end)
 		self:UnregisterAllEvents()
 		end)
 	end	

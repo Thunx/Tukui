@@ -186,9 +186,6 @@ if C["skin"].embedright == "Skada" or "Skada_Omen" then
 		
 		EmbedSkada()
 	end)	
-
-end
-	
 	if ChatRBGTab then
 		local button = CreateFrame('Button', 'SkadaToggleSwitch', ChatRBGTab)
 		button:Width(90)

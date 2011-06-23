@@ -88,6 +88,29 @@ if C["skin"].embedright == "Omen" then
 		OmenBarList:SetAllPoints(ChatRPlaceHolder)
 		Omen.db.profile.FrameStrata = "4-HIGH"
 	end)
+	
+	if ChatRBGTab then
+		local button = CreateFrame('Button', 'OmenToggleSwitch', ChatRBGTab)
+		button:Width(90)
+		button:Height(ChatRBGTab:GetHeight() - 4)
+		button:Point("RIGHT", ChatRBGTab, "RIGHT", -2, 0)
+			
+		button.tex = button:CreateTexture(nil, 'OVERLAY')
+		button.tex:SetTexture([[Interface\AddOns\ElvUI\media\textures\vehicleexit.tga]])
+		button.tex:Point('TOPRIGHT', -2, -2)
+		button.tex:Height(button:GetHeight() - 4)
+		button.tex:Width(16)
+		
+		button:FontString(nil, C["media"].font, 12, 'THINOUTLINE')
+		button.text:SetPoint('RIGHT', button.tex, 'LEFT')
+		button.text:SetTextColor(unpack(C["media"].valuecolor))
+			
+		button:SetScript('OnEnter', function(self) button.text:SetText(L.addons_toggle..' Omen') end)
+		button:SetScript('OnLeave', function(self) self.tex:Point('TOPRIGHT', -2, -2); button.text:SetText(nil) end)
+		button:SetScript('OnMouseDown', function(self) self.tex:Point('TOPRIGHT', -4, -4) end)
+		button:SetScript('OnMouseUp', function(self) self.tex:Point('TOPRIGHT', -2, -2) end)
+		button:SetScript('OnClick', function(self) ToggleFrame(OmenBarList) end)
+	end	
 end
 if C["skin"].embedright == "Recount_Omen" or "Skada_Omen" then
 	local Omen_Skin = CreateFrame("Frame")
@@ -99,33 +122,9 @@ if C["skin"].embedright == "Recount_Omen" or "Skada_Omen" then
 		Omen.UpdateTitleBar = function() end
 		OmenTitle:Kill()
 		OmenBarList:ClearAllPoints()
-		OmenBarList:SetWidth(ChatRBackground2:GetWidth() / 2)
-		OmenBarList:SetPoint("TOPLEFT", ChatRBackground2, "TOPLEFT", 0, 0)
-		OmenBarList:SetPoint("BOTTOMLEFT", ChatRBackground2, "BOTTOMLEFT", 0, 0)
+		OmenBarList:SetWidth(ChatRBG:GetWidth() / 2)
+		OmenBarList:SetPoint("TOPLEFT", ChatRBG, "TOPLEFT", 0, 0)
+		OmenBarList:SetPoint("BOTTOMLEFT", ChatRBG, "BOTTOMLEFT", 0, 0)
 		Omen.db.profile.FrameStrata = "4-HIGH"
 	end)
-end
-	
-if ChatRBGTab then
-	local button = CreateFrame('Button', 'OmenToggleSwitch', ChatRBGTab)
-	button:Width(90)
-	button:Height(ChatRBGTab:GetHeight() - 4)
-	button:Point("RIGHT", ChatRBGTab, "RIGHT", -2, 0)
-		
-	button.tex = button:CreateTexture(nil, 'OVERLAY')
-	button.tex:SetTexture([[Interface\AddOns\ElvUI\media\textures\vehicleexit.tga]])
-	button.tex:Point('TOPRIGHT', -2, -2)
-	button.tex:Height(button:GetHeight() - 4)
-	button.tex:Width(16)
-	
-	button:FontString(nil, C["media"].font, 12, 'THINOUTLINE')
-	button.text:SetPoint('RIGHT', button.tex, 'LEFT')
-	button.text:SetTextColor(unpack(C["media"].valuecolor))
-		
-	button:SetScript('OnEnter', function(self) button.text:SetText(L.addons_toggle..' Omen') end)
-	button:SetScript('OnLeave', function(self) self.tex:Point('TOPRIGHT', -2, -2); button.text:SetText(nil) end)
-	button:SetScript('OnMouseDown', function(self) self.tex:Point('TOPRIGHT', -4, -4) end)
-	button:SetScript('OnMouseUp', function(self) self.tex:Point('TOPRIGHT', -2, -2) end)
-	button:SetScript('OnClick', function(self) ToggleFrame(OmenBarList) end)
-	end		
 end

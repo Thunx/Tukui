@@ -73,23 +73,6 @@ if C["skin"].embedright == "Recount" then
 		Recount.db.profile.FrameStrata = "4-HIGH"
 		Recount.db.profile.MainWindowWidth = (C["chat"].chatwidth - 4)	
 	end)
-
-end
-if C["skin"].embedright == "Recount_Omen" then
-	local Recount_Skin = CreateFrame("Frame")
-	Recount_Skin:RegisterEvent("PLAYER_ENTERING_WORLD")
-	Recount_Skin:SetScript("OnEvent", function(self)
-		self:UnregisterAllEvents()
-		self = nil
-
-		Recount_MainWindow:ClearAllPoints()
-		Recount_MainWindow:SetPoint("TOPLEFT", OmenBarList,"TOPRIGHT", 1, 7)
-		Recount_MainWindow:SetPoint("BOTTOMRIGHT", ChatRBackground2,"BOTTOMRIGHT", 0, 0)
-		Recount.db.profile.FrameStrata = "4-HIGH"
-		Recount.db.profile.MainWindowWidth = (C["chat"].chatwidth - 4)
-	end)
-end
-	
 	if ChatRBGTab then
 		local button = CreateFrame('Button', 'RecountToggleSwitch', ChatRBGTab)
 		button:Width(90)
@@ -112,4 +95,18 @@ end
 		button:SetScript('OnMouseUp', function(self) self.tex:Point('TOPRIGHT', -2, -2) end)
 		button:SetScript('OnClick', function(self) ToggleFrame(Recount_MainWindow) end)
 	end	
+end
+if C["skin"].embedright == "Recount_Omen" then
+	local Recount_Skin = CreateFrame("Frame")
+	Recount_Skin:RegisterEvent("PLAYER_ENTERING_WORLD")
+	Recount_Skin:SetScript("OnEvent", function(self)
+		self:UnregisterAllEvents()
+		self = nil
+
+		Recount_MainWindow:ClearAllPoints()
+		Recount_MainWindow:SetPoint("TOPLEFT", OmenBarList,"TOPRIGHT", 1, 7)
+		Recount_MainWindow:SetPoint("BOTTOMRIGHT", ChatRBackground2,"BOTTOMRIGHT", 0, 0)
+		Recount.db.profile.FrameStrata = "4-HIGH"
+		Recount.db.profile.MainWindowWidth = (C["chat"].chatwidth - 4)
+	end)
 end
