@@ -70,7 +70,7 @@ if C["skin"].embedright == "Recount" then
 		Recount_MainWindow:ClearAllPoints()
 		Recount_MainWindow:SetPoint("TOPLEFT", ChatRPlaceHolder,"TOPLEFT", 0, 7)
 		Recount_MainWindow:SetPoint("BOTTOMRIGHT", ChatRPlaceHolder,"BOTTOMRIGHT", 0, 0)
-		Recount.db.profile.FrameStrata = "4-HIGH"
+		Recount.db.profile.FrameStrata = "3-MEDIUM"
 		Recount.db.profile.MainWindowWidth = (C["chat"].chatwidth - 4)	
 	end)
 	if ChatRBGTab then
@@ -94,6 +94,11 @@ if C["skin"].embedright == "Recount" then
 		button:SetScript('OnMouseDown', function(self) self.tex:Point('TOPRIGHT', -4, -4) end)
 		button:SetScript('OnMouseUp', function(self) self.tex:Point('TOPRIGHT', -2, -2) end)
 		button:SetScript('OnClick', function(self) ToggleFrame(Recount_MainWindow) end)
+	end	
+	
+	if C["skin"].embedrighttoggle == true then
+		ChatRBG:HookScript("OnShow", function() Recount_MainWindow:Hide() end)
+		ChatRBG:HookScript("OnHide", function() Recount_MainWindow:Show() end)
 	end	
 end
 if C["skin"].embedright == "Recount_Omen" then

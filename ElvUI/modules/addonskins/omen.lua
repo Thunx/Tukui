@@ -86,7 +86,7 @@ if C["skin"].embedright == "Omen" then
 		OmenTitle:Kill()
 		OmenBarList:ClearAllPoints()
 		OmenBarList:SetAllPoints(ChatRPlaceHolder)
-		Omen.db.profile.FrameStrata = "4-HIGH"
+		Omen.db.profile.FrameStrata = "3-MEDIUM"
 	end)
 	
 	if ChatRBGTab then
@@ -110,7 +110,12 @@ if C["skin"].embedright == "Omen" then
 		button:SetScript('OnMouseDown', function(self) self.tex:Point('TOPRIGHT', -4, -4) end)
 		button:SetScript('OnMouseUp', function(self) self.tex:Point('TOPRIGHT', -2, -2) end)
 		button:SetScript('OnClick', function(self) ToggleFrame(OmenBarList) end)
-	end	
+	end
+	
+	if C["skin"].embedrighttoggle == true then
+		ChatRBG:HookScript("OnShow", function() OmenBarList:Hide() end)
+		ChatRBG:HookScript("OnHide", function() OmenBarList:Show() end)
+	end			
 end
 if C["skin"].embedright == "Recount_Omen" or "Skada_Omen" then
 	local Omen_Skin = CreateFrame("Frame")
@@ -128,3 +133,4 @@ if C["skin"].embedright == "Recount_Omen" or "Skada_Omen" then
 		Omen.db.profile.FrameStrata = "4-HIGH"
 	end)
 end
+

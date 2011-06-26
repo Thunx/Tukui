@@ -2397,6 +2397,12 @@ function ElvuiConfig.GenerateOptionsInternal()
 						guiInline = true,
 						disabled = function() return not db.skin.enable end,	
 						args = {
+							encounterjournal = {
+								type = "toggle",
+								name = L["Encounter Journal"],
+								desc = L["TOGGLESKIN_DESC"],
+								disabled = function() return not db.skin.enable or not E.IsPTRVersion() end,
+							},
 							reforge = {
 								type = "toggle",
 								name = L["Reforge Frame"],
@@ -2638,8 +2644,15 @@ function ElvuiConfig.GenerateOptionsInternal()
 							["Skada_Omen"] = "Skada and Omen",
 						},						
 					},
-					AddOnSkins = {
+					embedrighttoggle = {
 						order = 5,
+						type = "toggle",
+						name = L["Toggle Embedded with right chat"],
+						desc = L["When the right chat gets shown the embedded addon will hide, when the right chat gets hidden the embedded addon will show."],
+						disabled = function() return db.skin.embedright == "NONE" end,
+					},
+					AddOnSkins = {
+						order = 6,
 						type = "group",
 						name = L["Addon Skins"],
 						guiInline = true,
@@ -2692,14 +2705,26 @@ function ElvuiConfig.GenerateOptionsInternal()
 								name = "DBM",
 								desc = L["Enable this skin"],
 							},		
+							clcret = {
+								order = 7,
+								type = "toggle",
+								name = "CLCRet",
+								desc = L["Enable this skin"],							
+							},
+							clcprot = {
+								order = 8,
+								type = "toggle",
+								name = "CLCProt",
+								desc = L["Enable this skin"],							
+							},							
 							bigwigs = {
-								order = 1,
+								order = 9,
 								type = "toggle",
 								name = "BigWigs",
 								desc = L["Enable this skin"],
 							},
 							hookbwright = {
-								order = 2,
+								order = 10,
 								type = "toggle",
 								name = L["Hook BigWigs Bars"],
 								desc = L["Attach BigWigs's Bars to the right window"],

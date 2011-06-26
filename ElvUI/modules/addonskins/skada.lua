@@ -90,13 +90,11 @@ barmod.ApplySettings = function(self, win)
 		end
 	end
 	
-	if C["skin"].embedright == "Skada" or C["skin"].embedright == "Skada_Omen" then
-		win.bargroup.button:SetFrameStrata("HIGH")
-		win.bargroup.button:SetFrameLevel(5)	
-		win.bargroup.bgframe:SetFrameStrata("HIGH")
-		win.bargroup:SetFrameStrata("HIGH")
-	end
-	
+	win.bargroup.button:SetFrameStrata("MEDIUM")
+	win.bargroup.button:SetFrameLevel(5)	
+	win.bargroup.bgframe:SetFrameStrata("MEDIUM")
+	win.bargroup:SetFrameStrata("MEDIUM")
+
 	self:AdjustBackgroundHeight(win)
 	win.bargroup:SetMaxBars(win.db.barmax)
 	win.bargroup:SortBars()
@@ -120,7 +118,7 @@ function EmbedSkada()
 
 	if C["skin"].embedright == "Skada_Omen" then
 		if #windows == 1 then
-			EmbedWindow(windows[1], C["chat"].chatwidth/2, (C["chat"].chatheight - (barSpacing * 5)) / 8, C["chat"].chatheight, "TOPRIGHT", ChatRBackground2, "TOPRIGHT", -2, -2)
+			EmbedWindow(windows[1], C["chat"].chatwidth/2, (C["chat"].chatheight - (barSpacing * 5)) / 8, C["chat"].chatheight, "TOPRIGHT", ChatRPlaceHolder, "TOPRIGHT", -2, -2)
 		end
 	end
 	if #windows == 1 then
@@ -208,5 +206,14 @@ if C["skin"].embedright == "Skada" or "Skada_Omen" then
 		button:SetScript('OnMouseUp', function(self) self.tex:Point('TOPRIGHT', -2, -2) end)
 		button:SetScript('OnClick', function(self) Skada:ToggleWindow() end)
 	end
+<<<<<<< HEAD
 end
 
+=======
+	
+	if C["skin"].embedrighttoggle == true then
+		ChatRBG:HookScript("OnShow", function() Skada:SetActive(false) end)
+		ChatRBG:HookScript("OnHide", function() Skada:SetActive(true) end)
+	end
+end
+>>>>>>> upstream/master

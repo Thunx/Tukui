@@ -94,6 +94,7 @@ DB["skin"] = {
 		["tabard"] = true,
 		["guildregistrar"] = true,
 		["timemanager"] = true,
+		["encounterjournal"] = true,
 	["recount"] = true,
 	["skada"] = true,
 	["omen"] = true,
@@ -101,11 +102,14 @@ DB["skin"] = {
 	["dxe"] = true,
 	["dbm"] = true,
 	["bigwigs"] = true,
+	["clcret"] = true,
+	["clcprot"] = true,
 	["hookkleright"] = false,			-- force KLE's top bar anchor to be hooked onto the right chat window
 	["hookbwright"] = false,			-- force BigWig's bar anchor to be hooked onto the right chat window
 	["hookbwright"] = true,			-- force BigWig's bar anchor to be hooked onto the right chat window
 	["hookdxeright"] = false,
 	["embedright"] = "Recount_Omen",				-- Addon to embed to the right frame ("Omen", "Recount", "Skada", "Recount_Omen", "Skada_Omen")
+	["embedrighttoggle"] = false,
 	["skinblizzardframe"] = false, 		-- Skin blizzard frames
 }
 
