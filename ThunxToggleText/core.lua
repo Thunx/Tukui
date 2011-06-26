@@ -37,7 +37,7 @@ TC = {
 if IsAddOnLoaded("Omen") and TC.Omen == true then
 	local OmenText=CreateFrame("Button","rOmenShowHide", ChatRBGTab)
 
-	OmenText:SetPoint("BOTTOMRIGHT", ChatRBG, "TOPRIGHT", TC.OposX, TC.OposY)
+	OmenText:SetPoint("BOTTOMRIGHT", ChatRPlaceHolder, "TOPRIGHT", TC.OposX, TC.OposY)
 	OmenText:SetWidth(50) OmenText:SetHeight(25)
 	OmenText.text= OmenText:CreateFontString(nil,"OVERLAY","GameFontNormalSmall")
 	
@@ -67,10 +67,10 @@ end
 -----Recount toggle knapp-----
 --------------------------------------------------------------------
 if IsAddOnLoaded("Recount") and TC.Recount == true and TC.Skada ~= true  then
-	local RecountText=CreateFrame("Button","RecountShowHide",UIParent)
+	local RecountText=CreateFrame("Button","RecountShowHide",ChatRBGTab)
 	
 	--RecountText:SetTemplate("Default", false)
-	RecountText:SetPoint("BOTTOMRIGHT", ChatRBG, "TOPRIGHT", TC.RposX, TC.RposY)
+	RecountText:SetPoint("BOTTOMRIGHT", ChatRPlaceHolder, "TOPRIGHT", TC.RposX, TC.RposY)
 	RecountText:SetWidth(50) RecountText:SetHeight(25)
 	
 	RecountText.text = RecountText:CreateFontString(nil,"OVERLAY","GameFontNormalSmall")
@@ -105,8 +105,8 @@ end
 --------------------------------------------------------------------
 if IsAddOnLoaded("AtlasLoot_Loader") and TC.Atlasloot == true  then
 	
-	local AtlasText=CreateFrame("Button","AtlasShowHide",UIParent)
-	AtlasText:SetPoint("BOTTOMRIGHT", ChatRBG, "TOPRIGHT", TC.AposX, TC.AposY)
+	local AtlasText=CreateFrame("Button","AtlasShowHide",ChatRBGTab)
+	AtlasText:SetPoint("BOTTOMRIGHT", ChatRPlaceHolder, "TOPRIGHT", TC.AposX, TC.AposY)
 	AtlasText:SetWidth(50) AtlasText:SetHeight(25)
 	
 	AtlasText.text = AtlasText:CreateFontString(nil,"OVERLAY","GameFontNormalSmall")
@@ -137,8 +137,8 @@ end
 --------------------------------------------------------------------
 if TC.Skada == true then
 	
-	local SkadaText=CreateFrame("Button","SkadaShowHide",UIParent)
-	SkadaText:SetPoint("BOTTOMRIGHT", ChatRBG, "TOPRIGHT", TC.SposX, TC.SposY)
+	local SkadaText=CreateFrame("Button","SkadaShowHide",ChatRBGTab)
+	SkadaText:SetPoint("BOTTOMRIGHT", ChatRPlaceHolder, "TOPRIGHT", TC.SposX, TC.SposY)
 	SkadaText:SetWidth(50) SkadaText:SetHeight(25)
 	
 	SkadaText.text=SkadaText:CreateFontString(nil,"OVERLAY","GameFontNormalSmall")

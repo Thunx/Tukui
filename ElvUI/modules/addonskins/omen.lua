@@ -123,8 +123,8 @@ if C["skin"].embedright == "Recount_Omen" or "Skada_Omen" then
 		OmenTitle:Kill()
 		OmenBarList:ClearAllPoints()
 		OmenBarList:SetWidth(ChatRBG:GetWidth() / 2)
-		OmenBarList:SetPoint("TOPLEFT", ChatRBG, "TOPLEFT", 0, 0)
-		OmenBarList:SetPoint("BOTTOMLEFT", ChatRBG, "BOTTOMLEFT", 0, 0)
+		OmenBarList:SetPoint("TOPLEFT", ChatRPlaceHolder, "TOPLEFT", 0, 0)
+		OmenBarList:SetPoint("BOTTOMLEFT", ChatRPlaceHolder, "BOTTOMLEFT", 0, 0)
 		Omen.db.profile.FrameStrata = "4-HIGH"
 	end)
 end
