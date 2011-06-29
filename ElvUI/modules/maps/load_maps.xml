@@ -1,4 +1,5 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">	
 	<Script file='minimap.lua'/>
 	<Script file='tinymap.lua'/>
+	<Script file='direction.lua'/>
 </Ui>

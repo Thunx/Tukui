@@ -22,4 +22,5 @@
 	<Script file="crit.lua"/>
 	<Script file="regen.lua"/>
 	<Script file="calltoarms.lua"/>
+	<Script file="range.lua"/>
 </Ui>	

@@ -155,6 +155,8 @@ L["Unit Frames"] = true
 		L["Make classbars smaller and restyle them"] = true
 	L["Exp/Rep Offset"] = true
 		L["Detach and offset the Exp/Rep bar on the Powerbar"] = true
+	L["Autmatically change tracked reputation"] = true
+		L["Change the tracked reputation when the standing with a faction changes"] = true
 	L["Powerbar Height"] = true
 		L["Set the height of the powerbar, this is void if you don't have powerbar offset set to zero."] = true
 	L["Classbar Height"] = true
@@ -233,6 +235,12 @@ L["Power Colors"] = true
 	L["Focus"] = true
 	L["Energy"] = true
 	L["Runic Power"] = true
+	
+L["GPS Tracking"]=true
+	L["Show target GPS"] = true
+		L["Display a tracker arrow and range on the target frame"] = true
+	L["Show focus GPS"] = true
+		L["Display a tracker arrow and range next to the focus frame"] = true
 		
 --Raidframe
 L["Raid Frames"] = true
@@ -384,6 +392,8 @@ L["Data Texts"] = true
 		L["Display the active roles that will recieve a reward for completing a random dungeon"] = true
 	L["Expertise Rating"] = true
 		L["Display Expertise Rating"] = true
+	L["Target Range"] = true
+		L["Display the range to the current target"] = true	
 --chat
 L["Chat"] = true
 	L["CHAT_DESC"] = "Adjust chat settings"
@@ -513,7 +523,9 @@ L["Misc"] = true
 	L["Auto Repair"] = true
 		L["Automatically repair when visiting a vendor"] = true
 	L["Use guild bank for Auto Repair"] = true
-		L["Use guildbank for auto repair (when available)"] = true	
+		L["Use guildbank for auto repair (when available)"] = true
+	L["Auto select quest reward"] = true
+		L["Automatically select the highest vendor price quest reward item."] = true	
 	L["Combat"] = true
 	L["Buff Reminder"] = true
 		L["Icon at center of screen when you are missing a buff, or you have a buff you shouldn't have"] = true

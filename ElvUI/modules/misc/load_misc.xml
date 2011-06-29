@@ -20,4 +20,6 @@
 	<Script file="saftExperienceBar.lua"/>
 	<Script file="fDispelAnnounce.lua"/>
 	<Script file="allertrun.lua"/>
+	<Script file="autorepchange.lua"/>
+	<Script file="reward.lua"/>
 </Ui>

@@ -144,6 +144,7 @@ DB["unitframes"] = {
 	["swing"] = false,
 	["displayaggro"] = true,
 	["exp_rep"] = true,			-- Hide exp/rep bar under powerbar
+	["autorepchange"] = true,   -- Change the tracked reputation when the standing with a faction changes
 	["powerbar_height"] = 10,
 	["classbar_height"] = 10,
 
@@ -196,6 +197,10 @@ DB["unitframes"] = {
 	["castfocusheight"] = 20,
 	["castbarcolor"] = DB["media"].bordercolor, -- Color of player castbar
 	["nointerruptcolor"] = {r = 0.78, g = 0.25, b = 0.25}, -- Color of target castbar
+	
+	--GPS Tracker
+	["targetgps"] = true,
+	["focusgps"] = true,
 	
 	["POWER_MANA"] = {r = 0.31, g = 0.45, b = 0.63},
 	["POWER_RAGE"] = {r = 0.78, g = 0.25, b = 0.25},
@@ -353,7 +358,8 @@ DB["others"] = {
 	["autogreed"] = true,                  -- auto-dez or auto-greed item at max level.	
 	["sellgrays"] = true,                  -- automaticly sell grays?
 	["autorepair"] = true,                 -- automaticly repair?
-	["guildbankrepair"] = true,        	   -- when auto repair is on, use guild bank when available 
+	["guildbankrepair"] = true,        	   -- when auto repair is on, use guild bank when available
+	["questreward"] = true,                 -- Automatically select quest reward with highest vendor price	
 	
 	["buffreminder"] = true,                     -- this is now the new innerfire warning script for all armor/aspect class.
 	["remindersound"] = true,                      -- enable warning sound notification for reminder.

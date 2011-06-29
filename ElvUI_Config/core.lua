@@ -1129,29 +1129,35 @@ function ElvuiConfig.GenerateOptionsInternal()
 								name = L["Display Aggro"],
 								desc = L["Enable red glow around the player frame when you have aggro"],
 							},
+							exp_rep = {
+								type = "toggle",
+								order = 26,
+								name = L["Exp/Rep Offset"],
+								desc = L["Detach and offset the Exp/Rep bar on the Powerbar"]
+							},
+							autorepchange = {
+								type = "toggle",
+								order = 27,
+								name = L["Autmatically change tracked reputation"],
+								desc = L["Change the tracked reputation when the standing with a faction changes"],
+							}, 
 							powerbar_offset = {
 								type = "range",
-								order = 26,
+								order = 28,
 								name = L["Powerbar Offset"],
 								desc = L["Detach and offset the power bar on the main unitframes"],
 								min = 0, max = 12, step = 1,	
-							},
-							exp_rep = {
-								type = "toggle",
-								order = 27,
-								name = L["Exp/Rep Offset"],
-								desc = L["Detach and offset the Exp/Rep bar on the Powerbar"]
-							},    
+							},						
 							powerbar_height = {
 								type = "range",
-								order = 28,
+								order = 29,
 								name = L["Powerbar Height"],
 								desc = L["Set the height of the powerbar, this is void if you don't have powerbar offset set to zero."],
 								min = 5, max = 25, step = 1,								
 							},
 							classbar_height = {
 								type = "range",
-								order = 29,
+								order = 30,
 								name = L["Classbar Height"],
 								desc = L["Set the height of the classbar."],
 								min = 5, max = 25, step = 1,								
@@ -1473,6 +1479,27 @@ function ElvuiConfig.GenerateOptionsInternal()
 									StaticPopup_Show("CFG_RELOAD")
 								end,									
 							},
+						},
+					},
+					GPSGroup = {
+						order = 6,
+						type = "group",
+						name = L["GPS Tracking"],
+						guiInline = true,
+						disabled = function() return (not db.unitframes.enable) end,	
+						args = {
+							targetgps = {
+								type = "toggle",
+								order = 1,
+								name = L["Show target GPS"],
+								desc = L["Display a tracker arrow and range on the target frame"],							
+							},						
+							focusgps = {
+								type = "toggle",
+								order = 1,
+								name = L["Show focus GPS"],
+								desc = L["Display a tracker arrow and range next to the focus frame"],						
+							},												
 						},
 					},
 					PowerColors = {
@@ -2203,6 +2230,13 @@ function ElvuiConfig.GenerateOptionsInternal()
 								name = L["Call to Arms"],
 								desc = L["Display the active roles that will recieve a reward for completing a random dungeon"]..L["DATATEXT_POS"],
 								min = 0, max = 8, step = 1,								
+							},
+							range = {
+								order = 21,
+								type = "range",
+								name = L["Target Range"],
+								desc = L["Display the range to the current target"]..L["DATATEXT_POS"],
+								min = 0, max = 15, step = 1,								
 							},
 						},
 					},
@@ -3000,7 +3034,7 @@ function ElvuiConfig.GenerateOptionsInternal()
 								order = 9,
 								name = L["Spincamera"],
 								desc = L["Enable/Disable Spincamera"],                    
-							},  														
+							},	
 						},
 					},
 					LootGroup = {
@@ -3043,6 +3077,12 @@ function ElvuiConfig.GenerateOptionsInternal()
 								order = 6,
 								name = L["Use guild bank for Auto Repair"],
 								desc = L["Use guildbank for auto repair (when available)"],							
+							},
+							questreward = {
+								type = "toggle",
+								order = 7,
+								name = L["Auto select quest reward"],
+								desc = L["Automatically select the highest vendor price quest reward item."],              
 							},
 						},
 					},
