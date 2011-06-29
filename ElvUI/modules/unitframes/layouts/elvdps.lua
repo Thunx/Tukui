@@ -447,6 +447,9 @@ local function Shared(self, unit)
 			experience.backdrop:SetFrameLevel(experience:GetFrameLevel() - 1)
 			experience.backdrop:CreateShadow("Default")
 			experience.backdrop.shadow:SetFrameLevel(0)
+			experience.PostUpdate = E.ReputationPositionUpdate
+			experience:SetScript('OnShow', E.ReputationPositionUpdate)
+			experience:SetScript('OnHide', E.ReputationPositionUpdate)
 			self.Experience = experience
 			
 			if C["unitframes"].exp_rep == true then
@@ -466,51 +469,49 @@ local function Shared(self, unit)
 			end
 			
 		end
-		
-		if E.level == MAX_PLAYER_LEVEL then
-			local reputation = CreateFrame("StatusBar", nil, self)
-			reputation:SetStatusBarTexture(NORMTEX)
-			reputation:SetStatusBarColor(0, 1, 0.2, 1)
-			if C["others"].raidbuffreminder == true then
-				reputation:Size((E.minimapsize - 4) + 1 + (((E.minimapsize - 9) / 6)) + 4, 10)
-			else
-				reputation:Size((E.minimapsize - 4), 10)
-			end
-			reputation:Point("TOPLEFT", ElvuiMinimapStatsLeft, "BOTTOMLEFT", 2, -3)
-			reputation:SetFrameLevel(Minimap:GetFrameLevel() + 1)
-			reputation:SetFrameStrata(Minimap:GetFrameStrata())
-			
-			reputation.Tooltip = true
-			if C["unitframes"].combat == true then
-				reputation:HookScript("OnEnter", function(self) E.Fader(self:GetParent(), true) end)
-				reputation:HookScript("OnLeave", function(self) E.Fader(self:GetParent(), false) end)
-			end
 
-			reputation.backdrop = CreateFrame("Frame", nil, reputation)
-			reputation.backdrop:SetTemplate("Default")
-			reputation.backdrop:Point("TOPLEFT", reputation, "TOPLEFT", -2, 2)
-			reputation.backdrop:Point("BOTTOMRIGHT", reputation, "BOTTOMRIGHT", 2, -2)
-			reputation.backdrop:SetFrameLevel(reputation:GetFrameLevel() - 1)
-			reputation.backdrop:CreateShadow("Default")
-			reputation.backdrop.shadow:SetFrameLevel(0)			
-			self.Reputation = reputation
-			
-			
-			if C["unitframes"].exp_rep == true then
+		if C["unitframes"].exp_rep == true then
 			reputation:SetAllPoints(power)
 			reputation:SetFrameStrata("HIGH")
 			reputation:SetAlpha(0)
 			reputation:Size(POWERBAR_WIDTH - (BORDER*2), POWERBAR_HEIGHT - (BORDER*2))
 			reputation:HookScript("OnEnter", function(self) self:SetAlpha(1) end)
 			reputation:HookScript("OnLeave", function(self) self:SetAlpha(0) end)
-			
+				
 			reputation.backdrop:SetAllPoints(power.backdrop)
 			reputation.backdrop:SetFrameLevel(power:GetFrameLevel() - 5)
-			
-			
-			end
-			
 		end
+	
+		local reputation = CreateFrame("StatusBar", nil, self)
+		reputation:SetStatusBarTexture(NORMTEX)
+		reputation:SetStatusBarColor(0, 1, 0.2, 1)
+		reputation.color = true
+		if C["others"].raidbuffreminder == true then
+			reputation:Size((E.minimapsize - 4) + 1 + (((E.minimapsize - 9) / 6)) + 4, 10)
+		else
+			reputation:Size((E.minimapsize - 4), 10)
+		end
+		reputation:Point("TOPLEFT", ElvuiMinimapStatsLeft, "BOTTOMLEFT", 2, -3)
+		reputation:SetFrameLevel(Minimap:GetFrameLevel() + 1)
+		reputation:SetFrameStrata(Minimap:GetFrameStrata())
+		
+		reputation.Tooltip = true
+		if C["unitframes"].combat == true then
+			reputation:HookScript("OnEnter", function(self) E.Fader(self:GetParent(), true) end)
+			reputation:HookScript("OnLeave", function(self) E.Fader(self:GetParent(), false) end)
+		end
+
+		reputation.backdrop = CreateFrame("Frame", nil, reputation)
+		reputation.backdrop:SetTemplate("Default")
+		reputation.backdrop:Point("TOPLEFT", reputation, "TOPLEFT", -2, 2)
+		reputation.backdrop:Point("BOTTOMRIGHT", reputation, "BOTTOMRIGHT", 2, -2)
+		reputation.backdrop:SetFrameLevel(reputation:GetFrameLevel() - 1)
+		reputation.backdrop:CreateShadow("Default")
+		reputation.backdrop.shadow:SetFrameLevel(0)		
+		reputation.PostUpdate = E.ReputationPositionUpdate
+		self:RegisterEvent("DISABLE_XP_GAIN", E.ReputationPositionUpdate)
+		self:RegisterEvent("ENABLE_XP_GAIN", E.ReputationPositionUpdate)		
+		self.Reputation = reputation
 
 		--Class Resource Bars
 		if C["unitframes"].classbar == true and (E.myclass == "PALADIN" or E.myclass == "SHAMAN" or E.myclass == "DRUID" or E.myclass == "DEATHKNIGHT" or E.myclass == "WARLOCK") then
@@ -843,8 +844,10 @@ local function Shared(self, unit)
 		altpower:EnableMouse(true)
 		altpower:SetFrameStrata("MEDIUM")
 		altpower.PostUpdate = E.AltPowerBarPostUpdate
-		altpower:Point("TOPLEFT", ElvuiInfoLeft, "TOPLEFT", BORDER, -BORDER)
-		altpower:Point("BOTTOMRIGHT", ElvuiInfoLeft, "BOTTOMRIGHT", -BORDER, BORDER)
+		altpower:CreateBackdrop("Default", true)
+		altpower:Point("TOPLEFT", ElvuiInfoLeft, "TOPLEFT", 2, -2)
+		altpower:Width(ChatLBG:GetWidth() - 52)
+		altpower:Height(18)
 		altpower:HookScript("OnShow", E.AltPowerBarOnToggle)
 		altpower:HookScript("OnHide", E.AltPowerBarOnToggle)
 		
@@ -1322,7 +1325,7 @@ local function Shared(self, unit)
 		elseif unit == "focus" and C["unitframes"].unitcastbar == true	then
 			--Cast Bar
 			local castbar = E.ConstructCastBar(self, CASTBAR_WIDTH, CASTBAR_HEIGHT, "LEFT")
-			castbar:Point("TOP", UIParent, "TOP", 0, -150)
+			castbar:Point("TOP", E.UIParent, "TOP", 0, -150)
 			
 			self.Castbar = castbar
 		end
@@ -1613,7 +1616,7 @@ local function LoadDPSLayout()
 			'point' , 'BOTTOM',
 			'template', 'Elv_Mtt'
 		)
-		tank:Point("LEFT", UIParent, "LEFT", 6, 250)
+		tank:Point("LEFT", E.UIParent, "LEFT", 6, 250)
 	end
 
 	if C["raidframes"].mainassist == true then
@@ -1631,7 +1634,7 @@ local function LoadDPSLayout()
 		if C["raidframes"].maintank == true then 
 			assist:Point("TOPLEFT", ElvDPSMainTank, "BOTTOMLEFT", 0, -50)
 		else
-			assist:Point("LEFT", UIParent, "LEFT", 6, 250)
+			assist:Point("LEFT", E.UIParent, "LEFT", 6, 250)
 		end
 	end
 
@@ -1647,14 +1650,6 @@ local function LoadDPSLayout()
 		end
 		
 		party = oUF:SpawnHeader("oUF_noParty", nil, "party", "showParty", true)
-		local blizzloader = CreateFrame("Frame")
-		blizzloader:RegisterEvent("ADDON_LOADED")
-		blizzloader:SetScript("OnEvent", function(self, event, addon)
-			if addon == "Elvui_RaidDPS" then 
-				CompactRaidFrameContainer:Kill()
-				CompactPartyFrame:Kill()
-			end
-		end)
 	end
 
 	E.LoadMoveElements("DPS")

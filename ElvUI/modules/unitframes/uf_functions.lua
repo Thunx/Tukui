@@ -165,7 +165,7 @@ E.LoadUFFunctions = function(layout)
 			castbar.Icon:Point("TOPLEFT", button, 2*E.ResScale, -2*E.ResScale)
 			castbar.Icon:Point("BOTTOMRIGHT", button, -2*E.ResScale, 2*E.ResScale)
 			castbar.Icon:SetTexCoord(0.08, 0.92, 0.08, .92)
-			
+			castbar.Icon.bg = button
 			castbar:Width(width - button:GetWidth() - 6)
 		end
 	
@@ -828,7 +828,21 @@ E.LoadUFFunctions = function(layout)
 				self:SetStatusBarColor(unpack(C["unitframes"].castbarcolor))
 			else
 				self:SetStatusBarColor(self:GetParent().Health.backdrop:GetBackdropBorderColor())
+				if self.bg then self.bg:SetBackdropBorderColor(self:GetStatusBarColor()) end
+				if self.Icon and self.Icon.bg then self.Icon.bg:SetBackdropBorderColor(self:GetStatusBarColor()) end				
 			end	
+		end
+	end
+	
+	E.ReputationPositionUpdate = function(self)
+		if not self:GetName() then self = self:GetParent() end
+		if not self.Reputation then return end
+		self.Reputation:ClearAllPoints()
+		
+		if self.Experience and self.Experience:IsShown() then
+			self.Reputation:Point("TOPLEFT", self.Experience, "BOTTOMLEFT", 0, -5)
+		else
+			self.Reputation:Point("TOPLEFT", ElvuiMinimapStatsLeft, "BOTTOMLEFT", 2, -3)
 		end
 	end
 
@@ -951,6 +965,12 @@ E.LoadUFFunctions = function(layout)
 		else
 			for _, text in pairs(E.LeftDatatexts) do text:Show() end		
 		end
+		
+		if E["elements"] and DPSAltPowerBar and E["elements"]["DPSAltPowerBar"] and E.CreatedMoveEleFrames["DPSAltPowerBar"] then 
+			for _, text in pairs(E.LeftDatatexts) do text:Show() end	
+		elseif	E["elements"] and HealAltPowerBar and E["elements"]["HealAltPowerBar"] and E.CreatedMoveEleFrames["HealAltPowerBar"] then 
+			for _, text in pairs(E.LeftDatatexts) do text:Show() end	
+		end
 	end
 	
 	function E.AltPowerBarPostUpdate(self, min, cur, max)
@@ -1008,7 +1028,9 @@ E.LoadUFFunctions = function(layout)
 
 	function E.CreateAuraWatchIcon(self, icon)
 		if (icon.cd) then
-			icon.cd:SetReverse()
+			if C["raidframes"].buffindicatorcoloricons == true then
+				icon.cd:SetReverse()
+			end
 		end 	
 	end
 
@@ -1056,21 +1078,39 @@ E.LoadUFFunctions = function(layout)
 				local icon = CreateFrame("Frame", nil, auras)
 				icon.spellID = spell["id"]
 				icon.anyUnit = spell["anyUnit"]
+				icon.onlyShowMissing = spell["onlyShowMissing"]
+				if spell["onlyShowMissing"] then
+					icon.presentAlpha = 0
+					icon.missingAlpha = 1
+				else
+					icon.presentAlpha = 1
+					icon.missingAlpha = 0				
+				end
 				icon:SetWidth(E.Scale(C["raidframes"].buffindicatorsize))
 				icon:SetHeight(E.Scale(C["raidframes"].buffindicatorsize))
 				icon:SetPoint(spell["point"], 0, 0)
-
-				local tex = icon:CreateTexture(nil, "OVERLAY")
-				tex:SetAllPoints(icon)
-				tex:SetTexture(C["media"].blank)
-				if (spell["color"]) then
-					local color = spell["color"]
-					tex:SetVertexColor(color.r, color.g, color.b)
+				
+				if C["raidframes"].buffindicatorcoloricons == true then
+					local tex = icon:CreateTexture(nil, "OVERLAY")
+					tex:SetAllPoints(icon)
+					tex:SetTexture(C["media"].blank)
+					if (spell["color"]) then
+						local color = spell["color"]
+						tex:SetVertexColor(color.r, color.g, color.b)
+					else
+						tex:SetVertexColor(0.8, 0.8, 0.8)
+					end
+					icon.icon = tex
 				else
-					tex:SetVertexColor(0.8, 0.8, 0.8)
+					local _, _, image = GetSpellInfo(icon.spellID)
+					local tex = icon:CreateTexture(nil, 'ARTWORK')
+					tex:SetAllPoints(icon)
+					tex:SetTexCoord(.18, .82, .18, .82)
+					tex:SetTexture(image)
+					icon.icon = tex
 				end
 				
-				local border = icon:CreateTexture(nil, "ARTWORK")
+				local border = icon:CreateTexture(nil, "BACKGROUND")
 				border:Point("TOPLEFT", -E.mult, E.mult)
 				border:Point("BOTTOMRIGHT", E.mult, -E.mult)
 				border:SetTexture(C["media"].blank)

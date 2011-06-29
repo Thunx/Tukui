@@ -277,7 +277,9 @@ L["Raid Frames"] = true
 	L["25 Man Layout Party"] = true
 		L["Use the 25 man layout inside a party group"] = true
 	L["Display Debuffs"] = true
-	
+	L["Color Buff Icons"] = true
+		L["If turned off the buff icon on raid/party frames will be displayed as the actual texture of the icon instead of a color icon"] = true
+		
 --Classtimer		
 L["Class Timers"] = true
 	L["CLASSTIMER_DESC"] = "Adjust settings for classtimers"
@@ -564,8 +566,10 @@ L["Filters"] = true
 L["SPELL_FILTER_DESC"] = "Filter everything from spell names to nameplate names."
 	L["Auras"] = true
 	L["Nameplate Names"] = true
+	L["Warning Groups"] = true
 	L["Choose Filter"] = true
 		L["Choose the filter you want to modify."] = true
+		L["Buff Reminders"] = true
 		L["Raid Debuffs"] = true
 		L["Debuff Blacklist"] = true
 		L["Debuff Whitelist"] = true
@@ -577,7 +581,8 @@ L["SPELL_FILTER_DESC"] = "Filter everything from spell names to nameplate names.
 		L["Pet Buffs"] = true
 		L["Class Timer (Shared)"] = true
 		L["Class Timer (Player)"] = true
-		
+	
+	L["These are warning icons that appear on the center of the screen"] = true
 	L["Filter whether or not a nameplate is shown by the name of the nameplate"] = true
 	L["Filter the buffs that get displayed on arena units."] = true
 	L["Set buffs that will never get displayed."] = true
@@ -591,15 +596,33 @@ L["SPELL_FILTER_DESC"] = "Filter everything from spell names to nameplate names.
 	L["These buffs/debuffs are displayed as a classtimer, where they get positioned is based on your layout option choice"] = true
 	L["These spells when cast will display tick marks on the castbar"] = true
 	L["Spells"] = true
-	
+	L["Negate Spells"] = true
+	L["Check Weapon Enchants"] = true
+	L["Run a check to see if you have all of your weapons enchanted (Typically for Rogue, Shamans)"] = true
+	L["New Group"] = true
+	L["New ID (Negate)"] = true
+	L["Remove ID (Negate)"] = true
+	L["If any spell found inside this list is found the icon will hide as well"] = true
+	L["Reverse Check"] = true
+	L["Instead of hiding the frame when you have the buff, show the frame when you have the buff."] = true
+	L["Negate Reverse Check"] = true
+	L["Set a talent tree to not follow the reverse check"] = true
 	L["New name"] = true
-		L["Add a new spell name / ID to the list."] = true
 	L["Remove ID"] = true
 	L["Remove Name"] = true
-		L["Remove a name or ID from the list."] = true
+	L["New Group"] = true
+	L["Remove Group"] = true
 	L["New ID"] = true
 	L["Not valid spell id"] = true
-	
+	L["Role"] = true
+	L["You must be a certain role for the icon to display"] = true
+	L["Tank"] = true
+	L["Melee"] = true
+	L["Caster"] = true
+	L["Any"] = true
+	L["Level Requirement"] = true
+	L["Level requirement for the icon to be able to display. 0 for disabled."] = true
+	L["Value must be a number"] = true
 	L["You may only delete spells that you have added. Default spells can be disabled by unchecking the option"] = true
 	L["Spell not found in list"] = true
 	L["Select Spell"] = true
@@ -609,6 +632,8 @@ L["SPELL_FILTER_DESC"] = "Filter everything from spell names to nameplate names.
 		L["Position where the buff appears on the frame"] = true
 	L["Any Unit"] = true
 		L["Display the buff if cast by anyone?"] = true
+	L["Display when missing"] = true
+		L["Only display the icon when the unit doesn't have the buff."] = true
 	L["Unit Type"] = true
 		L["Only display on this type of unit"] = true
 		L["All"] = true
@@ -619,7 +644,18 @@ L["SPELL_FILTER_DESC"] = "Filter everything from spell names to nameplate names.
 	L["Procs"] = true
 	L["You must select a filter first"] = true
 	L["To disable set to zero, otherwise set to the amount of times the spell ticks in a cast"] = true
-	
+	L["Choose Group"] = true
+		L["Choose the group you want to modify."] = true
+	L["Talent Tree"] = true
+		L["You must be using a certain talent tree for the icon to show"] = true
+	L["Personal Buffs Only"] = true
+		L["Only check if the buff is coming from you"] = true
+	L["Inside Raid/Party"] = true
+		L["Only run checks inside raid/party instances"] = true
+	L["Inside BG/Arena"] = true
+		L["Only run checks inside BG/Arena instances"] = true
+	L["During Combat"] = true
+		L["Only run checks during combat"] = true
 	
 --Profiles
 L["Profiles"] = true
