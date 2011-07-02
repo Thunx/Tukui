@@ -96,6 +96,7 @@ DB["skin"] = {
 		["timemanager"] = true,
 		["encounterjournal"] = true,
 	["recount"] = true,
+	["atlasloot"] = true,
 	["skada"] = true,
 	["omen"] = true,
 	["kle"] = true,
