@@ -1,7 +1,7 @@
-## Interface: 40100
+## Interface: 40200
 ## Title: |cff1784d1Thunx Toggle Text|r
 ## Notes: Toggle it!
 ## Author: Thunx
 ## Version: 1.0
-## OptionalDeps: Recount, Omen
+## OptionalDeps: Recount, Omen, Atlasloot, Skada
 Core.lua

@@ -21,7 +21,7 @@ TC = {
 	AposY = E.Scale(3),									-- Position i y-led (ökar värdet så går den längre ner på skärmen)
 	
 	--Skada
-	Skada = false,
+	Skada = true,
 	SposX = E.Scale(-150),								-- Position i x-led
 	SposY = E.Scale(3),									-- Position i y-led (ökar värdet så går den längre ner på skärmen)
 	
@@ -135,7 +135,7 @@ end
 --------------------------------------------------------------------
 -----Skada toggle knapp-----
 --------------------------------------------------------------------
-if TC.Skada == true then
+if IsAddOnLoaded("Skada") and TC.Skada == true then
 	
 	local SkadaText=CreateFrame("Button","SkadaShowHide",ChatRBGTab)
 	SkadaText:SetPoint("BOTTOMRIGHT", ChatRPlaceHolder, "TOPRIGHT", TC.SposX, TC.SposY)

@@ -1454,12 +1454,12 @@ function ElvuiConfig.GenerateOptionsInternal()
 								name = L["Display Aggro"],
 								desc = L["Enable red glow around the player frame when you have aggro"],
 							},
-							exp_rep = {
+							--[[exp_rep = {
 								type = "toggle",
 								order = 26,
 								name = L["Exp/Rep Offset"],
 								desc = L["Detach and offset the Exp/Rep bar on the Powerbar"]
-							},
+							},]]
 							autorepchange = {
 								type = "toggle",
 								order = 27,

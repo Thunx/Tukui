@@ -118,28 +118,19 @@ function EmbedSkada()
 
 	if C["skin"].embedright == "Skada_Omen" then
 		if #windows == 1 then
-			EmbedWindow(windows[1], C["chat"].chatwidth/2, (C["chat"].chatheight - (barSpacing * 5)) / 8, C["chat"].chatheight, "TOPRIGHT", ChatRPlaceHolder, "TOPRIGHT", -2, -2)
+			EmbedWindow(windows[1], ((C["chat"].chatwidth - 4) / 2) - (borderWidth + E.mult), (C["chat"].chatheight - (barSpacing * 5)) / 8, C["chat"].chatheight,  "TOPRIGHT", ChatRPlaceHolder, "TOPRIGHT", -2, -2)
 		end
 	end
-	if #windows == 1 then
-		EmbedWindow(windows[1], C["chat"].chatwidth - 4, (C["chat"].chatheight - (barSpacing * 5)) / 8, C["chat"].chatheight, "TOPRIGHT", ChatRPlaceHolder, "TOPRIGHT", -2, -2)
-	elseif #windows == 2 then
-		EmbedWindow(windows[1], ((C["chat"].chatwidth - 4) / 2) - (borderWidth + E.mult), (C["chat"].chatheight - (barSpacing * 5)) / 8, C["chat"].chatheight,  "TOPRIGHT", ChatRPlaceHolder, "TOPRIGHT", -2, -2)
-		EmbedWindow(windows[2], ((C["chat"].chatwidth - 4) / 2) - (borderWidth + E.mult), (C["chat"].chatheight - (barSpacing * 5)) / 8, C["chat"].chatheight,  "TOPLEFT", ChatRPlaceHolder, "TOPLEFT", 2, -2)
-	elseif #windows > 2 then
-		EmbedWindow(windows[1], ((C["chat"].chatwidth - 4) / 2) - (borderWidth + E.mult), (C["chat"].chatheight - (barSpacing * 5)) / 8, C["chat"].chatheight,  "TOPRIGHT", ChatRPlaceHolder, "TOPRIGHT", -2, -2)
-		EmbedWindow(windows[2], ((C["chat"].chatwidth - 4) / 2) - (borderWidth + E.mult), (C["chat"].chatheight - (barSpacing * 8)) / 8, C["chat"].chatheight / 2,  "TOPLEFT", ChatRPlaceHolder, "TOPLEFT", 2, -2)
-		EmbedWindow(windows[3], windows[2].db.barwidth, (C["chat"].chatheight - (barSpacing * 8)) / 8, C["chat"].chatheight / 2,  "TOPLEFT", windows[2].bargroup.bgframe, "BOTTOMLEFT", 2, -2)
-	end
+	
 	if C["skin"].embedright ~= "Skada_Omen" then
 		if #windows == 1 then
-			EmbedWindow(windows[1], C["chat"].chatwidth - 4, (C["chat"].chatheight - (barSpacing * 5)) / 8, C["chat"].chatheight, "TOPRIGHT", ChatRBackground2, "TOPRIGHT", -2, -2)
+			EmbedWindow(windows[1], C["chat"].chatwidth - 4, (C["chat"].chatheight - (barSpacing * 5)) / 8, C["chat"].chatheight, "TOPRIGHT", ChatRPlaceHolder, "TOPRIGHT", -2, -2)
 		elseif #windows == 2 then
-			EmbedWindow(windows[1], ((C["chat"].chatwidth - 4) / 2) - (borderWidth + E.mult), (C["chat"].chatheight - (barSpacing * 5)) / 8, C["chat"].chatheight,  "TOPRIGHT", ChatRBackground2, "TOPRIGHT", -2, -2)
-			EmbedWindow(windows[2], ((C["chat"].chatwidth - 4) / 2) - (borderWidth + E.mult), (C["chat"].chatheight - (barSpacing * 5)) / 8, C["chat"].chatheight,  "TOPLEFT", ChatRBackground2, "TOPLEFT", 2, -2)
+			EmbedWindow(windows[1], ((C["chat"].chatwidth - 4) / 2) - (borderWidth + E.mult), (C["chat"].chatheight - (barSpacing * 5)) / 8, C["chat"].chatheight,  "TOPRIGHT", ChatRPlaceHolder, "TOPRIGHT", -2, -2)
+			EmbedWindow(windows[2], ((C["chat"].chatwidth - 4) / 2) - (borderWidth + E.mult), (C["chat"].chatheight - (barSpacing * 5)) / 8, C["chat"].chatheight,  "TOPLEFT", ChatRPlaceHolder, "TOPLEFT", 2, -2)
 		elseif #windows > 2 then
-			EmbedWindow(windows[1], ((C["chat"].chatwidth - 4) / 2) - (borderWidth + E.mult), (C["chat"].chatheight - (barSpacing * 5)) / 8, C["chat"].chatheight,  "TOPRIGHT", ChatRBackground2, "TOPRIGHT", -2, -2)
-			EmbedWindow(windows[2], ((C["chat"].chatwidth - 4) / 2) - (borderWidth + E.mult), (C["chat"].chatheight - (barSpacing * 8)) / 8, C["chat"].chatheight / 2,  "TOPLEFT", ChatRBackground2, "TOPLEFT", 2, -2)
+			EmbedWindow(windows[1], ((C["chat"].chatwidth - 4) / 2) - (borderWidth + E.mult), (C["chat"].chatheight - (barSpacing * 5)) / 8, C["chat"].chatheight,  "TOPRIGHT", ChatRPlaceHolder, "TOPRIGHT", -2, -2)
+			EmbedWindow(windows[2], ((C["chat"].chatwidth - 4) / 2) - (borderWidth + E.mult), (C["chat"].chatheight - (barSpacing * 8)) / 8, C["chat"].chatheight / 2,  "TOPLEFT", ChatRPlaceHolder, "TOPLEFT", 2, -2)
 			EmbedWindow(windows[3], windows[2].db.barwidth, (C["chat"].chatheight - (barSpacing * 8)) / 8, C["chat"].chatheight / 2,  "TOPLEFT", windows[2].bargroup.bgframe, "BOTTOMLEFT", 2, -2)
 		end
 	end	
@@ -184,7 +175,7 @@ if C["skin"].embedright == "Skada" or "Skada_Omen" then
 		
 		EmbedSkada()
 	end)	
-	if ChatRBGTab then
+	if ChatRBGTab and C["skin"].embedright == "Skada" then 
 		local button = CreateFrame('Button', 'SkadaToggleSwitch', ChatRBGTab)
 		button:Width(90)
 		button:Height(ChatRBGTab:GetHeight() - 4)
