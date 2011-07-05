@@ -66,7 +66,7 @@ end
 --------------------------------------------------------------------
 -----Recount toggle knapp-----
 --------------------------------------------------------------------
-if IsAddOnLoaded("Recount") and TC.Recount == true and TC.Skada ~= true  then
+if IsAddOnLoaded("Recount") and TC.Recount == true then
 	local RecountText=CreateFrame("Button","RecountShowHide",ChatRBGTab)
 	
 	--RecountText:SetTemplate("Default", false)
