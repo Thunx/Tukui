@@ -19,9 +19,22 @@ local Y = -150 				-- location on screen
 -- { trinket1, trinket2, button 3, button 4, button 5, ...... button N }
 -- format is "spell name",inventory item number
 --
-local spellz =  {"Shadowfiend",58091 ,"Archangel"}
-
-
+--[[ Exmpel:
+	if E.myname == "YourName" then 
+		spell1 = {"Spellname", "Spellname", "Spellname"}
+	end
+	if E.myclass == "YourClassName" then 
+		spell1 = {"Spellname", "Spellname", "Spellname"}
+	end
+		]]
+		
+if E.myname == "Kaldore" then
+	spell1 =  {"Shadowfiend",58091 ,"Archangel"}
+end
+if E.myname == "Tanix" then
+	spell1 =  {"Barkskin",58091 ,"Innervate"}
+end
+local spellz =  spell1
 -- button sizes
 local width = 25
 local height = 25
