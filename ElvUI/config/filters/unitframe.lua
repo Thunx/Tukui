@@ -263,18 +263,24 @@ E.RaidDebuffs = {
 	
 	--Baleroc
 	[SpellName(99403)] = true, -- Tormented
+	[SpellName(99256)] = true, -- Torment
 	
 	--Lord Rhyolith
 		--<< NONE KNOWN YET >>
 	
 	--Majordomo Staghelm
 	[SpellName(98450)] = true, -- Searing Seeds
+	[SpellName(98565)] = true, -- Burning Orb
 	
 	--Ragnaros
 	[SpellName(99399)] = true, -- Burning Wound
 		
 	--Trash
 	[SpellName(99532)] = true, -- Melt Armor	
+	
+--Baradin Hold
+	--Occu'thar
+	[SpellName(96913)] = true, -- Searing Shadows
 }
 
 

@@ -137,15 +137,24 @@ local function PositionDXEAnchor()
 	DXEAlertsTopStackAnchor:ClearAllPoints()
 	if E.CheckAddOnShown() == true then
 		if C["chat"].showbackdrop == true and E.ChatRightShown == true then
-			DXEAlertsTopStackAnchor:Point("TOP", ChatRBGDummy, "TOP", 16, 4)	
+			DXEAlertsTopStackAnchor:Point("TOP", ChatRBGDummy, "TOP", 14, 4)	
 		else
-			DXEAlertsTopStackAnchor:Point("TOP", ChatRBGDummy, "TOP", 16, -28)
+			DXEAlertsTopStackAnchor:Point("TOP", ChatRBGDummy, "TOP", 14, -28)
 		end	
 	else
 		DXEAlertsTopStackAnchor:Point("BOTTOMRIGHT", E.UIParent, "BOTTOMRIGHT", -49, 25)		
 	end
 end
 
+local c = {}
+function SkinRWIcon(addon, text, r, g, b, _, _, _, _, _, icon)
+	if not c[r] then c[r] = {} end
+	if not c[r][g] then c[r][g] = {} end
+	if not c[r][g][b] then c[r][g][b] = {r = r, g = g, b = b} end
+	if icon then text = "|T"..icon..":16:16:-3:0:256:256:20:235:20:235|t"..text end
+	RaidNotice_AddMessage(RaidWarningFrame, text, c[r][g][b])
+end
+	
 --Hook bar to chatframe, rest of this is handled inside chat.lua and chatanimation.lua
 local DXE_Skin = CreateFrame("Frame")
 DXE_Skin:RegisterEvent("PLAYER_ENTERING_WORLD")
@@ -159,9 +168,7 @@ DXE_Skin:SetScript("OnEvent", function(self, event)
 		DXE.Pane.timer.right:SetFont(C["media"].font, 12)
 		
 		for i=1, #movers do
-			if not _G[movers[i]] then
-				print(movers[i])
-			else
+			if _G[movers[i]] then
 				_G[movers[i]]:SetTemplate("Transparent")
 			end
 		end
@@ -179,6 +186,10 @@ DXE_Skin:SetScript("OnEvent", function(self, event)
 				OmenAnchor:HookScript("OnShow", function() PositionDXEAnchor() end)
 				OmenAnchor:HookScript("OnHide", function() PositionDXEAnchor() end)		
 			end	
+		end
+		local sink = LibStub:GetLibrary("LibSink-2.0")
+		if sink and sink.handlers and sink.handlers.RaidWarning then
+			sink.handlers.RaidWarning = SkinRWIcon
 		end
 	elseif event == "PLAYER_REGEN_DISABLED" then
 		PositionDXEAnchor()

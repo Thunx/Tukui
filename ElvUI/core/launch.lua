@@ -221,7 +221,6 @@ function E.Install()
 	end
 	
 	local function SetupCVars()
-		SetCVar("buffDurations", 1)
 		SetCVar("mapQuestDifficulty", 1)
 		SetCVar("scriptErrors", 0)
 		SetCVar("ShowClassColorInNameplate", 1)
@@ -234,11 +233,8 @@ function E.Install()
 		SetCVar("ConversationMode", "inline")
 		SetCVar("showTutorials", 0)
 		SetCVar("showNewbieTips", 0)
-		SetCVar("autoQuestWatch", 1)
-		SetCVar("autoQuestProgress", 1)
 		SetCVar("showLootSpam", 1)
 		SetCVar("UberTooltips", 1)
-		SetCVar("removeChatDelay", 1)
 		SetCVar("gxTextureCacheSize", 512)	
 		InstallStepComplete.message = L.ElvUIInstall_CVarSet
 		InstallStepComplete:Show()					
@@ -420,6 +416,8 @@ function E.Install()
 		close:SetScript("OnClick", function()
 			f:Hide()
 		end)		
+		
+		E.SkinCloseButton(close)
 	end
 	
 	ElvUIInstallFrame:Show()
@@ -509,9 +507,11 @@ ElvuiOnLogon:SetScript("OnEvent", function(self, event)
 		E.UIParent:SetPoint("CENTER")		
 	end	
 	
-
-	print(format(L.core_welcome1, E.version))
-	print(L.core_welcome2)
+	
+	if C["general"].loginmessage == true then
+		print(format(L.core_welcome1, E.version))
+		print(L.core_welcome2)
+	end
 	
 	local maxresolution
 	for i=1, 30 do

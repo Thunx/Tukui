@@ -728,7 +728,7 @@ E.LoadUFFunctions = function(layout)
 				icon.icon:SetDesaturated(false)
 			end
 		else
-			if (icon.isStealable or ((E.myclass == "PRIEST" or E.myclass == "SHAMAN") and dtype == "Magic")) and not UnitIsFriend("player", unit) then
+			if (icon.isStealable or ((E.myclass == "PRIEST" or E.myclass == "SHAMAN" or E.myclass == "MAGE") and dtype == "Magic")) and not UnitIsFriend("player", unit) then
 				icon:SetBackdropBorderColor(237/255, 234/255, 142/255)
 			else
 				if C["general"].classcolortheme == true then
@@ -839,10 +839,24 @@ E.LoadUFFunctions = function(layout)
 		if not self.Reputation then return end
 		self.Reputation:ClearAllPoints()
 		
-		if self.Experience and self.Experience:IsShown() then
-			self.Reputation:Point("TOPLEFT", self.Experience, "BOTTOMLEFT", 0, -5)
+		local point, _, _, _, _ = MinimapMover:GetPoint()
+		
+		if point:match("BOTTOM") then
+			if self.Experience and self.Experience:IsShown() then
+				self.Reputation:Point("BOTTOMLEFT", self.Experience, "TOPLEFT", 0, 5)
+			elseif self.Experience and self.Experience:IsShown() then
+				self.Reputation:Point("TOPLEFT", self.Experience, "BOTTOMLEFT", 0, -5)
+			else
+				self.Reputation:Point("BOTTOMLEFT", ElvuiMinimapStatsLeft, "TOPLEFT", 2, 3)
+			end
 		else
-			self.Reputation:Point("TOPLEFT", ElvuiMinimapStatsLeft, "BOTTOMLEFT", 2, -3)
+			if self.Experience and self.Experience:IsShown() then
+				self.Reputation:Point("TOPLEFT", self.Experience, "BOTTOMLEFT", 0, -5)
+			elseif self.Experience and self.Experience:IsShown() then
+				self.Reputation:Point("BOTTOMLEFT", self.Experience, "TOPLEFT", 0, 5)
+			else
+				self.Reputation:Point("TOPLEFT", ElvuiMinimapStatsLeft, "BOTTOMLEFT", 2, -3)
+			end		
 		end
 	end
 

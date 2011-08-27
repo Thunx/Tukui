@@ -6,11 +6,10 @@ local Skada = Skada
 local barSpacing = E.Scale(1, 1)
 local borderWidth = E.Scale(2, 2)
 
+local barmod = Skada.displays["bar"]
+
 -- Used to strip unecessary options from the in-game config
 local function StripOptions(options)
-	options.baroptions.args.bartexture = options.windowoptions.args.height
-	options.baroptions.args.bartexture.order = 12
-	options.baroptions.args.bartexture.max = 1
 	options.baroptions.args.barspacing = nil
 	options.titleoptions.args.texture = nil
 	options.titleoptions.args.bordertexture = nil
@@ -35,25 +34,6 @@ for k, options in pairs(Skada.options.args.windows.args) do
 	end
 end
 
--- Size height correctly
-barmod.AdjustBackgroundHeight = function(self,win)
-	local numbars = 0
-	if win.bargroup:GetBars() ~= nil then
-		if win.db.background.height == 0 then
-			for name, bar in pairs(win.bargroup:GetBars()) do if bar:IsShown() then numbars = numbars + 1 end end
-		else
-			numbars = win.db.barmax
-		end
-		if win.db.enabletitle then numbars = numbars + 1 end
-		if numbars < 1 then numbars = 1 end
-		local height = numbars * (win.db.barheight + barSpacing) + barSpacing + borderWidth
-		if win.bargroup.bgframe:GetHeight() ~= height then
-			win.bargroup.bgframe:SetHeight(height)
-		end
-	end
-end
-
--- Override settings from in-game GUI
 local titleBG = {
 	bgFile = C["media"].normTex,
 	tile = false,
@@ -62,18 +42,18 @@ local titleBG = {
 
 barmod.ApplySettings_ = barmod.ApplySettings
 barmod.ApplySettings = function(self, win)
-	win.db.enablebackground = true
-	win.db.background.borderthickness = borderWidth
-	barmod:ApplySettings_(win)
+	barmod.ApplySettings_(self, win)
+
+	local skada = win.bargroup
 
 	if win.db.enabletitle then
-		win.bargroup.button:SetBackdrop(titleBG)
+		skada.button:SetBackdrop(titleBG)
 	end
-	
-	win.bargroup:SetTexture(C["media"].normTex)
-	win.bargroup:SetSpacing(barSpacing)
-	win.bargroup:SetFont(C["media"].font, C["general"].fontscale)
-	win.bargroup:SetFrameLevel(5)
+
+	skada:SetTexture(C["media"].normTex)
+	skada:SetSpacing(barSpacing)
+	skada:SetFont(C["media"].font, C["general"].fontscale)
+	skada:SetFrameLevel(5)
 	
 	local titlefont = CreateFont("TitleFont"..win.db.name)
 	titlefont:SetFont(C["media"].font, C["general"].fontscale)
@@ -81,30 +61,44 @@ barmod.ApplySettings = function(self, win)
 
 	local color = win.db.title.color
 	win.bargroup.button:SetBackdropColor(unpack(C["media"].bordercolor))
-	if win.bargroup.bgframe then
-		win.bargroup.bgframe:SetTemplate("Transparent")
-		if win.db.reversegrowth then
-			win.bargroup.bgframe:SetPoint("BOTTOM", win.bargroup.button, "BOTTOM", 0, -1 * (win.db.enabletitle and 2 or 1))
-		else
-			win.bargroup.bgframe:SetPoint("TOP", win.bargroup.button, "TOP", 0,1 * (win.db.enabletitle and 2 or 1))
-		end
+
+	skada:SetBackdrop(nil)
+	if not skada.backdrop then
+		skada:CreateBackdrop('Default')
 	end
+	skada.backdrop:ClearAllPoints()
+	if win.db.enabletitle then
+		skada.backdrop:Point('TOPLEFT', win.bargroup.button, 'TOPLEFT', -2, 2)
+	else
+		skada.backdrop:Point('TOPLEFT', win.bargroup, 'TOPLEFT', -2, 2)
+	end
+	skada.backdrop:Point('BOTTOMRIGHT', win.bargroup, 'BOTTOMRIGHT', 2, -2)
 	
+
 	win.bargroup.button:SetFrameStrata("MEDIUM")
 	win.bargroup.button:SetFrameLevel(5)	
 	win.bargroup.bgframe:SetFrameStrata("MEDIUM")
 	win.bargroup:SetFrameStrata("MEDIUM")
-
+	
+	if C["skin"].embedright == "Skada" then
+		win.bargroup.button:SetFrameStrata("MEDIUM")
+		win.bargroup.button:SetFrameLevel(5)	
+		win.bargroup:SetFrameStrata("MEDIUM")
+	end
+	
 	self:AdjustBackgroundHeight(win)
 	win.bargroup:SetMaxBars(win.db.barmax)
 	win.bargroup:SortBars()
+	
 end
 
-local function EmbedWindow(window, width, height, max, point, relativeFrame, relativePoint, ofsx, ofsy)
+local function EmbedWindow(window, width, barheight, height, point, relativeFrame, relativePoint, ofsx, ofsy)
 	window.db.barwidth = width
-	window.db.barheight = height
-	window.db.barmax = (floor(max / window.db.barheight) - (window.db.enabletitle and 1 or 0))
-	window.db.background.height = 1
+	window.db.barheight = barheight
+	if window.db.enabletitle then 
+		height = height - barheight
+	end
+	window.db.background.height = height
 	window.db.spark = false
 	window.db.barslocked = true
 	window.bargroup:ClearAllPoints()
@@ -120,6 +114,15 @@ function EmbedSkada()
 		if #windows == 1 then
 			EmbedWindow(windows[1], ((C["chat"].chatwidth - 4) / 2) - (borderWidth + E.mult), (C["chat"].chatheight - (barSpacing * 5)) / 8, C["chat"].chatheight,  "TOPRIGHT", ChatRPlaceHolder, "TOPRIGHT", -2, -2)
 		end
+	if #windows == 1 then
+		EmbedWindow(windows[1], C["chat"].chatwidth - 4, (C["chat"].chatheight - (barSpacing * 6)) / 8, (C["chat"].chatheight + 1), "BOTTOMRIGHT", ChatRPlaceHolder, "BOTTOMRIGHT", -2, 3)
+	elseif #windows == 2 then
+		EmbedWindow(windows[1], ((C["chat"].chatwidth - 4) / 2) - (borderWidth + E.mult), (C["chat"].chatheight - (barSpacing * 6)) / 8, C["chat"].chatheight + 1,  "BOTTOMRIGHT", ChatRPlaceHolder, "BOTTOMRIGHT", -2, 3)
+		EmbedWindow(windows[2], ((C["chat"].chatwidth - 4) / 2) - (borderWidth + E.mult), (C["chat"].chatheight - (barSpacing * 6)) / 8, C["chat"].chatheight + 1,  "BOTTOMLEFT", ChatRPlaceHolder, "BOTTOMLEFT", 2, 3)
+	elseif #windows > 2 then
+		EmbedWindow(windows[1], ((C["chat"].chatwidth - 4) / 2) - (borderWidth + E.mult), (C["chat"].chatheight - (barSpacing * 6)) / 8, C["chat"].chatheight + 1,  "BOTTOMRIGHT", ChatRPlaceHolder, "BOTTOMRIGHT", -2, 3)
+		EmbedWindow(windows[2], ((C["chat"].chatwidth - 4) / 2) - (borderWidth + E.mult), ((C["chat"].chatheight/2) - (barSpacing * 6)) / 4, C["chat"].chatheight / 2 - 2,  "BOTTOMLEFT", ChatRPlaceHolder, "BOTTOMLEFT", 2, 3)
+		EmbedWindow(windows[3], windows[2].db.barwidth -1 , ((C["chat"].chatheight/2) - (barSpacing * 6)) / 4, C["chat"].chatheight / 2 - 2,  "BOTTOMLEFT", windows[2].bargroup.backdrop, "TOPLEFT", 2, 4)
 	end
 	
 	if C["skin"].embedright ~= "Skada_Omen" then
@@ -139,7 +142,6 @@ end
 -- Update pre-existing displays
 for _, window in ipairs(Skada:GetWindows()) do
 	window:UpdateDisplay()
-	tinsert(windows, window)
 end
 
 if C["skin"].embedright == "Skada" or "Skada_Omen" then
@@ -174,8 +176,9 @@ if C["skin"].embedright == "Skada" or "Skada_Omen" then
 		self = nil
 		
 		EmbedSkada()
-	end)	
-	if ChatRBGTab and C["skin"].embedright == "Skada" then 
+
+	if ChatRBGTab then C["skin"].embedright == "Skada" then
+	
 		local button = CreateFrame('Button', 'SkadaToggleSwitch', ChatRBGTab)
 		button:Width(90)
 		button:Height(ChatRBGTab:GetHeight() - 4)
@@ -196,10 +199,20 @@ if C["skin"].embedright == "Skada" or "Skada_Omen" then
 		button:SetScript('OnMouseDown', function(self) self.tex:Point('TOPRIGHT', -4, -4) end)
 		button:SetScript('OnMouseUp', function(self) self.tex:Point('TOPRIGHT', -2, -2) end)
 		button:SetScript('OnClick', function(self) Skada:ToggleWindow() end)
-	end
+
+	end	
+	
 	if C["skin"].embedrighttoggle == true then
-		ChatRBG:HookScript("OnShow", function() Skada:SetActive(false) end)
-		ChatRBG:HookScript("OnHide", function() Skada:SetActive(true) end)
+		ChatRBG:HookScript("OnShow", function()
+			for _, window in ipairs(Skada:GetWindows()) do
+				window:Hide()
+			end
+		end)
+		ChatRBG:HookScript("OnHide", function()
+			for _, window in ipairs(Skada:GetWindows()) do
+				window:Show()
+			end
+		end)
 	end
 end
 

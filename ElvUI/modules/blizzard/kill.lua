@@ -4,8 +4,6 @@ local E, C, L, DB = unpack(select(2, ...)) -- Import Functions/Constants, Config
 local compact_raid
 function HideRaid()
 	if InCombatLockdown() then return end
-	CompactRaidFrameManager:UnregisterEvent("RAID_ROSTER_UPDATE")
-	CompactRaidFrameManager:UnregisterEvent("PLAYER_ENTERING_WORLD")
 	CompactRaidFrameManager:Hide()
 	compact_raid = CompactRaidFrameManager_GetSetting("IsShown")
 	if compact_raid and compact_raid ~= "0" then 
@@ -27,7 +25,7 @@ Kill:RegisterEvent("PLAYER_ENTERING_WORLD")
 Kill:RegisterEvent("RAID_ROSTER_UPDATE")
 Kill:RegisterEvent("PLAYER_REGEN_ENABLED")
 Kill:SetScript("OnEvent", function(self, event, addon)
-	if event == "PLAYER_ENTERING_WORLD" or event == "RAID_ROSTER_UPDATE" or event == "PLAYER_REGEN_ENABLED" then
+	if (event == "PLAYER_ENTERING_WORLD" or event == "RAID_ROSTER_UPDATE" or event == "PLAYER_REGEN_ENABLED") and C["raidframes"].disableblizz == true then
 		HideRaid()
 	end
 	if event == "PLAYER_ENTERING_WORLD" and not self.run then

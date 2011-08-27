@@ -45,6 +45,7 @@ DB["general"] = {
 	["sharpborders"] = true,
 	["upperpanel"] = false,
 	["lowerpanel"] = false,
+	["loginmessage"] = true,
 }
 
 DB["skin"] = {
@@ -102,6 +103,7 @@ DB["skin"] = {
 	["kle"] = true,
 	["dxe"] = true,
 	["dbm"] = true,
+	["ace3"] = true,
 	["bigwigs"] = true,
 	["clcret"] = true,
 	["clcprot"] = true,
@@ -253,11 +255,6 @@ DB["classtimer"] = {
 }
 
 DB["actionbar"] = {
-	["custombar"] = { 
-		["enable"] = false,
-		["primary"] = {"Rebirth", "Innervate"},                -- DO NOT CHANGE THIS SETTING HERE! Setup in the profiles.lua either based on class or toon name
-		["secondary"] = {"Rebirth", "Innervate"},                -- DO NOT CHANGE THIS SETTING HERE! Setup in the profiles.lua either based on class or toon name
-    },
 	["enable"] = true,                     -- enable elvui action bars
 	["hotkey"] = true,                     -- enable hotkey display because it was a lot requested
 	["rightbarmouseover"] = false,         -- enable right bars on mouse over

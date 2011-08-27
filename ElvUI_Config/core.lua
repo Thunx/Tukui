@@ -3,6 +3,11 @@ local L = LibStub("AceLocale-3.0"):GetLocale("ElvuiConfig", false)
 local LSM = LibStub("LibSharedMedia-3.0")
 local db
 local defaults
+local DEFAULT_WIDTH = 815
+local DEFAULT_HEIGHT = 555
+local AC = LibStub("AceConfig-3.0")
+local ACD = LibStub("AceConfigDialog-3.0")
+local ACR = LibStub("AceConfigRegistry-3.0")
 
 if IsAddOnLoaded("ElvUI_ConfigUI") then
 	error("The AddOn 'ElvUI_ConfigUI' is no longer in use, please remove it from you addons folders. The new config addon is called 'ElvUI_Config'")
@@ -53,9 +58,8 @@ function ElvuiConfig:OnInitialize()
 	self.OnInitialize = nil
 end
 
-function ElvuiConfig:ShowConfig(arg)
-	InterfaceOptionsFrame_OpenToCategory(self.optionsFrames.Profiles)
-	InterfaceOptionsFrame_OpenToCategory(self.optionsFrames.ElvuiConfig)
+function ElvuiConfig:ShowConfig() 
+	ACD[ACD.OpenFrames.ElvuiConfig and "Close" or "Open"](ACD,"ElvuiConfig") 
 end
 
 function ElvuiConfig:Load()
@@ -75,30 +79,16 @@ function ElvuiConfig:OnProfileChanged(event, database, newProfileKey)
 	StaticPopup_Show("CFG_RELOAD")
 end
 
+
 function ElvuiConfig:SetupOptions()
-	LibStub("AceConfigRegistry-3.0"):RegisterOptionsTable("ElvuiConfig", self.GenerateOptions)
+	AC:RegisterOptionsTable("ElvuiConfig", self.GenerateOptions)
+	ACD:SetDefaultSize("ElvuiConfig", DEFAULT_WIDTH, DEFAULT_HEIGHT)
+
 	--Create Profiles Table
-	self.profileOptions = LibStub("AceDBOptions-3.0"):GetOptionsTable(self.db);
-	LibStub("AceConfig-3.0"):RegisterOptionsTable("ElvProfiles", self.profileOptions)
+	self.profile = LibStub("AceDBOptions-3.0"):GetOptionsTable(self.db);
+	AC:RegisterOptionsTable("ElvProfiles", self.profile)
+	self.profile.order = -10
 	
-	-- The ordering here matters, it determines the order in the Blizzard Interface Options
-	local ACD3 = LibStub("AceConfigDialog-3.0")
-	self.optionsFrames = {}
-	self.optionsFrames.ElvuiConfig = ACD3:AddToBlizOptions("ElvuiConfig", "ElvUI", nil, "general")
-	self.optionsFrames.Media = ACD3:AddToBlizOptions("ElvuiConfig", L["Media"], "ElvUI", "media")
-	self.optionsFrames.Nameplates = ACD3:AddToBlizOptions("ElvuiConfig", L["Nameplates"], "ElvUI", "nameplate")
-	self.optionsFrames.Unitframes = ACD3:AddToBlizOptions("ElvuiConfig", L["Unit Frames"], "ElvUI", "unitframes")
-	self.optionsFrames.Raidframes = ACD3:AddToBlizOptions("ElvuiConfig", L["Raid Frames"], "ElvUI", "raidframes")
-	self.optionsFrames.Classtimer = ACD3:AddToBlizOptions("ElvuiConfig", L["Class Timers"], "ElvUI", "classtimer")
-	self.optionsFrames.Actionbar = ACD3:AddToBlizOptions("ElvuiConfig", L["Action Bars"], "ElvUI", "actionbar")
-	self.optionsFrames.Datatext = ACD3:AddToBlizOptions("ElvuiConfig", L["Data Texts"], "ElvUI", "datatext")
-	self.optionsFrames.Chat = ACD3:AddToBlizOptions("ElvuiConfig", L["Chat"], "ElvUI", "chat")
-	self.optionsFrames.Tooltip = ACD3:AddToBlizOptions("ElvuiConfig", L["Tooltip"], "ElvUI", "tooltip")
-	self.optionsFrames.Skins = ACD3:AddToBlizOptions("ElvuiConfig", L["Skins"], "ElvUI", "skin")
-	self.optionsFrames.SpellFilter = ACD3:AddToBlizOptions("ElvuiConfig", L["Filters"], "ElvUI", "spellfilter")
-	self.optionsFrames.Others = ACD3:AddToBlizOptions("ElvuiConfig", L["Misc"], "ElvUI", "others")
-	self.optionsFrames.saftExperienceBar = ACD3:AddToBlizOptions("ElvuiConfig", L["saftExperienceBar"], "ElvUI", "saftexperiencebar")
-	self.optionsFrames.Profiles = ACD3:AddToBlizOptions("ElvProfiles", L["Profiles"], "ElvUI")
 	self.SetupOptions = nil
 end
 
@@ -842,11 +832,53 @@ function ElvuiConfig.GenerateOptionsInternal()
 		type = "group",
 		name = "ElvUI",
 		args = {
-			general = {
+			ElvUI_Header = {
 				order = 1,
+				type = "header",
+				name = L["Version"]..format(": |cffFFFFFF%s|r",E.version),
+				width = "full",		
+			},
+			LoginMessage = {
+				order = 2,
+				type = "toggle",
+				name = L["Login Message"],
+				desc = L["Display login message"],
+				get = function(info) return db.general.loginmessage end,
+				set = function(info, value) db.general.loginmessage = value; end,
+			},
+			ToggleAnchors = {
+				order = 3,
+				type = "execute",
+				name = L["Toggle Anchors"],
+				desc = L["Unlock various elements of the UI to be repositioned."],
+				func = function() 
+					local func = ElvuiInfoLeftRButton:GetScript("OnMouseDown")
+					
+					if func then
+						func()
+					end					
+				end,
+			},	
+			ToggleElements = {
+				order = 4,
+				type = "execute",
+				name = L["Toggle Elements"],
+				desc = L["Unlock various elements of the unitframes to be repositioned."],
+				func = function() E.ToggleElements() end,
+				disabled = function() return not db.unitframes.enable end,
+			},
+			InstallUI = {
+				order = 5,
+				type = "execute",
+				name = L["Install"],
+				desc = L["Re-run the installation process"],
+				func = function() E.Install(); ElvuiConfig:ShowConfig(); GameTooltip:Hide() end,
+			},
+			general = {
+				order = 6,
 				type = "group",
-				name = L["General Settings"],
-				desc = L["General Settings"],
+				name = L["General"],
+				desc = L["General"],
 				get = function(info) return db.general[ info[#info] ] end,
 				set = function(info, value) db.general[ info[#info] ] = value; StaticPopup_Show("CFG_RELOAD") end,
 				args = {
@@ -932,7 +964,7 @@ function ElvuiConfig.GenerateOptionsInternal()
 				},
 			},
 			media = {
-				order = 2,
+				order = 7,
 				type = "group",
 				name = L["Media"],
 				desc = L["MEDIA_DESC"],
@@ -1116,7 +1148,7 @@ function ElvuiConfig.GenerateOptionsInternal()
 				},
 			},
 			nameplate = {
-				order = 3,
+				order = 8,
 				type = "group",
 				name = L["Nameplates"],
 				desc = L["NAMEPLATE_DESC"],
@@ -1242,10 +1274,11 @@ function ElvuiConfig.GenerateOptionsInternal()
 				},
 			},
 			unitframes = {
-				order = 4,
+				order = 9,
 				type = "group",
 				name = L["Unit Frames"],
 				desc = L["UF_DESC"],
+				childGroups = "select",
 				get = function(info) return db.unitframes[ info[#info] ] end,
 				set = function(info, value) db.unitframes[ info[#info] ] = value; StaticPopup_Show("CFG_RELOAD") end,
 				args = {
@@ -1264,7 +1297,6 @@ function ElvuiConfig.GenerateOptionsInternal()
 						order = 3,
 						type = "group",
 						name = L["General Settings"],
-						guiInline = true,
 						disabled = function() return not db.unitframes.enable end,	
 						args = {
 							fontsize = {
@@ -1493,7 +1525,6 @@ function ElvuiConfig.GenerateOptionsInternal()
 						order = 4,
 						type = "group",
 						name = L["Frame Sizes"],
-						guiInline = true,
 						disabled = function() return not db.unitframes.enable end,	
 						args = {
 							playtarwidth = {
@@ -1566,7 +1597,6 @@ function ElvuiConfig.GenerateOptionsInternal()
 						order = 5,
 						type = "group",
 						name = L["Auras"],
-						guiInline = true,
 						disabled = function() return not db.unitframes.enable end,	
 						args = {
 							playerbuffs = {
@@ -1711,7 +1741,6 @@ function ElvuiConfig.GenerateOptionsInternal()
 						order = 6,
 						type = "group",
 						name = L["Castbar"],
-						guiInline = true,
 						disabled = function() return (not db.unitframes.enable or not db.unitframes.unitcastbar) end,	
 						args = {
 							unitcastbar = {
@@ -1831,7 +1860,6 @@ function ElvuiConfig.GenerateOptionsInternal()
 						type = "group",
 						order = 6,
 						name = L["Power Colors"],
-						guiInline = true,
 						get = function(info)
 							local t = db.unitframes[ info[#info] ]
 							return t.r, t.g, t.b, t.a
@@ -1878,7 +1906,7 @@ function ElvuiConfig.GenerateOptionsInternal()
 				},
 			},
 			raidframes = {
-				order = 5,
+				order = 10,
 				type = "group",
 				name = L["Raid Frames"],
 				desc = L["RF_DESC"],
@@ -2059,7 +2087,7 @@ function ElvuiConfig.GenerateOptionsInternal()
 				},
 			},
 			classtimer = {
-				order = 6,
+				order = 11,
 				type = "group",
 				name = L["Class Timers"],
 				desc = L["CLASSTIMER_DESC"],
@@ -2174,7 +2202,7 @@ function ElvuiConfig.GenerateOptionsInternal()
 				},
 			},
 			actionbar = {
-				order = 7,
+				order = 12,
 				type = "group",
 				name = L["Action Bars"],
 				desc = L["AB_DESC"],
@@ -2364,7 +2392,7 @@ function ElvuiConfig.GenerateOptionsInternal()
 				},
 			},
 			datatext = {
-				order = 8,
+				order = 13,
 				type = "group",
 				name = L["Data Texts"],
 				desc = L["DATATEXT_DESC"],
@@ -2574,7 +2602,7 @@ function ElvuiConfig.GenerateOptionsInternal()
 				},
 			},
 			chat = {
-				order = 9,
+				order = 14,
 				type = "group",
 				name = L["Chat"],
 				desc = L["CHAT_DESC"],
@@ -2669,7 +2697,7 @@ function ElvuiConfig.GenerateOptionsInternal()
 				},
 			},
 			tooltip = {
-				order = 9,
+				order = 15,
 				type = "group",
 				name = L["Tooltip"],
 				desc = L["TT_DESC"],
@@ -2747,7 +2775,7 @@ function ElvuiConfig.GenerateOptionsInternal()
 				},
 			},
 			skin = {
-				order = 10,
+				order = 16,
 				type = "group",
 				name = L["Skins"],
 				desc = L["SKIN_DESC"],
@@ -3109,13 +3137,19 @@ function ElvuiConfig.GenerateOptionsInternal()
 								type = "toggle",
 								name = "AtlasLoot",
 								desc = L["Enable this skin"],
-							},	
+							},		
+							ace3 = {
+								order = 12,
+								type = "toggle",
+								name = "Ace3",
+							},
+
 						},
 					},
 				},
 			},	
 			spellfilter = {
-				order = 9,
+				order = 17,
 				type = "group",
 				name = L["Filters"],
 				desc = L["SPELL_FILTER_DESC"],
@@ -3314,10 +3348,11 @@ function ElvuiConfig.GenerateOptionsInternal()
 				},
 			},
 			others = {
-				order = 10,
+				order = 18,
 				type = "group",
 				name = L["Misc"],
 				desc = L["MISC_DESC"],
+				childGroups = "select",
 				get = function(info) return db.others[ info[#info] ] end,
 				set = function(info, value) db.others[ info[#info] ] = value; StaticPopup_Show("CFG_RELOAD") end,		
 				args = {
@@ -3528,6 +3563,8 @@ function ElvuiConfig.GenerateOptionsInternal()
 			option.max = 12
 		end	
 	end
+	
+	ElvuiConfig.Options.args.profiles = ElvuiConfig.profile
 end
 
 
