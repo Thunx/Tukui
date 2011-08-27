@@ -111,7 +111,7 @@ DB["skin"] = {
 	["hookbwright"] = false,			-- force BigWig's bar anchor to be hooked onto the right chat window
 	["hookbwright"] = true,			-- force BigWig's bar anchor to be hooked onto the right chat window
 	["hookdxeright"] = false,
-	["embedright"] = "Recount_Omen",				-- Addon to embed to the right frame ("Omen", "Recount", "Skada", "Recount_Omen", "Skada_Omen")
+	["embedright"] = "NONE",				-- Addon to embed to the right frame ("Omen", "Recount", "Skada", "Recount_Omen", "Skada_Omen")
 	["embedrighttoggle"] = false,
 	["skinblizzardframe"] = false, 		-- Skin blizzard frames
 }

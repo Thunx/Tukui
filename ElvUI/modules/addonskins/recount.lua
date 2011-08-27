@@ -109,7 +109,7 @@ if C["skin"].embedright == "Recount_Omen" then
 		self = nil
 
 		Recount_MainWindow:ClearAllPoints()
-		Recount_MainWindow:SetPoint("TOPLEFT", OmenBarList,"TOPRIGHT", 1, 7)
+		Recount_MainWindow:SetPoint("TOPLEFT", OmenBarList,"TOPRIGHT", 2, 7)
 		Recount_MainWindow:SetPoint("BOTTOMRIGHT", ChatRPlaceHolder,"BOTTOMRIGHT", 0, 0)
 		Recount.db.profile.FrameStrata = "4-HIGH"
 		Recount.db.profile.MainWindowWidth = (C["chat"].chatwidth - 4)

@@ -74,22 +74,11 @@ barmod.ApplySettings = function(self, win)
 	end
 	skada.backdrop:Point('BOTTOMRIGHT', win.bargroup, 'BOTTOMRIGHT', 2, -2)
 	
-
-	win.bargroup.button:SetFrameStrata("MEDIUM")
-	win.bargroup.button:SetFrameLevel(5)	
-	win.bargroup.bgframe:SetFrameStrata("MEDIUM")
-	win.bargroup:SetFrameStrata("MEDIUM")
-	
 	if C["skin"].embedright == "Skada" then
 		win.bargroup.button:SetFrameStrata("MEDIUM")
 		win.bargroup.button:SetFrameLevel(5)	
 		win.bargroup:SetFrameStrata("MEDIUM")
 	end
-	
-	self:AdjustBackgroundHeight(win)
-	win.bargroup:SetMaxBars(win.db.barmax)
-	win.bargroup:SortBars()
-	
 end
 
 local function EmbedWindow(window, width, barheight, height, point, relativeFrame, relativePoint, ofsx, ofsy)
@@ -109,11 +98,6 @@ end
 
 local windows = {}
 function EmbedSkada()
-
-	if C["skin"].embedright == "Skada_Omen" then
-		if #windows == 1 then
-			EmbedWindow(windows[1], ((C["chat"].chatwidth - 4) / 2) - (borderWidth + E.mult), (C["chat"].chatheight - (barSpacing * 5)) / 8, C["chat"].chatheight,  "TOPRIGHT", ChatRPlaceHolder, "TOPRIGHT", -2, -2)
-		end
 	if #windows == 1 then
 		EmbedWindow(windows[1], C["chat"].chatwidth - 4, (C["chat"].chatheight - (barSpacing * 6)) / 8, (C["chat"].chatheight + 1), "BOTTOMRIGHT", ChatRPlaceHolder, "BOTTOMRIGHT", -2, 3)
 	elseif #windows == 2 then
@@ -124,19 +108,6 @@ function EmbedSkada()
 		EmbedWindow(windows[2], ((C["chat"].chatwidth - 4) / 2) - (borderWidth + E.mult), ((C["chat"].chatheight/2) - (barSpacing * 6)) / 4, C["chat"].chatheight / 2 - 2,  "BOTTOMLEFT", ChatRPlaceHolder, "BOTTOMLEFT", 2, 3)
 		EmbedWindow(windows[3], windows[2].db.barwidth -1 , ((C["chat"].chatheight/2) - (barSpacing * 6)) / 4, C["chat"].chatheight / 2 - 2,  "BOTTOMLEFT", windows[2].bargroup.backdrop, "TOPLEFT", 2, 4)
 	end
-	
-	if C["skin"].embedright ~= "Skada_Omen" then
-		if #windows == 1 then
-			EmbedWindow(windows[1], C["chat"].chatwidth - 4, (C["chat"].chatheight - (barSpacing * 5)) / 8, C["chat"].chatheight, "TOPRIGHT", ChatRPlaceHolder, "TOPRIGHT", -2, -2)
-		elseif #windows == 2 then
-			EmbedWindow(windows[1], ((C["chat"].chatwidth - 4) / 2) - (borderWidth + E.mult), (C["chat"].chatheight - (barSpacing * 5)) / 8, C["chat"].chatheight,  "TOPRIGHT", ChatRPlaceHolder, "TOPRIGHT", -2, -2)
-			EmbedWindow(windows[2], ((C["chat"].chatwidth - 4) / 2) - (borderWidth + E.mult), (C["chat"].chatheight - (barSpacing * 5)) / 8, C["chat"].chatheight,  "TOPLEFT", ChatRPlaceHolder, "TOPLEFT", 2, -2)
-		elseif #windows > 2 then
-			EmbedWindow(windows[1], ((C["chat"].chatwidth - 4) / 2) - (borderWidth + E.mult), (C["chat"].chatheight - (barSpacing * 5)) / 8, C["chat"].chatheight,  "TOPRIGHT", ChatRPlaceHolder, "TOPRIGHT", -2, -2)
-			EmbedWindow(windows[2], ((C["chat"].chatwidth - 4) / 2) - (borderWidth + E.mult), (C["chat"].chatheight - (barSpacing * 8)) / 8, C["chat"].chatheight / 2,  "TOPLEFT", ChatRPlaceHolder, "TOPLEFT", 2, -2)
-			EmbedWindow(windows[3], windows[2].db.barwidth, (C["chat"].chatheight - (barSpacing * 8)) / 8, C["chat"].chatheight / 2,  "TOPLEFT", windows[2].bargroup.bgframe, "BOTTOMLEFT", 2, -2)
-		end
-	end	
 end
 
 -- Update pre-existing displays
@@ -144,7 +115,7 @@ for _, window in ipairs(Skada:GetWindows()) do
 	window:UpdateDisplay()
 end
 
-if C["skin"].embedright == "Skada" or "Skada_Omen" then
+if C["skin"].embedright == "Skada" then
 	Skada.CreateWindow_ = Skada.CreateWindow
 	function Skada:CreateWindow(name, db)
 		Skada:CreateWindow_(name, db)
@@ -176,9 +147,9 @@ if C["skin"].embedright == "Skada" or "Skada_Omen" then
 		self = nil
 		
 		EmbedSkada()
+	end)
 
-	if ChatRBGTab then C["skin"].embedright == "Skada" then
-	
+	if ChatRBGTab then
 		local button = CreateFrame('Button', 'SkadaToggleSwitch', ChatRBGTab)
 		button:Width(90)
 		button:Height(ChatRBGTab:GetHeight() - 4)
@@ -199,7 +170,6 @@ if C["skin"].embedright == "Skada" or "Skada_Omen" then
 		button:SetScript('OnMouseDown', function(self) self.tex:Point('TOPRIGHT', -4, -4) end)
 		button:SetScript('OnMouseUp', function(self) self.tex:Point('TOPRIGHT', -2, -2) end)
 		button:SetScript('OnClick', function(self) Skada:ToggleWindow() end)
-
 	end	
 	
 	if C["skin"].embedrighttoggle == true then
@@ -215,5 +185,3 @@ if C["skin"].embedright == "Skada" or "Skada_Omen" then
 		end)
 	end
 end
-
-

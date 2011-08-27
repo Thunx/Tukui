@@ -117,20 +117,10 @@ if C["skin"].embedright == "Omen" then
 		ChatRBG:HookScript("OnHide", function() OmenBarList:Show() end)
 	end			
 end
-if C["skin"].embedright == "Recount_Omen" or "Skada_Omen" then
-	local Omen_Skin = CreateFrame("Frame")
-	Omen_Skin:RegisterEvent("PLAYER_ENTERING_WORLD")
-	Omen_Skin:SetScript("OnEvent", function(self)
-		self:UnregisterAllEvents()
-		self = nil
-
-		Omen.UpdateTitleBar = function() end
-		OmenTitle:Kill()
-		OmenBarList:ClearAllPoints()
-		OmenBarList:SetWidth(ChatRBG:GetWidth() / 2)
-		OmenBarList:SetPoint("TOPLEFT", ChatRPlaceHolder, "TOPLEFT", 0, 0)
-		OmenBarList:SetPoint("BOTTOMLEFT", ChatRPlaceHolder, "BOTTOMLEFT", 0, 0)
-		Omen.db.profile.FrameStrata = "4-HIGH"
-	end)
-end
+if C["skin"].embedright == "Recount_Omen" then
+	OmenTitle:Kill()
+	OmenAnchor:SetSize(100 , 50)
+	Omen.Anchor:ClearAllPoints()
+	Omen.Anchor:SetPoint("TOPLEFT", OmenText, "TOPLEFT", 0, -5)
+end	
 

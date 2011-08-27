@@ -27,7 +27,7 @@ local Y = -150 				-- location on screen
 		spell1 = {"Spellname", "Spellname", "Spellname"}
 	end
 		]]
-		
+local spell1 =  {"Barkskin",58091 ,"Innervate"}	
 if E.myname == "Kaldore" then
 	spell1 =  {"Shadowfiend",58091 ,"Archangel"}
 end
