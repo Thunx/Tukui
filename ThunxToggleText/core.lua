@@ -35,8 +35,17 @@ TC = {
 -----Omen toggle knapp-----
 --------------------------------------------------------------------
 if IsAddOnLoaded("Omen") and TC.Omen == true then
-	local OmenText=CreateFrame("Button","rOmenShowHide", ChatRBGTab)
-
+	--[[function E.PostOmenMove(frame)
+		OmenMoveIndicator:ClearAllPoints()
+		OmenMoveIndicator:SetPoint("BOTTOMRIGHT", ChatRPlaceHolder, "TOPRIGHT", -200, 20)
+	end
+	local once = false
+	hooksecurefunc(OmenMoveIndicator, "SetPoint", function(_,_,parent)    ]]
+	
+	
+	local OmenText = CreateFrame("Button","rOmenShowHide", ChatRBGTab, "SecureHandlerStateTemplate")
+	
+	OmenText:ClearAllPoints()
 	OmenText:SetPoint("BOTTOMRIGHT", ChatRPlaceHolder, "TOPRIGHT", TC.OposX, TC.OposY)
 	OmenText:SetWidth(50) OmenText:SetHeight(25)
 	OmenText.text= OmenText:CreateFontString(nil,"OVERLAY","GameFontNormalSmall")
@@ -61,15 +70,18 @@ if IsAddOnLoaded("Omen") and TC.Omen == true then
 		 self:UnregisterAllEvents()
 		end)
 	end
+	E.CreateMover(OmenText, "OmenTextMover", "oMOVE")
 end
 
 --------------------------------------------------------------------
 -----Recount toggle knapp-----
 --------------------------------------------------------------------
 if IsAddOnLoaded("Recount") and TC.Recount == true then
-	local RecountText=CreateFrame("Button","RecountShowHide",ChatRBGTab)
+
+	local RecountText=CreateFrame("Button", "RecountShowHide", ChatRBGTab, "SecureHandlerStateTemplate" )
 	
 	--RecountText:SetTemplate("Default", false)
+	RecountText:ClearAllPoints()
 	RecountText:SetPoint("BOTTOMRIGHT", ChatRPlaceHolder, "TOPRIGHT", TC.RposX, TC.RposY)
 	RecountText:SetWidth(50) RecountText:SetHeight(25)
 	
@@ -98,6 +110,7 @@ if IsAddOnLoaded("Recount") and TC.Recount == true then
 		 self:UnregisterAllEvents()
 		end)
 	end
+	E.CreateMover(RecountText, "RecountTextMover", "rMOVE")
 end
 
 --------------------------------------------------------------------
@@ -105,7 +118,9 @@ end
 --------------------------------------------------------------------
 if IsAddOnLoaded("AtlasLoot_Loader") and TC.Atlasloot == true  then
 	
-	local AtlasText=CreateFrame("Button","AtlasShowHide",ChatRBGTab)
+	local AtlasText = CreateFrame("Button", "AtlasShowHide", ChatRBGTab, "SecureHandlerStateTemplate")
+	
+	AtlasText:ClearAllPoints()
 	AtlasText:SetPoint("BOTTOMRIGHT", ChatRPlaceHolder, "TOPRIGHT", TC.AposX, TC.AposY)
 	AtlasText:SetWidth(50) AtlasText:SetHeight(25)
 	
@@ -131,13 +146,14 @@ if IsAddOnLoaded("AtlasLoot_Loader") and TC.Atlasloot == true  then
 		 self:UnregisterAllEvents()
 		end)
 	end
+	E.CreateMover(AtlasText, "AtlasTextMover", "aMOVE")
 end
 --------------------------------------------------------------------
 -----Skada toggle knapp-----
 --------------------------------------------------------------------
 if IsAddOnLoaded("Skada") and TC.Skada == true then
 	
-	local SkadaText=CreateFrame("Button","SkadaShowHide",ChatRBGTab)
+	local SkadaText = CreateFrame("Button", "SkadaShowHide", ChatRBGTab, "SecureHandlerStateTemplate")
 	SkadaText:SetPoint("BOTTOMRIGHT", ChatRPlaceHolder, "TOPRIGHT", TC.SposX, TC.SposY)
 	SkadaText:SetWidth(50) SkadaText:SetHeight(25)
 	
@@ -161,10 +177,15 @@ if IsAddOnLoaded("Skada") and TC.Skada == true then
 		ChatRBG:HookScript("OnHide", function() SkadaText:Hide(); Skada:SetActive(true) end)
 		self:UnregisterAllEvents()
 		end)
-	end	
+	end
+	E.CreateMover(SkadaText, "SkadaTextMover", "sMOVE")	
 end
 
-
+if ElvUI then
+	
+elseif TukUI then
+--	T.CreateMover(TukUI_TrinketBar, "TukUI_TrinketBar", "Trink Bar")
+end
 --------------------------------------------------------------------
 -----Test toggle knapp-----
 --------------------------------------------------------------------

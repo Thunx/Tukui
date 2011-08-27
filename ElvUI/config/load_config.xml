@@ -3,4 +3,5 @@
 	<Include file="filters\load_filters.xml"/>
 	<Script file="configui.lua"/>
 	<Script file='autodisable.lua'/>
+	<Script file='profiles.lua'/>
 </Ui>

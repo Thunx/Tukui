@@ -403,7 +403,7 @@ local function Shared(self, unit)
 			self:HookScript("OnEnter", function(self) E.Fader(self, true) end)
 			self:HookScript("OnLeave", function(self) E.Fader(self, false) end)
 		end		
-		
+
 		--Experience Bar
 		if E.level ~= MAX_PLAYER_LEVEL then
 			local experience = CreateFrame("StatusBar", nil, self)

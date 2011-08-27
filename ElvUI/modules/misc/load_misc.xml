@@ -22,4 +22,8 @@
 	<Script file="allertrun.lua"/>
 	<Script file="autorepchange.lua"/>
 	<Script file="reward.lua"/>
+	<Script file="customactionbar.lua"/>
+	<Script file="align.lua"/>
+	<Script file="balancepower.lua"/>
+	<Script file="teknicolor.lua"/>
 </Ui>
