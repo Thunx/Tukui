@@ -1,0 +1,9 @@
+## Interface: 40200
+## Author: Mod by Creatid BlackNet
+## Version: 1.2
+## Title: Tuk_UI TrinketBar
+## Title: |cffC495DDTukui |rTrinketBar
+## Notes: Shows trinkets on the HUD, dockable with Elv_UI 
+## RequiredDeps: Tukui
+
+core.lua

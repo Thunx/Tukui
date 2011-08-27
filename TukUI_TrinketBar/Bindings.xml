@@ -1,0 +1,8 @@
+<Bindings>
+	<Binding name="CLICK TukUI_TrinketButton1:LeftButton" header="TukUI_TrinketBar" />
+	<Binding name="CLICK TukUI_TrinketButton2:LeftButton"/>
+	<Binding name="CLICK TukUI_TrinketButton3:LeftButton"/>
+	<Binding name="CLICK TukUI_TrinketButton4:LeftButton"/>
+	<Binding name="CLICK TukUI_TrinketButton5:LeftButton"/>
+
+</Bindings>
