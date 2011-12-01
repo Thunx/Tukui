@@ -1,49 +1,35 @@
+local E, L, DF = unpack(select(2, ...)); --Engine
+local DT = E:GetModule('DataTexts')
 
-local E, C, L, DB = unpack(select(2, ...)) -- Import Functions/Constants, Config, Locales
+--[[This file is a blank datatext example template, this file will not be loaded.]]
 
+local function Update(self, t)
 
---------------------------------------------------------------------
- -- BAGS
---------------------------------------------------------------------
-
-if C["datatext"].bags and C["datatext"].bags > 0 then
-	local Stat = CreateFrame("Frame")
-	Stat:EnableMouse(true)
-	Stat:SetFrameStrata("MEDIUM")
-	Stat:SetFrameLevel(3)
-
-	local Text  = ElvuiInfoLeft:CreateFontString(nil, "OVERLAY")
-	Text:SetFont(C["media"].font, C["datatext"].fontsize, "THINOUTLINE")
-	Text:SetShadowOffset(E.mult, -E.mult)
-	Text:SetShadowColor(0, 0, 0, 0.4)
-	E.PP(C["datatext"].bags, Text)
-
-	local function OnEvent(self, event, ...)
-		local free, total,used = 0, 0, 0
-		for i = 0, NUM_BAG_SLOTS do
-			free, total = free + GetContainerNumFreeSlots(i), total + GetContainerNumSlots(i)
-		end
-		used = total - free
-		Text:SetText(L.datatext_bags..E.ValColor..used.."|r/"..E.ValColor..total)
-		self:SetAllPoints(Text)
-	end
-          
-	Stat:RegisterEvent("PLAYER_LOGIN")
-	Stat:RegisterEvent("BAG_UPDATE")
-	Stat:SetScript("OnEvent", OnEvent)
-	Stat:SetScript("OnMouseDown", function() 
-		--Check if any bag is open
-		local opened = false
-		for i=1, NUM_CONTAINER_FRAMES do
-			if IsBagOpen(i) then
-				opened = true
-			end
-		end
-		
-		if opened == true then
-			CloseAllBags()
-		else
-			OpenAllBags()
-		end
-	end)
 end
+
+local function OnEvent(self, event, ...)
+
+end
+
+local function Click()
+
+end
+
+local function OnEnter(self)
+	DT:SetupTooltip(self)
+
+	GameTooltip:Show()
+end
+
+--[[
+	DT:RegisterDatatext(name, events, eventFunc, updateFunc, clickFunc, onEnterFunc)
+	
+	name - name of the datatext (required)
+	events - must be a table with string values of event names to register 
+	eventFunc - function that gets fired when an event gets triggered
+	updateFunc - onUpdate script target function
+	click - function to fire when clicking the datatext
+	onEnterFunc - function to fire OnEnter
+]]
+DT:RegisterDatatext('DTName', {'PLAYER_ENTERING_WORLD'}, OnEvent, Update, Click, OnEnter)
+
