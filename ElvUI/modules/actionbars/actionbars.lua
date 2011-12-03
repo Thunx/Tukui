@@ -13,6 +13,11 @@ KEY_MOUSEBUTTON = gsub(KEY_MOUSEBUTTON, '10', '');
 local KEY_NUMPAD = KEY_NUMPAD0;
 KEY_NUMPAD = gsub(KEY_NUMPAD, '0', '');
 
+<<<<<<< HEAD
+=======
+E.ActionBars = AB
+
+>>>>>>> upstream/master
 AB["handledbuttons"] = {} --List of all buttons that have been modified.
 AB["movers"] = {} --List of all created movers.
 E['snapBars'] = { E.UIParent }
@@ -28,10 +33,14 @@ function AB:Initialize()
 	self:SecureHook('PetActionBar_Update', 'UpdatePet')
 	self:SecureHook('ActionButton_UpdateHotkeys', 'FixKeybindText')
 	self:SecureHook("ActionButton_UpdateFlyout", 'StyleFlyout')
+<<<<<<< HEAD
 	self:RawHook('ActionButton_HideGrid', E.noop, true)
 	SetActionBarToggles(1, 1, 1, 1, 0)
 	SetCVar("alwaysShowActionBars", 0)
 	
+=======
+
+>>>>>>> upstream/master
 	self:CreateActionBars()
 	self:LoadKeyBinder()
 	self:LoadButtonColoring()
@@ -47,6 +56,10 @@ function AB:CreateActionBars()
 	self:CreateBar4()
 	self:CreateBar5()
 	self:CreateBarPet()
+<<<<<<< HEAD
+=======
+	self:CreateVehicleLeave()
+>>>>>>> upstream/master
 	self:CreateBarShapeShift()
 	if E.myclass == "SHAMAN" then
 		self:CreateTotemBar()
@@ -66,6 +79,22 @@ function AB:PLAYER_REGEN_ENABLED()
 	self:UnregisterEvent('PLAYER_REGEN_ENABLED')
 end
 
+<<<<<<< HEAD
+=======
+function AB:CreateVehicleLeave()
+	local vehicle = CreateFrame("Button", 'LeaveVehicleButton', E.UIParent, "SecureHandlerClickTemplate")
+	vehicle:Size(26)
+	vehicle:Point("BOTTOMLEFT", Minimap, "BOTTOMLEFT", 2, 2)
+	vehicle:SetNormalTexture("Interface\\AddOns\\ElvUI\\media\\textures\\vehicleexit")
+	vehicle:SetPushedTexture("Interface\\AddOns\\ElvUI\\media\\textures\\vehicleexit")
+	vehicle:SetHighlightTexture("Interface\\AddOns\\ElvUI\\media\\textures\\vehicleexit")
+	vehicle:SetTemplate("Default")
+	vehicle:RegisterForClicks("AnyUp")
+	vehicle:SetScript("OnClick", function() VehicleExit() end)
+	RegisterStateDriver(vehicle, "visibility", "[vehicleui] show;[target=vehicle,exists] show;hide")
+end
+
+>>>>>>> upstream/master
 function AB:UpdateButtonSettings()
 	if InCombatLockdown() then self:RegisterEvent('PLAYER_REGEN_ENABLED'); return; end
 	for button, _ in pairs(self["handledbuttons"]) do
@@ -84,7 +113,10 @@ function AB:UpdateButtonSettings()
 	self:PositionAndSizeBar5()
 	self:PositionAndSizeBarPet()
 	self:PositionAndSizeBarShapeShift()
+<<<<<<< HEAD
 	
+=======
+>>>>>>> upstream/master
 	--Movers snap update
 	for _, mover in pairs(AB['movers']) do
 		mover.bar:SetScript("OnDragStart", function(mover) 
@@ -124,18 +156,26 @@ function AB:StyleButton(button, noResize, noBackdrop)
 	local normal2 = button:GetNormalTexture()
 	local shine = _G[name.."Shine"];
 	local combat = InCombatLockdown()
+<<<<<<< HEAD
 	
 
 	
+=======
+
+>>>>>>> upstream/master
 	if flash then flash:SetTexture(nil); end
 	if normal then normal:SetTexture(nil); normal:Hide(); normal:SetAlpha(0); end	
 	if normal2 then normal2:SetTexture(nil); normal2:Hide(); normal2:SetAlpha(0); end	
 	if border then border:Kill(); end
+<<<<<<< HEAD
 	
 	if button:GetScale() > 0.5 then
 		button:SetAlpha(1)
 	end
 		
+=======
+			
+>>>>>>> upstream/master
 	if not button.noResize then
 		button.noResize = noResize;
 	end
@@ -151,7 +191,12 @@ function AB:StyleButton(button, noResize, noBackdrop)
 	end
 	
 	if E:IsPTRVersion() and _G[name..'FloatingBG'] then
+<<<<<<< HEAD
 		_G[name..'FloatingBG']:Kill()
+=======
+		_G[name..'FloatingBG']:Hide()
+		_G[name..'FloatingBG']:SetAlpha(0)
+>>>>>>> upstream/master
 	end	
 	
 	if macroName then
@@ -310,10 +355,18 @@ function AB:FixKeybindText(button, type)
 		text = gsub(text, KEY_DELETE, L['KEY_DELETE']);
 		text = gsub(text, KEY_MOUSEWHEELUP, L['KEY_MOUSEWHEELUP']);
 		text = gsub(text, KEY_MOUSEWHEELDOWN, L['KEY_MOUSEWHEELDOWN']);
+<<<<<<< HEAD
 		
 		if hotkey:GetText() == RANGE_INDICATOR then
 			hotkey:SetText('');
 		else
+=======
+
+		if hotkey:GetText() == RANGE_INDICATOR then
+			hotkey:SetAlpha(0)
+		else
+			hotkey:SetAlpha(1)
+>>>>>>> upstream/master
 			hotkey:SetText(text);
 		end
 	end
@@ -347,16 +400,25 @@ end
 
 function AB:ResetMovers(bar)
 	for name, _ in pairs(self.movers) do
+<<<<<<< HEAD
 		if bar == nil then
 			local mover = self.movers[name].bar
+=======
+		local mover = self.movers[name].bar
+		if bar == '' then
+>>>>>>> upstream/master
 			mover:ClearAllPoints()
 			mover:Point(self.movers[name]["p"], self.movers[name]["p2"], self.movers[name]["p3"], self.movers[name]["p4"], self.movers[name]["p5"])
 			
 			if self.db[name] then
 				self.db[name]['position'] = nil		
 			end
+<<<<<<< HEAD
 		elseif name == bar then
 			local mover = self.movers[name].bar
+=======
+		elseif name == mover.textString then
+>>>>>>> upstream/master
 			mover:ClearAllPoints()
 			mover:Point(self.movers[name]["p"], self.movers[name]["p2"], self.movers[name]["p3"], self.movers[name]["p4"], self.movers[name]["p5"])
 			
@@ -441,6 +503,10 @@ function AB:CreateMover(bar, text, name, padding)
 	fs:SetTextColor(unpack(E["media"].rgbvaluecolor))
 	mover:SetFontString(fs)
 	mover.text = fs
+<<<<<<< HEAD
+=======
+	mover.textString = text
+>>>>>>> upstream/master
 	
 	mover:SetScript("OnEnter", function(self) 
 		self.text:SetTextColor(1, 1, 1)
@@ -451,6 +517,16 @@ function AB:CreateMover(bar, text, name, padding)
 		self:SetTemplate("Default", true)
 	end)
 	
+<<<<<<< HEAD
+=======
+	mover:RegisterEvent('PLAYER_REGEN_DISABLED')
+	mover:SetScript('OnEvent', function(self)
+		if self:IsShown() then
+			self:Hide()
+		end
+	end)
+	
+>>>>>>> upstream/master
 	mover:SetMovable(true)
 	mover:Hide()	
 	bar.mover = mover
@@ -470,7 +546,13 @@ local function SetupFlyoutButton()
 				if not AB["handledbuttons"][parentAnchorButton] then return end
 				
 				local parentAnchorBar = parentAnchorButton:GetParent()
+<<<<<<< HEAD
 				AB:Bar_OnEnter(parentAnchorBar)
+=======
+				if parentAnchorBar.mouseover then
+					AB:Bar_OnEnter(parentAnchorBar)
+				end
+>>>>>>> upstream/master
 			end)
 			_G["SpellFlyoutButton"..i]:HookScript('OnLeave', function(self)
 				local parent = self:GetParent()
@@ -479,7 +561,13 @@ local function SetupFlyoutButton()
 				
 				local parentAnchorBar = parentAnchorButton:GetParent()
 				
+<<<<<<< HEAD
 				AB:Bar_OnLeave(parentAnchorBar)	
+=======
+				if parentAnchorBar.mouseover then
+					AB:Bar_OnLeave(parentAnchorBar)	
+				end
+>>>>>>> upstream/master
 			end)
 		end
 	end
@@ -489,7 +577,13 @@ local function SetupFlyoutButton()
 		if not AB["handledbuttons"][anchorButton] then return end
 		
 		local parentAnchorBar = anchorButton:GetParent()
+<<<<<<< HEAD
 		AB:Bar_OnEnter(parentAnchorBar)
+=======
+		if parentAnchorBar.mouseover then
+			AB:Bar_OnEnter(parentAnchorBar)
+		end
+>>>>>>> upstream/master
 	end)
 	
 	SpellFlyout:HookScript('OnLeave', function(self)
@@ -497,7 +591,13 @@ local function SetupFlyoutButton()
 		if not AB["handledbuttons"][anchorButton] then return end
 		
 		local parentAnchorBar = anchorButton:GetParent()
+<<<<<<< HEAD
 		AB:Bar_OnLeave(parentAnchorBar)	
+=======
+		if parentAnchorBar.mouseover then
+			AB:Bar_OnLeave(parentAnchorBar)	
+		end
+>>>>>>> upstream/master
 	end)	
 end
 SpellFlyout:HookScript("OnShow", SetupFlyoutButton)

@@ -505,6 +505,7 @@ function CT:CreateAuraBarFrame(dataSource, parent, objectType)
 	return result;
 end
 
+<<<<<<< HEAD
 function CT:FrameCheck(anchor, frame)
 	local newAnchor = anchor
 	if (anchor == self.targetFrame and select(2, self.targetFrame:GetPoint()) == frame) or (anchor == self.trinketFrame and select(2, self.trinketFrame:GetPoint()) == frame) or (anchor == self.playerFrame and select(2, self.playerFrame:GetPoint()) == frame) then
@@ -513,6 +514,18 @@ function CT:FrameCheck(anchor, frame)
 	end
 	
 	return newAnchor
+=======
+local frameAnchors = {}
+function CT:FrameCheck(targetFrame, currentFrame)
+	for frame, anchor in pairs(frameAnchors) do
+		if frame == currentFrame and anchor == targetFrame then
+			E:Print(L['You have attempted to anchor a classtimer frame to a frame that is dependant on this classtimer frame, try changing your anchors again.'])
+			return false
+		end
+	end
+
+	return true
+>>>>>>> upstream/master
 end
 
 function CT:GetAnchor(option, frame)
@@ -537,14 +550,26 @@ function CT:GetAnchor(option, frame)
 		anchor, yOffset = self.trinketFrame, 4
 	end
 	
+<<<<<<< HEAD
 	anchor = self:FrameCheck(anchor, frame)
+=======
+>>>>>>> upstream/master
 	if option == 'PLAYERFRAME' or option == 'TARGETFRAME' then
 		frame:SetParent(anchor)
 	else
 		frame:SetParent(anchor:GetParent())
 	end
+<<<<<<< HEAD
 	frame.unit = anchor:GetParent().unit or anchor:GetParent():GetParent().unit
 	
+=======
+	
+	if anchor:GetParent() then
+		frame.unit = anchor.unit or anchor:GetParent().unit or anchor:GetParent():GetParent().unit
+	end
+	
+	frameAnchors[anchor] = frame
+>>>>>>> upstream/master
 	return anchor, yOffset
 end
 
@@ -552,6 +577,7 @@ function CT:PositionTimers()
 	local playerAnchor, playerY = self:GetAnchor(self.db.player.anchor, self.playerFrame)
 	local targetAnchor, targetY = self:GetAnchor(self.db.target.anchor, self.targetFrame)
 	local trinketAnchor, trinketY = self:GetAnchor(self.db.trinket.anchor, self.trinketFrame)
+<<<<<<< HEAD
 	
 	if self.playerFrame and self.targetFrame and self.trinketFrame then
 		self.playerFrame:ClearAllPoints()
@@ -562,6 +588,22 @@ function CT:PositionTimers()
 		self.trinketFrame:Point("BOTTOMLEFT", trinketAnchor, "TOPLEFT", 0, trinketY);
 		self.trinketFrame:Point("BOTTOMRIGHT", trinketAnchor, "TOPRIGHT", 0, trinketY);
 
+=======
+
+	if self:FrameCheck(playerAnchor, self.playerFrame) and self.db.player.enable then
+		self.playerFrame:ClearAllPoints()
+		self.playerFrame:Point("BOTTOMLEFT", playerAnchor, "TOPLEFT", 0, playerY);
+		self.playerFrame:Point("BOTTOMRIGHT", playerAnchor, "TOPRIGHT", 0, playerY);	
+	end
+	
+	if self:FrameCheck(trinketFrame, self.trinketFrame) and self.db.trinket.enable then
+		self.trinketFrame:ClearAllPoints()
+		self.trinketFrame:Point("BOTTOMLEFT", trinketAnchor, "TOPLEFT", 0, trinketY);
+		self.trinketFrame:Point("BOTTOMRIGHT", trinketAnchor, "TOPRIGHT", 0, trinketY);
+	end
+	
+	if self:FrameCheck(targetFrame, self.targetFrame) and self.db.target.enable then
+>>>>>>> upstream/master
 		self.targetFrame:ClearAllPoints()		
 		self.targetFrame:Point("BOTTOMLEFT", targetAnchor, "TOPLEFT", 0, targetY);
 		self.targetFrame:Point("BOTTOMRIGHT", targetAnchor, "TOPRIGHT", 0, targetY);	
@@ -607,7 +649,11 @@ end
 
 function CT:Initialize()
 	self.db = E.db.classtimer
+<<<<<<< HEAD
 	if not self.db.enable then return end
+=======
+	if not self.db.enable or not ElvUF_Player or not ElvUF_Target then return end
+>>>>>>> upstream/master
 	
 	self.target = self:CreateUnitAuraDataSource("target");
 	self.player = self:CreateUnitAuraDataSource("player");
@@ -615,12 +661,19 @@ function CT:Initialize()
 	
 	self:UpdateFiltersAndColors()
 	
+<<<<<<< HEAD
 	if ElvUF_Player and ElvUF_Target then
 		self.playerFrame = self:CreateAuraBarFrame(self.player, ElvUF_Player, 'player');
 		self.targetFrame = self:CreateAuraBarFrame(self.target, ElvUF_Target, 'target');		
 		self.trinketFrame = self:CreateAuraBarFrame(self.trinket, ElvUF_Player, 'trinket');
 	end
 		
+=======
+	self.playerFrame = self:CreateAuraBarFrame(self.player, ElvUF_Player, 'player');
+	self.targetFrame = self:CreateAuraBarFrame(self.target, ElvUF_Target, 'target');		
+	self.trinketFrame = self:CreateAuraBarFrame(self.trinket, ElvUF_Player, 'trinket');
+
+>>>>>>> upstream/master
 	self:PositionTimers()
 	self:ToggleTimers()
 end

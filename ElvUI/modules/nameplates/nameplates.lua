@@ -39,12 +39,21 @@ function NP:QueueObject(frame, object)
 	if object.OldShow then
 		object.Show = object.OldShow
 		object:Show()
+<<<<<<< HEAD
 	end
 	
 	if object.OldTexture then
 		object:SetTexture(object.OldTexture)
 	end
 	
+=======
+	end
+	
+	if object.OldTexture then
+		object:SetTexture(object.OldTexture)
+	end
+	
+>>>>>>> upstream/master
 	frame.hp:Hide()
 	frame.hp:Show()
 end
@@ -153,10 +162,14 @@ function NP:CreateAuraIcon(parent)
 	button.icon:SetPoint("TOPLEFT",button,"TOPLEFT", noscalemult*3,-noscalemult*3)
 	button.icon:SetPoint("BOTTOMRIGHT",button,"BOTTOMRIGHT",-noscalemult*3,noscalemult*3)
 	button.icon:SetTexCoord(0.1, 0.9, 0.1, 0.9)
+	
 	button.cd = CreateFrame("Cooldown",nil,button)
 	button.cd:SetAllPoints(button)
 	button.cd:SetReverse(true)
+<<<<<<< HEAD
 	button.cd.noOCC = true
+=======
+>>>>>>> upstream/master
 	button.cd.SizeOverride = 8
 	button.count = button:CreateFontString(nil,"OVERLAY")
 	button.count:FontTemplate(nil,7,'OUTLINE')
@@ -441,6 +454,7 @@ function NP:SkinPlate(frame)
 		self:CreateVirtualFrame(cb)
 		frame.cb = cb
 	end
+<<<<<<< HEAD
 
 	--Cast Time
 	if not cb.time then
@@ -467,6 +481,34 @@ function NP:SkinPlate(frame)
 		self:CreateVirtualFrame(cb, cb.icon)
 	end
 
+=======
+
+	--Cast Time
+	if not cb.time then
+		cb.time = cb:CreateFontString(nil, "ARTWORK")
+		cb.time:SetPoint("RIGHT", cb, "LEFT", -1, 0)
+		cb.time:FontTemplate(nil, 10, 'OUTLINE')
+	end
+	
+	--Cast Name
+	if not cb.name then
+		cb.name = cb:CreateFontString(nil, "ARTWORK")
+		cb.name:SetPoint("TOP", cb, "BOTTOM", 0, -3)
+		cb.name:FontTemplate(nil, 10, 'OUTLINE')
+	end
+	
+	--Cast Icon
+	if not cb.icon then
+		cbicon:ClearAllPoints()
+		cbicon:SetPoint("TOPLEFT", frame.hp, "TOPRIGHT", 8, 0)		
+		cbicon:SetTexCoord(.07, .93, .07, .93)
+		cbicon:SetDrawLayer("OVERLAY")
+		cb.icon = cbicon
+		cb.shield = cbshield
+		self:CreateVirtualFrame(cb, cb.icon)
+	end
+
+>>>>>>> upstream/master
 	--Raid Icon
 	if not frame.raidicon then
 		raidicon:ClearAllPoints()

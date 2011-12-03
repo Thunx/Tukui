@@ -35,7 +35,11 @@ function AB:PositionAndSizeBar3()
 	bar:SetWidth(spacing + ((size * (buttonsPerRow * widthMult)) + ((spacing * (buttonsPerRow - 1)) * widthMult) + (spacing * widthMult)));
 	bar:SetHeight(spacing + ((size * (numColumns * heightMult)) + ((spacing * (numColumns - 1)) * heightMult) + (spacing * heightMult)));
 	bar.mover:SetSize(bar:GetSize());
+<<<<<<< HEAD
 	
+=======
+	bar.mouseover = self.db['bar3'].mouseover
+>>>>>>> upstream/master
 	if self.db['bar3'].backdrop == true then
 		bar.backdrop:Show();
 	else
@@ -126,6 +130,7 @@ function AB:PositionAndSizeBar3()
 			end
 			
 			button:Point(buttonPoint, lastButton, anchorPoint, x, y);
+<<<<<<< HEAD
 		end
 		
 		if i > numButtons then
@@ -136,6 +141,18 @@ function AB:PositionAndSizeBar3()
 			button:SetAlpha(1);
 		end
 		
+=======
+		end
+		
+		if i > numButtons then
+			button:SetScale(0.000001);
+			button:SetAlpha(0);
+		else
+			button:SetScale(1);
+			button:SetAlpha(1);
+		end
+		
+>>>>>>> upstream/master
 		self:StyleButton(button);
 	end
 	possibleButtons = nil;
