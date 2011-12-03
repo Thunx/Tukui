@@ -14,35 +14,6 @@ function AB:PositionAndSizeBar1()
 	local numColumns = ceil(numButtons / buttonsPerRow);
 	local widthMult = self.db['bar1'].widthMult;
 	local heightMult = self.db['bar1'].heightMult;
-<<<<<<< HEAD
-	
-	if numButtons < buttonsPerRow then
-		buttonsPerRow = numButtons;
-	end
-
-	if numColumns < 1 then
-		numColumns = 1;
-	end
-
-	if self.db['bar1'].enabled then
-		bar:SetScale(1);
-		bar:SetAlpha(1);
-	else
-		bar:SetScale(0.000001);
-		bar:SetAlpha(0);
-	end
-
-	bar:SetWidth(spacing + ((size * (buttonsPerRow * widthMult)) + ((spacing * (buttonsPerRow - 1)) * widthMult) + (spacing * widthMult)));
-	bar:SetHeight(spacing + ((size * (numColumns * heightMult)) + ((spacing * (numColumns - 1)) * heightMult) + (spacing * heightMult)));
-	bar.mover:SetSize(bar:GetSize());
-	
-	if self.db['bar1'].backdrop == true then
-		bar.backdrop:Show();
-	else
-		bar.backdrop:Hide();
-	end
-	
-=======
 	
 	if numButtons < buttonsPerRow then
 		buttonsPerRow = numButtons;
@@ -71,7 +42,6 @@ function AB:PositionAndSizeBar1()
 		bar.backdrop:Hide();
 	end
 	
->>>>>>> upstream/master
 	local horizontalGrowth, verticalGrowth;
 	if point == "TOPLEFT" or point == "TOPRIGHT" then
 		verticalGrowth = "DOWN";

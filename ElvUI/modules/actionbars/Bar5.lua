@@ -35,11 +35,7 @@ function AB:PositionAndSizeBar5()
 		bar:SetScale(0.000001);
 		bar:SetAlpha(0);
 	end
-<<<<<<< HEAD
-	
-=======
 	bar.mouseover = self.db['bar5'].mouseover
->>>>>>> upstream/master
 	if self.db['bar5'].backdrop == true then
 		bar.backdrop:Show();
 	else

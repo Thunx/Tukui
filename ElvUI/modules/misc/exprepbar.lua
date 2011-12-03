@@ -214,16 +214,6 @@ function M:LoadExpRepBar()
 	
 	local holder = CreateFrame('Button', 'UpperRepExpBarHolder', E.UIParent)
 	holder:Size(BAR_WIDTH, TOPBAR_HEIGHT)
-<<<<<<< HEAD
-	holder:Point('TOP', E.UIParent, 'TOP', 0, 2)	
-	holder:SetScript('OnEnter', OnEnter)
-	holder:SetScript('OnLeave', OnLeave)	
-	holder:SetScript('OnClick', OnClick)	
-	
-	local bar = CreateFrame('Frame', 'UpperRepExpBar', holder)
-	bar:Size(BAR_WIDTH, TOPBAR_HEIGHT)
-	bar:Point('TOP', E.UIParent, 'TOP', 0, 2)
-=======
 	holder:Point('TOP', E.UIParent, 'TOP', 0, 2)  
 	holder:SetScript('OnEnter', OnEnter)
 	holder:SetScript('OnLeave', OnLeave)	
@@ -233,7 +223,6 @@ function M:LoadExpRepBar()
 	local bar = CreateFrame('Frame', 'UpperRepExpBar', holder)
 	bar:Size(BAR_WIDTH, TOPBAR_HEIGHT)
 	bar:Point('TOP', holder, 'TOP')	
->>>>>>> upstream/master
 	bar:Hide()
 		
 	bar.left = CreateFrame('Frame', nil, bar)

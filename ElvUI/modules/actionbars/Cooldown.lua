@@ -65,14 +65,9 @@ end
 
 function AB:Cooldown_OnSizeChanged(cd, width, height)
 	local fontScale = E:Round(width) / ICON_SIZE
-<<<<<<< HEAD
-	if cd:GetParent():GetParent().SizeOverride then 
-		fontScale = cd:GetParent():GetParent().SizeOverride / FONT_SIZE  
-=======
 	local override = cd:GetParent():GetParent().SizeOverride
 	if override then 
 		fontScale = override / FONT_SIZE  
->>>>>>> upstream/master
 	end
 	
 	if fontScale == cd.fontScale then
@@ -80,16 +75,10 @@ function AB:Cooldown_OnSizeChanged(cd, width, height)
 	end
 
 	cd.fontScale = fontScale
-<<<<<<< HEAD
-	if fontScale < MIN_SCALE then
-		cd:Hide()
-	else
-=======
 	if fontScale < MIN_SCALE and not override then
 		cd:Hide()
 	else
 		cd:Show()
->>>>>>> upstream/master
 		cd.text:FontTemplate(nil, fontScale * FONT_SIZE, 'OUTLINE')
 		if cd.enabled then
 			self:Cooldown_ForceUpdate(cd)
@@ -120,13 +109,8 @@ function AB:CreateCooldownTimer(parent)
 	text:SetJustifyH("CENTER")
 	timer.text = text
 
-<<<<<<< HEAD
-	self:Cooldown_OnSizeChanged(timer, scaler:GetSize())
-	scaler:SetScript('OnSizeChanged', function(_, ...) self:Cooldown_OnSizeChanged(timer, ...) end)
-=======
 	self:Cooldown_OnSizeChanged(timer, parent:GetSize())
 	parent:SetScript('OnSizeChanged', function(_, ...) self:Cooldown_OnSizeChanged(timer, ...) end)
->>>>>>> upstream/master
 
 	parent.timer = timer
 	return timer
@@ -181,34 +165,24 @@ function AB:EnableCooldown()
 				self:RegisterCooldown(frame)
 			end
 		end	
-<<<<<<< HEAD
-=======
 		
 		if not self.hooks[cooldown] then
 			self:SecureHook(cooldown, 'SetCooldown', 'OnSetCooldown')
 		end		
->>>>>>> upstream/master
 	else
 		if not self.hooks[cooldown] then
 			self:SecureHook(cooldown, 'SetCooldown', 'OnSetCooldown')
 		end
 	end
 end
-<<<<<<< HEAD
-AB:EnableCooldown()
-=======
->>>>>>> upstream/master
 
 function AB:DisableCooldown()
 	if E:IsPTRVersion() then
 		self:UnregisterEvent('ACTIONBAR_UPDATE_COOLDOWN')
-<<<<<<< HEAD
-=======
 		if self.hooks[cooldown] then
 			self:Unhook(cooldown, 'SetCooldown')
 			self.hooks[cooldown] = nil
 		end		
->>>>>>> upstream/master
 	else
 		if self.hooks[cooldown] then
 			self:Unhook(cooldown, 'SetCooldown')

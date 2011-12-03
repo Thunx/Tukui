@@ -63,7 +63,6 @@ function CH:StyleChat(frame)
 			end
 		else
 			editbox:SetBackdropBorderColor(ChatTypeInfo[type].r,ChatTypeInfo[type].g,ChatTypeInfo[type].b)
-<<<<<<< HEAD
 		end
 	end)
 	
@@ -87,31 +86,6 @@ function CH:StyleChat(frame)
 		end
 	end)
 	
-=======
-		end
-	end)
-	
-	--copy chat button
-	frame.button = CreateFrame('Frame', format("CopyChatButton%d", id), frame)
-	frame.button:SetAlpha(0)
-	frame.button:SetTemplate('Default', true)
-	frame.button:Size(20, 22)
-	frame.button:SetPoint('TOPRIGHT')
-	
-	frame.button.tex = frame.button:CreateTexture(nil, 'OVERLAY')
-	frame.button.tex:Point('TOPLEFT', 2, -2)
-	frame.button.tex:Point('BOTTOMRIGHT', -2, 2)
-	frame.button.tex:SetTexture([[Interface\AddOns\ElvUI\media\textures\copy.tga]])
-	
-	frame.button:SetScript("OnMouseUp", function(self, btn)
-		if btn == "RightButton" and id == 1 then
-			ToggleFrame(ChatMenu)
-		else
-			CH:CopyChat(frame)
-		end
-	end)
-	
->>>>>>> upstream/master
 	frame.button:SetScript("OnEnter", function(self) self:SetAlpha(1) end)
 	frame.button:SetScript("OnLeave", function(self) self:SetAlpha(0) end)	
 		
@@ -150,18 +124,13 @@ function CH:SetupTempChat()
 end
 
 function CH:PositionChat(override)
-<<<<<<< HEAD
-	if (InCombatLockdown() and not override) or (IsMouseButtonDown("LeftButton") and not override) then return end
-=======
 	if (InCombatLockdown() and not override and self.initialMove) or (IsMouseButtonDown("LeftButton") and not override) then return end
->>>>>>> upstream/master
 	
 	local chat, chatbg, tab, id, point, button, isDocked, chatFound
 	for i = 1, NUM_CHAT_WINDOWS do
 		chat = _G[format("ChatFrame%d", i)]
 		id = chat:GetID()
 		point = GetChatWindowSavedPosition(id)
-<<<<<<< HEAD
 		
 		if point == "BOTTOMRIGHT" and chat:IsShown() then
 			chatFound = true
@@ -196,42 +165,6 @@ function CH:PositionChat(override)
 		point = GetChatWindowSavedPosition(id)
 		_, _, _, _, _, _, _, _, isDocked, _ = GetChatWindowInfo(id)		
 		
-=======
-		
-		if point == "BOTTOMRIGHT" and chat:IsShown() then
-			chatFound = true
-			break
-		end
-	end	
-	
-	RightChatPanel:Size(E.db.core.panelWidth, E.db.core.panelHeight)
-	LeftChatPanel:Size(E.db.core.panelWidth, E.db.core.panelHeight)
-	
-	if not chatFound and RightChatPanel:GetAlpha() == 1 and E.db.core.autohide then	
-		RightChatToggleButton:Click()
-		RightChatToggleButton:Disable()
-		self.RightChatWindowID = nil
-	elseif chatFound and not RightChatToggleButton:IsEnabled() and E.db.core.autohide then	
-		RightChatToggleButton:Enable()
-		RightChatToggleButton:Click()
-		self.RightChatWindowID = id
-	elseif chatFound then
-		self.RightChatWindowID = id
-	elseif not chatFound and not E.db.core.autohide then
-		self.RightChatWindowID = nil;
-		RightChatToggleButton:Enable()
-	end
-	
-	for i=1, CreatedFrames do
-		chat = _G[format("ChatFrame%d", i)]
-		chatbg = format("ChatFrame%dBackground", i)
-		button = _G[format("ButtonCF%d", i)]
-		id = chat:GetID()
-		tab = _G[format("ChatFrame%sTab", i)]
-		point = GetChatWindowSavedPosition(id)
-		_, _, _, _, _, _, _, _, isDocked, _ = GetChatWindowInfo(id)		
-		
->>>>>>> upstream/master
 		if id > NUM_CHAT_WINDOWS then
 			if point == nil then
 				point = select(1, chat:GetPoint())
@@ -368,11 +301,7 @@ local sizes = {
 	":14",
 }
 
-<<<<<<< HEAD
-function CH:Initialize()
-=======
 function CH:Initialize(event)
->>>>>>> upstream/master
 	if E.db.core.chat ~= true then return end
 	E.Chat = self
 	
@@ -389,15 +318,11 @@ function CH:Initialize(event)
 	self:RegisterEvent('UPDATE_CHAT_WINDOWS', 'SetupChat')
 	self:RegisterEvent('UPDATE_FLOATING_CHAT_WINDOWS', 'SetupChat')
 	
-<<<<<<< HEAD
-	
-=======
 	if event == 'PLAYER_LOGIN' then
 		self:SetupChat()
 		self:UnregisterEvent('PLAYER_LOGIN')
 	end
 
->>>>>>> upstream/master
 	local S = E:GetModule('Skins')
 	local frame = CreateFrame("Frame", "CopyChatFrame", E.UIParent)
 	frame:SetTemplate('Transparent')

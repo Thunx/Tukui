@@ -193,10 +193,6 @@ function AB:AdjustTotemSettings()
 	elseif not combat then
 		bar:Hide()
 	end
-<<<<<<< HEAD
-	
-=======
->>>>>>> upstream/master
 	for button, _ in pairs(bar.buttons) do
 		if self.db['barTotem'].mouseover == true then
 			bar:SetAlpha(0)

@@ -70,7 +70,6 @@ function AB:UpdatePet()
 		end		
 		
 		checked:SetAlpha(0.3);
-<<<<<<< HEAD
 	end
 end
 
@@ -84,47 +83,6 @@ function AB:PositionAndSizeBarPet()
 	local widthMult = self.db['barPet'].widthMult;
 	local heightMult = self.db['barPet'].heightMult;
 	
-	if numButtons < buttonsPerRow then
-		buttonsPerRow = numButtons;
-	end
-
-	if numColumns < 1 then
-		numColumns = 1;
-	end
-
-	bar:SetWidth(spacing + ((size * (buttonsPerRow * widthMult)) + ((spacing * (buttonsPerRow - 1)) * widthMult) + (spacing * widthMult)));
-	bar:SetHeight(spacing + ((size * (numColumns * heightMult)) + ((spacing * (numColumns - 1)) * heightMult) + (spacing * heightMult)));
-	bar.mover:SetSize(bar:GetSize());
-
-	if self.db['barPet'].enabled then
-		bar:SetScale(1);
-		bar:SetAlpha(1);
-	else
-		bar:SetScale(0.000001);
-		bar:SetAlpha(0);
-	end
-	
-	if self.db['barPet'].backdrop == true then
-		bar.backdrop:Show();
-	else
-		bar.backdrop:Hide();
-=======
->>>>>>> upstream/master
-	end
-end
-
-function AB:PositionAndSizeBarPet()
-	local spacing = E:Scale(self.db.buttonspacing);
-	local buttonsPerRow = self.db['barPet'].buttonsPerRow;
-	local numButtons = self.db['barPet'].buttons;
-	local size = E:Scale(self.db.altbuttonsize);
-	local point = self.db['barPet'].point;
-	local numColumns = ceil(numButtons / buttonsPerRow);
-	local widthMult = self.db['barPet'].widthMult;
-	local heightMult = self.db['barPet'].heightMult;
-	
-<<<<<<< HEAD
-=======
 	if numButtons < buttonsPerRow then
 		buttonsPerRow = numButtons;
 	end
@@ -151,7 +109,6 @@ function AB:PositionAndSizeBarPet()
 		bar.backdrop:Hide();
 	end
 	
->>>>>>> upstream/master
 	local horizontalGrowth, verticalGrowth;
 	if point == "TOPLEFT" or point == "TOPRIGHT" then
 		verticalGrowth = "DOWN";
@@ -201,7 +158,6 @@ function AB:PositionAndSizeBarPet()
 				self:Unhook(button, 'OnLeave');		
 			end
 		end
-<<<<<<< HEAD
 		
 		if i == 1 then
 			local x, y;
@@ -247,53 +203,6 @@ function AB:PositionAndSizeBarPet()
 			button:SetAlpha(1);
 		end
 		
-=======
-		
-		if i == 1 then
-			local x, y;
-			if point == "BOTTOMLEFT" then
-				x, y = spacing, spacing;
-			elseif point == "TOPRIGHT" then
-				x, y = -spacing, -spacing;
-			elseif point == "TOPLEFT" then
-				x, y = spacing, -spacing;
-			else
-				x, y = -spacing, spacing;
-			end
-
-			button:Point(point, bar, point, x, y);
-		elseif possibleButtons[i] then
-			local x = 0;
-			local y = -spacing;
-			local buttonPoint, anchorPoint = "TOP", "BOTTOM";
-			if verticalGrowth == 'UP' then
-				y = spacing;
-				buttonPoint = "BOTTOM";
-				anchorPoint = "TOP";
-			end
-			button:Point(buttonPoint, lastColumnButton, anchorPoint, x, y);			
-		else
-			local x = spacing;
-			local y = 0;
-			local buttonPoint, anchorPoint = "LEFT", "RIGHT";
-			if horizontalGrowth == 'LEFT' then
-				x = -spacing;
-				buttonPoint = "RIGHT";
-				anchorPoint = "LEFT";
-			end
-			
-			button:Point(buttonPoint, lastButton, anchorPoint, x, y);
-		end
-		
-		if i > numButtons then
-			button:SetScale(0.000001);
-			button:SetAlpha(0);
-		else
-			button:SetScale(1);
-			button:SetAlpha(1);
-		end
-		
->>>>>>> upstream/master
 		self:StyleButton(button, true);
 	end
 	possibleButtons = nil;
