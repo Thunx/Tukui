@@ -1,6 +1,6 @@
 local E, C, L, DB = unpack(select(2, ...)) -- Import Functions/Constants, Config, Locales
 local E, C, L, DB = unpack(ElvUI)
-
+--ttest
 TC = {	
 	fontsize = 12,								-- Font storlek
 	font = "Interface\\AddOns\\ThunxToggleText\\PT_Sans_Narrow.ttf",	-- Font
