@@ -99,7 +99,16 @@ function UF:GetAuraAnchorFrame(frame, attachTo, otherAuraAnchor)
 	end
 end
 
-function UF:UpdateGroupChildren(db, ...)
+function UF:UpdateGroupChildren(header, db)
+	for i=1, header:GetNumChildren() do
+		local frame = select(i, header:GetChildren())
+		if frame and frame.unit then
+			UF["Update_"..E:StringTitle(header.groupName).."Frames"](self, frame, self.db['layouts'][self.ActiveLayout][header.groupName])
+		end
+	end	
+end
+
+function UF:ClearChildPoints(...)
 	for i=1, select("#", ...) do
 		local child = select(i, ...)
 		child:ClearAllPoints()
@@ -384,6 +393,7 @@ function UF:DisableBlizzard(event)
 	hooksecurefunc("CompactRaidFrameManager_UpdateShown", HideRaid)
 	CompactRaidFrameManager:HookScript('OnShow', HideRaid)
 	CompactRaidFrameManager:SetScale(0.000001)
+	RaidFrame:UnregisterAllEvents()
 end
 
 function UF:Initialize()	
