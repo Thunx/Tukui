@@ -305,4 +305,4 @@ function f.Pull(timer)
 end
 
 _G["ThunxPull"]=f
-BINDING_HEADER_ThunxPull = "Pull Countdown"
+BINDING_HEADER_ThunxPull = "Thunx Pull"
