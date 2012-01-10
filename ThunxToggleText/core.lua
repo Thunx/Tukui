@@ -1,6 +1,6 @@
 local E, L, DF = unpack(ElvUI); -- Import Functions/Constants, Config, Locales
 
-
+if IsAddOnLoaded("Elv_Thunx") then return end
 --------------------------------------------------------------------
 -----Recount toggle knapp-----
 --------------------------------------------------------------------

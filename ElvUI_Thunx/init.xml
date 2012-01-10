@@ -1,0 +1,22 @@
+﻿<Ui xmlns="http://www.blizzard.com/wow/ui/">
+	<Script file="core.lua"/>
+	<Script file="options.lua"/>
+	<Script file="defaults.lua"/>	
+	<Script file="layout\layout.lua"/>	
+	<Script file="media\sharedmedia.lua"/>	
+	
+	<Script file="modules\actionbars\actionbars.lua"/>
+	<Script file="modules\auras\auras.lua"/>
+	<Script file="modules\chat\chat.lua"/>
+	<Script file='modules\classtimers\classtimers.lua'/>
+	<Script file="modules\maps\minimap.lua"/>
+	<Script file="modules\tooltip\tooltip.lua"/>
+	<Script file="modules\questtracker\questtracker.lua"/>
+	<Script file="modules\misc\tabtext.lua"/>
+	<Script file="modules\misc\autorepchange.lua"/>
+	<Script file="modules\misc\spincam.lua"/>
+	<Script file="modules\misc\fdispelannounce.lua"/>
+	
+	<Include file="modules\unitframes\load_unitframes.xml"/>
+	<Include file="modules\datatexts\load_datatexts.xml"/>
+</Ui>

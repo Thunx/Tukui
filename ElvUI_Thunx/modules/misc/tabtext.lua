@@ -1,7 +1,9 @@
 local E, L, DF = unpack(ElvUI); -- Import Functions/Constants, Config, Locales
-
+local S = E:GetModule('Skins')
+--function Thunx_DoWork_Tabtext()
 ----------------------------------------------------------------------
--- 							By Cadayron
+-- 							By Cadayron'
+--	Ediited by Thunx
 -- Inspired by Tukz, Elv, Hydra codes and lduvall for icons
 ----------------------------------------------------------------------
 
@@ -14,7 +16,7 @@ chatheight = DF.core.panelHeight    		-- Height of chatframe
 tabheight = 23 -- Height of tab
 firstposition = ((chatheight-((tabheight*4)+(tabspacing*5)))/2)+tabheight/4  --Set the positon for default chat height size
 selectioncolor = {r = 23/255,g = 132/255,b = 209/255}
-
+	
 
 ----------------------------------------------------------------------
 -- Array for Toggle and Lock functions
@@ -34,6 +36,7 @@ TLock[4] = false
 ----------------------------------------------------------------------
 -- Functions (Toggle and Update lock)
 ----------------------------------------------------------------------
+
 E.ToggleTab = function(square,indexIn, id)
 	if indexIn == true then
 		square:Show()
@@ -59,8 +62,9 @@ end
 
 local tab
 local LoadTab = function(self)
-tab = CreateFrame("Frame", "tab", RightChatPanel) 	-- Tab creation
 
+tab = CreateFrame("Frame", "tab", RightChatPanel) 	-- Tab creation
+if not E.db.skins.thunx.enabletab == true then return end
 
 	for i = 1, 4 do
 		tab[i] = CreateFrame("Button", "tab"..i, tab)
@@ -79,14 +83,65 @@ tab = CreateFrame("Frame", "tab", RightChatPanel) 	-- Tab creation
 		--tab[i]:SetAlpha(0)
 		tab[i].text = tab[i]:CreateFontString(nil, font, fontsize)
 		tab[i].text:SetPoint("CENTER", 0, 0)
-			
-		if i == 1 then 		-- Atlasloot
+		
+		--Atlasloot
+		if E.db.skins.thunx.tableft == 'Atlasloot' then
+			atX = 4
+		elseif E.db.skins.thunx.tableftmiddle == 'Atlasloot' then
+			atX = 3
+		elseif E.db.skins.thunx.tabrightmiddle == 'Atlasloot' then
+			atX = 2
+		elseif E.db.skins.thunx.tabright == 'Atlasloot' then	
+			atX = 1
+		end
+			--Omen
+		if E.db.skins.thunx.tableft == 'Omen'then
+			omX = 4
+		elseif E.db.skins.thunx.tableftmiddle == 'Omen' then
+			omX = 3
+		elseif E.db.skins.thunx.tabrightmiddle == 'Omen' then
+			omX = 2
+		elseif E.db.skins.thunx.tabright == 'Omen 'then
+			omX = 1
+		end
+		--Recount
+		if E.db.skins.thunx.tableft == 'Recount' then
+			reX = 4
+		elseif E.db.skins.thunx.tableftmiddle == 'Recount'	then
+			reX = 3
+		elseif E.db.skins.thunx.tabrightmiddle == 'Recount' then
+			reX = 2
+		elseif E.db.skins.thunx.tabright == 'Recount' then
+			reX = 1
+		end
+		--Encounterjournal
+		if E.db.skins.thunx.tableft == 'Encounterjournal' then
+			ejX = 4
+		elseif E.db.skins.thunx.tableftmiddle == 'Encounterjournal' then
+			ejX = 3
+		elseif E.db.skins.thunx.tabrightmiddle == 'Encounterjournal' then
+			ejX = 2
+		elseif E.db.skins.thunx.tabright == 'Encounterjournal' then
+			ejX = 1
+		end
+		--Skada
+		if E.db.skins.thunx.tableft == 'Skada' then
+			ejX = 4
+		elseif E.db.skins.thunx.tableftmiddle == 'Skada' then
+			ejX = 3
+		elseif E.db.skins.thunx.tabrightmiddle == 'Skada' then
+			ejX = 2
+		elseif E.db.skins.thunx.tabright == 'Skada' then
+			ejX = 1
+		end
+		
+		if i == atX then 		-- Atlasloot
 		
 				-- Set Texture
 				TTALoot = tab[i]:CreateTexture(nil, "ARTWORK")
 				TTALoot:Point("TOPLEFT", tab[i], E:Scale(4), E:Scale(-4))
 				TTALoot:Point("BOTTOMRIGHT",tab[i], E:Scale(-4), E:Scale(4))
-				TTALoot:SetTexture("Interface\\AddOns\\Thunx\\media\\AL")
+				TTALoot:SetTexture("Interface\\AddOns\\ElvUI_Thunx\\media\\AL")
 				TTALoot:SetVertexColor(35/255,164/255,255/255)
 				
 				tab[i]:SetScript("OnEnter", function(self)
@@ -124,13 +179,13 @@ tab = CreateFrame("Frame", "tab", RightChatPanel) 	-- Tab creation
 				end)
 			
 		
-		elseif i == 2 then 	-- Omen
+		elseif i == omX then 	-- Omen
 			if IsAddOnLoaded("Omen") then
 				-- Set Texture
 				TTOmen = tab[i]:CreateTexture(nil, "ARTWORK")
 				TTOmen:Point("TOPLEFT", tab[i], E:Scale(4), E:Scale(-4))
 				TTOmen:Point("BOTTOMRIGHT",tab[i], E:Scale(-4), E:Scale(4))
-				TTOmen:SetTexture("Interface\\AddOns\\Thunx\\media\\Omen")
+				TTOmen:SetTexture("Interface\\AddOns\\ElvUI_Thunx\\media\\Omen")
 				TTOmen:SetVertexColor(35/255,164/255,255/255)
 				
 				tab[i]:SetScript("OnEnter", function(self)
@@ -165,8 +220,8 @@ tab = CreateFrame("Frame", "tab", RightChatPanel) 	-- Tab creation
 					E.UpdateTabLock(TTOmen, TLock[i], 2);
 				end)
 			end
-		--[[
-		elseif i == 3 then 	-- Skada
+		
+		elseif i == skX then 	-- Skada
 			if IsAddOnLoaded("Skada") then
 				-- Set Texture
 				TTSkada = tab[i]:CreateTexture(nil, "ARTWORK")
@@ -205,16 +260,16 @@ tab = CreateFrame("Frame", "tab", RightChatPanel) 	-- Tab creation
 					Skada:ToggleWindow()
 					E.UpdateTabLock(TTSkada, TLock[i], 3); 
 				end)
-			end ]]
+			end 
 			
 			
-		elseif i == 3 then 	-- Recount
+		elseif i == reX then 	-- Recount
 			if IsAddOnLoaded("Recount") then
 				-- Set Texture
 				TTRecount = tab[i]:CreateTexture(nil, "ARTWORK")
 				TTRecount:Point("TOPLEFT", tab[i], E:Scale(4), E:Scale(-4))
 				TTRecount:Point("BOTTOMRIGHT",tab[i], E:Scale(-4), E:Scale(4))
-				TTRecount:SetTexture("Interface\\AddOns\\Thunx\\media\\Recount")
+				TTRecount:SetTexture("Interface\\AddOns\\ElvUI_Thunx\\media\\Recount")
 				TTRecount:SetVertexColor(35/255,164/255,255/255)
 				
 				tab[i]:SetScript("OnEnter", function()
@@ -251,13 +306,13 @@ tab = CreateFrame("Frame", "tab", RightChatPanel) 	-- Tab creation
 				end) 
 			end
 			
-		elseif i == 4 then 		-- Encounter Journal
+		elseif i == ejX then 		-- Encounter Journal
 		
 			-- Set Texture
 			TTEncJourn = tab[i]:CreateTexture(nil, "ARTWORK")
 			TTEncJourn:Point("TOPLEFT", tab[i], E:Scale(4), E:Scale(-4))
 			TTEncJourn:Point("BOTTOMRIGHT",tab[i], E:Scale(-4), E:Scale(4))
-			TTEncJourn:SetTexture("Interface\\AddOns\\Thunx\\media\\EJ")
+			TTEncJourn:SetTexture("Interface\\AddOns\\ElvUI_Thunx\\media\\EJ")
 			TTEncJourn:SetVertexColor(35/255,164/255,255/255)
 			
 			tab[i]:SetScript("OnEnter", function(self)
@@ -299,7 +354,7 @@ tab = CreateFrame("Frame", "tab", RightChatPanel) 	-- Tab creation
 			-- TTName = tab[i]:CreateTexture(nil, "ARTWORK")
 			-- TTName:SetPoint("TOPLEFT", tab[i], T.Scale(4), T.Scale(-4))
 			-- TTName:SetPoint("BOTTOMRIGHT",tab[i], T.Scale(-4), T.Scale(4))
-			-- TTName:SetTexture("Interface\\AddOns\\Thunx\\media\\ec") --Get icon in media folder
+			-- TTName:SetTexture("Interface\\AddOns\\ElvUI_Thunx\\media\\ec") --Get icon in media folder
 			-- TTName:SetVertexColor(35/255,164/255,255/255)
 			
 			-- tab[i]:SetScript("OnEnter", function(self)
@@ -338,6 +393,7 @@ tab = CreateFrame("Frame", "tab", RightChatPanel) 	-- Tab creation
 	end 
     self:UnregisterEvent("PLAYER_ENTERING_WORLD")
 end
+--end
 local FrameLoad = CreateFrame("Frame")
 FrameLoad:RegisterEvent("PLAYER_ENTERING_WORLD")
 FrameLoad:SetScript("OnEvent", LoadTab)
