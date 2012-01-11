@@ -477,7 +477,7 @@ E.Options.args.skins.args.thunx = {
 						type = 'toggle',
 						order = 1,
 						get = function(info) return E.db.skins.thunx[ info[#info] ] end,
-						set = function(info, value) E.db.skins.thunx[ info[#info] ] = value; StaticPopup_Show("CONFIG_RL") end,					
+						set = function(info, value) E.db.skins.thunx[ info[#info] ] = value; StaticPopup_Show("CONFIG_RL"); E:SetupThunxMedia(); E:Initializethunx(); end,					
 					},
 					tableft = {
 						order = 2,
@@ -491,7 +491,7 @@ E.Options.args.skins.args.thunx = {
 							['Skada'] = L["Skada"],
 							['Atlasloot'] = L["Atlasloot"],
 						},
-						set = function(info, value) E.db.skins.thunx[ info[#info] ] = value; StaticPopup_Show("CONFIG_RL") end,
+						set = function(info, value) E.db.skins.thunx[ info[#info] ] = value; StaticPopup_Show("CONFIG_RL"); E:SetupThunxMedia(); E:Initializethunx(); end,
 					},
 					tableftmiddle = {
 						order = 3,
@@ -505,7 +505,7 @@ E.Options.args.skins.args.thunx = {
 							['Skada'] = L["Skada"],
 							['Atlasloot'] = L["Atlasloot"],
 						},
-						set = function(info, value) E.db.skins.thunx[ info[#info] ] = value; StaticPopup_Show("CONFIG_RL") end,
+						set = function(info, value) E.db.skins.thunx[ info[#info] ] = value; StaticPopup_Show("CONFIG_RL"); E:SetupThunxMedia(); E:Initializethunx(); end,
 					},
 					tabrightmiddle = {
 						order = 5,
@@ -519,7 +519,7 @@ E.Options.args.skins.args.thunx = {
 							['Skada'] = L["Skada"],
 							['Atlasloot'] = L["Atlasloot"],
 						},
-						set = function(info, value) E.db.skins.thunx[ info[#info] ] = value; StaticPopup_Show("CONFIG_RL") end,
+						set = function(info, value) E.db.skins.thunx[ info[#info] ] = value; StaticPopup_Show("CONFIG_RL"); E:SetupThunxMedia(); E:Initializethunx(); end,
 					},
 					tabright = {
 						order = 6,
@@ -533,7 +533,7 @@ E.Options.args.skins.args.thunx = {
 							['Skada'] = L["Skada"],
 							['Atlasloot'] = L["Atlasloot"],
 						},
-						set = function(info, value) E.db.skins.thunx[ info[#info] ] = value; StaticPopup_Show("CONFIG_RL") end,
+						set = function(info, value) E.db.skins.thunx[ info[#info] ] = value; StaticPopup_Show("CONFIG_RL"); E:SetupThunxMedia(); E:Initializethunx(); end,
 					},					
 			},
 		},		

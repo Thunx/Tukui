@@ -1,6 +1,7 @@
 local E, L, DF = unpack(ElvUI); -- Import Functions/Constants, Config, Locales
 local S = E:GetModule('Skins')
---function Thunx_DoWork_Tabtext()
+
+
 ----------------------------------------------------------------------
 -- 							By Cadayron'
 --	Ediited by Thunx
@@ -51,21 +52,24 @@ E.ToggleTab = function(square,indexIn, id)
 end
 
 E.UpdateTabLock = function(skin,indexLock, id)
- if indexLock == true then
- 	TLock[id] = false
-  	skin:SetVertexColor(35/255,164/255,255/255)
- else
- 	TLock[id] = true;
- 	skin:SetVertexColor(35/255,164/255,255/255)
- end
+	 if indexLock == true then
+		TLock[id] = false
+		skin:SetVertexColor(35/255,164/255,255/255)
+	 else
+		TLock[id] = true;
+		skin:SetVertexColor(35/255,164/255,255/255)
+	 end
 end
+
+
+
 
 local tab
 local LoadTab = function(self)
+tab = CreateFrame("Frame", "tab", RightChatPanel) 	-- Tab creationif not E.db.skins.thunx.enabletab == true then return end
 
-tab = CreateFrame("Frame", "tab", RightChatPanel) 	-- Tab creation
-if not E.db.skins.thunx.enabletab == true then return end
-
+	if not E.db.skins.thunx.enabletab == true then return end
+	
 	for i = 1, 4 do
 		tab[i] = CreateFrame("Button", "tab"..i, tab)
 		tab[i]:SetFrameLevel(10)
@@ -126,13 +130,13 @@ if not E.db.skins.thunx.enabletab == true then return end
 		end
 		--Skada
 		if E.db.skins.thunx.tableft == 'Skada' then
-			ejX = 4
+			skX = 4
 		elseif E.db.skins.thunx.tableftmiddle == 'Skada' then
-			ejX = 3
+			skX = 3
 		elseif E.db.skins.thunx.tabrightmiddle == 'Skada' then
-			ejX = 2
+			skX = 2
 		elseif E.db.skins.thunx.tabright == 'Skada' then
-			ejX = 1
+			skX = 1
 		end
 		
 		if i == atX then 		-- Atlasloot
@@ -389,11 +393,11 @@ if not E.db.skins.thunx.enabletab == true then return end
 				-- T.UpdateTabLock(TTName, TLock[i], 4); 
 			-- end)
 		end 
-			
 	end 
     self:UnregisterEvent("PLAYER_ENTERING_WORLD")
 end
---end
+
 local FrameLoad = CreateFrame("Frame")
 FrameLoad:RegisterEvent("PLAYER_ENTERING_WORLD")
 FrameLoad:SetScript("OnEvent", LoadTab)
+
