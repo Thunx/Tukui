@@ -231,7 +231,7 @@ tab = CreateFrame("Frame", "tab", RightChatPanel) 	-- Tab creationif not E.db.sk
 				TTSkada = tab[i]:CreateTexture(nil, "ARTWORK")
 				TTSkada:Point("TOPLEFT", tab[i], E:Scale(4), E:Scale(-4))
 				TTSkada:Point("BOTTOMRIGHT",tab[i], E:Scale(-4), E:Scale(4))
-				TTSkada:SetTexture("Interface\\AddOns\\Thunx\\media\\Recount")
+				TTSkada:SetTexture("Interface\\AddOns\\ElvUI_Thunx\\media\\Recount")
 				
 				tab[i]:SetScript("OnEnter", function(self)
 					GameTooltip:SetOwner(self, "ANCHOR_TOP", 0, E:Scale(6));
