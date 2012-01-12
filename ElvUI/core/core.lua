@@ -143,6 +143,9 @@ E.UIParent:SetPoint('CENTER', UIParent, 'CENTER');
 E.UIParent:SetSize(UIParent:GetSize());
 tinsert(E['snapBars'], E.UIParent)
 
+E.HiddenFrame = CreateFrame('Frame')
+E.HiddenFrame:Hide()
+
 --Check if PTR version of WoW is loaded
 function E:IsPTRVersion()
 	if self.wowbuild > 14545 then
@@ -298,6 +301,15 @@ function E:CheckIncompatible()
 		E:Print(format(L['INCOMPATIBLE_ADDON'], 'OneBag3', 'Bags'))
 	elseif IsAddOnLoaded('OneBank3') and E.db.core.bags then
 		E:Print(format(L['INCOMPATIBLE_ADDON'], 'OneBank3', 'Bags'))
+	end
+end
+
+function E:IsFoolsDay()
+	local date = date()
+	if string.find(date, '04/01/') then
+		return true;
+	else
+		return false;
 	end
 end
 

@@ -1,10 +1,19 @@
 local E, L, DF = unpack(select(2, ...)); --Engine
-local NP = E:NewModule('NamePlates', 'AceHook-3.0', 'AceEvent-3.0')
+local NP = E:NewModule('NamePlates', 'AceHook-3.0', 'AceEvent-3.0', 'AceTimer-3.0')
 
 local OVERLAY = [=[Interface\TargetingFrame\UI-TargetingFrame-Flash]=]
 local numChildren = -1
 local backdrop
 NP.Handled = {} --Skinned Nameplates
+NP.BattleGroundHealers = {};
+NP.NonHealers = {
+	['WARRIOR'] = true,
+	['DEATHKNIGHT'] = true,
+	['MAGE'] = true,
+	['WARLOCK'] = true,
+	['ROGUE'] = true,
+	['HUNTER'] = true,
+}
 
 function NP:Initialize()
 	self.db = E.db["nameplate"]
@@ -240,7 +249,7 @@ function NP:UpdateAuraAnchors(frame)
 			if frame.icons.lastShown then 
 				frame.icons[i]:SetPoint("RIGHT", frame.icons.lastShown, "LEFT", -2, 0)
 			else
-				frame.icons[i]:SetPoint("RIGHT",frame.icons,"RIGHT")
+				frame.icons[i]:SetPoint("RIGHT",frame.icons,"RIGHT", -10, 0)
 			end
 			frame.icons.lastShown = frame.icons[i]
 		end
@@ -256,32 +265,50 @@ function NP:OnAura(frame, unit)
 		return;
 	end
 	local i = 1
+	local curTime = GetTime()
 	for index = 1,40 do
-		if i > 5 then return end
-		local match
-		local name = UnitAura(frame.unit,index)
-		local debuffName,_,_,_,_,_,_,caster = UnitAura(frame.unit,index, 'HARMFUL')
+		local buffMatch, debuffMatch
+		local name,_,_,_,_,_,expTimeBuff = UnitAura(frame.unit,index)
+		local debuffName,_,_,_,_,_,expTimeDebuff,caster = UnitAura(frame.unit,index, 'HARMFUL')
 		
-		if self.db.trackauras == true then
-			if caster == "player" then match = 'HARMFUL' end
+		if expTimeBuff then
+			expTimeBuff = expTimeBuff - curTime
+			if expTimeBuff < 0 then
+				name = nil;
+				buffMatch = nil;
+			end
 		end
+
+		if self.db.trackauras then
+			if caster == "player" then 
+				debuffMatch = 'HARMFUL' 
+			end
+		end	
 		
+		if expTimeDebuff then
+			expTimeDebuff = expTimeDebuff - curTime
+			if expTimeDebuff < 0 then
+				debuffName = nil;
+				debuffMatch = nil;
+			end			
+		end
+
 		if self.db.trackfilter and #self.db.trackfilter > 1 and (name or debuffName) then
 			local spellList = E.db['unitframe']['aurafilters'][self.db.trackfilter].spells
 			if spellList[name] then
-				match = 'HELPFUL'
+				buffMatch = 'HELPFUL'
 			elseif spellList[debuffName] then
-				match = 'HARMFUL'
-			end				
+				debuffMatch = 'HARMFUL'
+			end			
 		end
 		
-		if match then
+		if buffMatch or debuffMatch and i <= 5 then
 			if not frame.icons[i] then frame.icons[i] = self:CreateAuraIcon(frame) end
 			local icon = frame.icons[i]
-			if i == 1 then icon:SetPoint("RIGHT",frame.icons,"RIGHT") end
+			if i == 1 then icon:SetPoint("RIGHT",frame.icons,"RIGHT", -10, 0) end
 			if i ~= 1 and i <= 5 then icon:SetPoint("RIGHT", frame.icons[i-1], "LEFT", -2, 0) end
 			i = i + 1
-			self:UpdateAuraIcon(icon, frame.unit, index, match)
+			self:UpdateAuraIcon(icon, frame.unit, index, buffMatch or debuffMatch)
 		end
 	end
 	for index = i, #frame.icons do frame.icons[index]:Hide() end	
@@ -546,6 +573,14 @@ function NP:SkinPlate(frame)
 		raidicon:SetSize(35, 35)
 		raidicon:SetTexture([[Interface\AddOns\ElvUI\media\textures\raidicons.blp]])	
 		frame.raidicon = raidicon	
+	end
+	
+	--Heal Icon
+	if not frame.healerIcon then
+		frame.healerIcon = frame:CreateTexture(nil, 'ARTWORK')
+		frame.healerIcon:SetPoint("BOTTOM", frame.hp, "TOP", 0, 16)
+		frame.healerIcon:SetSize(35, 35)
+		frame.healerIcon:SetTexture([[Interface\AddOns\ElvUI\media\textures\healer.tga]])	
 	end
 	
 	-- Aura tracking
@@ -842,6 +877,17 @@ function NP:CheckFilter(frame, ...)
 	else
 		self:TogglePlate(frame, false)
 	end
+	
+	--Check For Healers
+	if self.BattleGroundHealers[name] then
+		if not NP.NonHealers[self.BattleGroundHealers[name]] then
+			frame.healerIcon:Show()
+		else
+			frame.healerIcon:Hide()
+		end
+	else
+		frame.healerIcon:Hide()
+	end
 end
 
 function NP:COMBAT_LOG_EVENT_UNFILTERED(_, _, event, ...)
@@ -861,16 +907,41 @@ function NP:PLAYER_REGEN_DISABLED()
 	SetCVar("nameplateShowEnemies", 1)
 end
 
+function NP:CheckHealers()
+	for i = 1, GetNumBattlefieldScores() do
+		local name, _, _, _, _, faction, _, _, classToken, damageDone, healingDone = GetBattlefieldScore(i);
+		if (healingDone > damageDone * 1.2) and faction == 1 then
+			name = name:match("(.+)%-.+") or name
+			self.BattleGroundHealers[name] = classToken
+		elseif self.BattleGroundHealers[name] then
+			self.BattleGroundHealers[name] = nil;
+		end
+	end
+end
+
 function NP:PLAYER_ENTERING_WORLD()
-	if InCombatLockdown() then 
+	if InCombatLockdown() and self.db.combat then 
 		SetCVar("nameplateShowEnemies", 1) 
-	else 
+	elseif self.db.combat then
 		SetCVar("nameplateShowEnemies", 0) 
+	end
+	
+	
+	table.wipe(self.BattleGroundHealers)
+	local inInstance, instanceType = IsInInstance()
+	if inInstance and instanceType == 'pvp' and self.db.markBGHealers then
+		self.CheckHealerTimer = self:ScheduleRepeatingTimer("CheckHealers", 1)
+		self:CheckHealers()
+	else
+		if self.CheckHealerTimer then
+			self:CancelTimer(self.CheckHealerTimer)
+			self.CheckHealerTimer = nil;
+		end
 	end
 end
 
 function NP:UpdateAllPlates()
-	for frame, _ in pairs(NP.Handled) do
+	for frame, _ in pairs(self.Handled) do
 		frame = _G[frame]
 		self:SkinPlate(frame)
 	end
@@ -881,15 +952,15 @@ function NP:UpdateAllPlates()
 		self:UnregisterEvent('COMBAT_LOG_EVENT_UNFILTERED')
 	end
 	
+	self:RegisterEvent('PLAYER_ENTERING_WORLD')
+
 	if self.db.combat then
 		self:RegisterEvent('PLAYER_REGEN_ENABLED')
 		self:RegisterEvent('PLAYER_REGEN_DISABLED')
-		self:RegisterEvent('PLAYER_ENTERING_WORLD')
 		self:PLAYER_ENTERING_WORLD()
 	else
 		self:UnregisterEvent('PLAYER_REGEN_ENABLED')
-		self:UnregisterEvent('PLAYER_REGEN_DISABLED')
-		self:UnregisterEvent('PLAYER_ENTERING_WORLD')		
+		self:UnregisterEvent('PLAYER_REGEN_DISABLED')	
 	end
 end
 
