@@ -1,0 +1,8 @@
+## Interface: 40100
+## Title: |cff1784d1ThunxPull|r
+## Notes: Show Pull countdown in raid chat
+## Author: Thunx
+## Version: 1.0 beta
+
+
+core.lua

@@ -1,0 +1,5 @@
+<Bindings>
+  <Binding name="Pull/Abort" header="THUNXPULL">
+    ThunxPull.Pull()
+  </Binding>
+</Bindings>
