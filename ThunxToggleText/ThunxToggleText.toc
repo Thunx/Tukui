@@ -1,0 +1,9 @@
+## Interface: 40300
+## Title: |cff1784d1Thunx Toggle Text|r
+## Notes: Toggle it!
+## Author: Thunx
+## Version: 1.0
+## RequiredDeps: ElvUI
+## OptionalDeps: Recount, Omen, Atlasloot, Skada
+
+Core.lua
