@@ -30,7 +30,8 @@ DF["core"] = {
 	--panels
 	['panelWidth'] = 412,
 	['panelHeight'] = 180,
-	['panelBackdropName'] = '',
+	['panelBackdropNameLeft'] = '',
+	['panelBackdropNameRight'] = '',
 	['panelBackdrop'] = 'SHOWBOTH',
 	['expRepPos'] = 'TOP_SCREEN',
 	
@@ -240,7 +241,7 @@ DF['unitframe'] = {
 	['OORAlpha'] = 0.35,
 	['debuffHighlighting'] = true,
 	["smartRaidFilter"] = true,
-	
+
 	['colors'] = {
 		['healthclass'] = false,
 		['powerclass'] = false,
@@ -344,6 +345,7 @@ DF['unitframe'] = {
 					['xOffset'] = 0,
 					['yOffset'] = 0,
 					['format'] = 'REMAINING',
+					["ticks"] = true,
 				},
 				['classbar'] = {
 					['enable'] = true,
@@ -846,7 +848,6 @@ DF['unitframe'] = {
 				["showPlayer"] = true,
 				['healPrediction'] = false,
 				['columnAnchorPoint'] = "TOP",
-				['pets'] = false,
 				['width'] = 180,
 				['height'] = 43,
 				['health'] = {
@@ -906,7 +907,16 @@ DF['unitframe'] = {
 				['roleIcon'] = {
 					['enable'] = true,
 					['position'] = 'CENTER',
-				},					
+				},			
+				['petsGroup'] = {
+					['enable'] = false,
+					['width'] = 100,
+					['height'] = 22,
+					['initialAnchor'] = 'TOPRIGHT',
+					['anchorPoint'] = 'TOPLEFT',
+					['xOffset'] = -1,
+					['yOffset'] = 0,
+				},
 			},
 			['raid625'] = {
 				['enable'] = true,
@@ -1151,6 +1161,7 @@ DF['unitframe'] = {
 					['xOffset'] = 0,
 					['yOffset'] = 0,
 					['format'] = 'REMAINING',
+					["ticks"] = true,
 				},
 				['classbar'] = {
 					['enable'] = true,
@@ -1653,7 +1664,6 @@ DF['unitframe'] = {
 				["showPlayer"] = true,
 				['healPrediction'] = true,
 				["columnAnchorPoint"] = "LEFT",
-				['pets'] = true,
 				["width"] = 80,
 				["height"] = 52,
 				['health'] = {
@@ -1713,7 +1723,16 @@ DF['unitframe'] = {
 				['roleIcon'] = {
 					['enable'] = true,
 					['position'] = 'CENTER',
-				},					
+				},	
+				['petsGroup'] = {
+					['enable'] = true,
+					['width'] = 80,
+					['height'] = 22,
+					['initialAnchor'] = 'BOTTOM',
+					['anchorPoint'] = 'TOP',
+					['xOffset'] = 0,
+					['yOffset'] = 1,
+				},				
 			},
 			['raid625'] = {
 				['enable'] = true,

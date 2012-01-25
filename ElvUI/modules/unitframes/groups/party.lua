@@ -11,7 +11,7 @@ function UF:Construct_PartyFrames(unitGroup)
 	self:SetScript('OnLeave', UnitFrame_OnLeave)	
 	
 	if self.isChild then
-		self.Health = UF:Construct_HealthBar(self)
+		self.Health = UF:Construct_HealthBar(self, true)
 		self.Health.frequentUpdates = true;	
 		
 		self.Name = UF:Construct_NameText(self)
@@ -160,10 +160,11 @@ function UF:Update_PartyFrames(frame, db)
 
 	if frame.isChild then
 		if not InCombatLockdown() then
-			frame:Size(UNIT_WIDTH, 22)
-
-			if db.pets then
+			if db.petsGroup.enable then
 				frame:SetParent(frame.originalParent)
+				frame:Size(db.petsGroup.width, db.petsGroup.height)
+				frame:ClearAllPoints()
+				frame:Point(db.petsGroup.initialAnchor, frame.originalParent, db.petsGroup.anchorPoint, db.petsGroup.xOffset, db.petsGroup.yOffset)
 			else
 				frame:SetParent(E.HiddenFrame)
 			end
