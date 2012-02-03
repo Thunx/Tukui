@@ -11,6 +11,7 @@ DF["core"] = {
 	['loginmessage'] = true,
 	["interruptAnnounce"] = "NONE",
 	["autoRepair"] = "NONE",
+	['autoAcceptInvite'] = false,
 	
 	-- fonts
 	["fontsize"] = 12,
@@ -127,6 +128,9 @@ DF['skins'] = {
 	['skada'] = {
 		['enable'] = true,
 	},		
+	['tinydps'] = {
+		['enable'] = true,
+	},			
 	['blizzard'] = {
 		['enable'] = true,
 		["bags"] = true,
@@ -918,6 +922,15 @@ DF['unitframe'] = {
 					['xOffset'] = -1,
 					['yOffset'] = 0,
 				},
+				['targetsGroup'] = {
+					['enable'] = false,
+					['width'] = 100,
+					['height'] = 22,
+					['initialAnchor'] = 'TOPRIGHT',
+					['anchorPoint'] = 'TOPLEFT',
+					['xOffset'] = -1,
+					['yOffset'] = 0,
+				},				
 			},
 			['raid625'] = {
 				['enable'] = true,
@@ -1125,6 +1138,14 @@ DF['unitframe'] = {
 					['anchorPoint'] = 'TOP',
 					['xOffset'] = 0,
 					['yOffset'] = 1,
+				},		
+				['targetsGroup'] = {
+					['enable'] = false,
+					['width'] = 80,
+					['initialAnchor'] = 'BOTTOM',
+					['anchorPoint'] = 'TOP',
+					['xOffset'] = 0,
+					['yOffset'] = 1,
 				},					
 			},
 			['raid625'] = {
@@ -1158,9 +1179,6 @@ DF["actionbar"] = {
 	["enable"] = true,
 	["macrotext"] = false,
 	["hotkeytext"] = true,
-	["buttonsize"] = 30,
-	["altbuttonsize"] = 28,
-	["buttonspacing"] = 4,
 	['fontsize'] = 11,
 	["enablecd"] = true,
 	["treshold"] = 3,
@@ -1178,6 +1196,8 @@ DF["actionbar"] = {
 		['backdrop'] = true,
 		['heightMult'] = 1,
 		['widthMult'] = 1,
+		["buttonsize"] = 30,
+		["buttonspacing"] = 4,		
 		['paging'] = {
 			["DRUID"] = "[bonusbar:1,nostealth] 7; [bonusbar:1,stealth] 8; [bonusbar:2] 8; [bonusbar:3] 9; [bonusbar:4] 10;",
 			["WARRIOR"] = "[bonusbar:1] 7; [bonusbar:2] 8; [bonusbar:3] 9;",
@@ -1195,6 +1215,8 @@ DF["actionbar"] = {
 		['backdrop'] = false,
 		['heightMult'] = 1,
 		['widthMult'] = 1,
+		["buttonsize"] = 30,
+		["buttonspacing"] = 4,		
 		['paging'] = {},
 		['visibility'] = "[vehicleui] hide;show",
 	},
@@ -1207,6 +1229,8 @@ DF["actionbar"] = {
 		['backdrop'] = true,
 		['heightMult'] = 1,
 		['widthMult'] = 1,
+		["buttonsize"] = 30,
+		["buttonspacing"] = 4,
 		['paging'] = {},
 		['visibility'] = "[vehicleui] hide;show",
 	},
@@ -1219,6 +1243,8 @@ DF["actionbar"] = {
 		['backdrop'] = true,
 		['heightMult'] = 1,
 		['widthMult'] = 1,
+		["buttonsize"] = 30,
+		["buttonspacing"] = 4,
 		['paging'] = {},
 		['visibility'] = "[vehicleui] hide;show",
 	},
@@ -1231,6 +1257,8 @@ DF["actionbar"] = {
 		['backdrop'] = true,
 		['heightMult'] = 1,
 		['widthMult'] = 1,
+		["buttonsize"] = 30,
+		["buttonspacing"] = 4,
 		['paging'] = {},
 		['visibility'] = "[vehicleui] hide;show",
 	},
@@ -1243,6 +1271,8 @@ DF["actionbar"] = {
 		['backdrop'] = true,
 		['heightMult'] = 1,
 		['widthMult'] = 1,
+		["buttonsize"] = 30,
+		["buttonspacing"] = 4,
 		['visibility'] = "[pet,novehicleui,nobonusbar:5] show;hide",
 	},
 	['barShapeShift'] = {
@@ -1254,6 +1284,8 @@ DF["actionbar"] = {
 		['backdrop'] = false,
 		['heightMult'] = 1,
 		['widthMult'] = 1,
+		["buttonsize"] = 30,
+		["buttonspacing"] = 4,
 	},
 	['barTotem'] = {
 		['enabled'] = true,
