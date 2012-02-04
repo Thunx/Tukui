@@ -55,6 +55,11 @@ DF['skins'] = {
 		['fdfont'] = "ElvUI Pixel",
 		['fdfontsize'] = 18,
 		['fdfontflags'] = "OUTLINEMONOCHROME",
+	--Combatallert
+		['enableca'] = true,
+		['cafont'] = "ElvUI Pixel",
+		['cafontsize'] = 20,
+		['cafontflags'] = "OUTLINEMONOCHROME",
 	--Tabtext
 		['enabletab'] = true,
 		['tableft'] = "Encounterjournal",

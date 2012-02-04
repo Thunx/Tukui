@@ -42,7 +42,7 @@ local db = E.db.skins.thunx
 	Thunx_DoWork_Auras()
 	Thunx_DoWork_Chat()
 	--Thunx_DoWork_Classtimers()
-	Thunx_DoWork_Combatallert
+	Thunx_DoWork_Combatallert()
 	Thunx_DoWork_Datatexts()
 	Thunx_DoWork_Fdispelannounce()
 	Thunx_DoWork_Maps()
@@ -58,6 +58,7 @@ local db = E.db.skins.thunx
 	--Fonts
 	self["media"].abFont = LSM:Fetch("font", db.abfont)
 	self["media"].aFont = LSM:Fetch("font", db.afont)
+	self["media"].caFont = LSM:Fetch("font", db.cafont)
 	self["media"].chFont = LSM:Fetch("font", db.chfont)
 	self["media"].ctFont = LSM:Fetch("font", db.ctfont)
 	self["media"].dtFont = LSM:Fetch("font", db.dtfont)

@@ -1,9 +1,12 @@
 local E, L, DF = unpack(ElvUI); -- Import Functions/Constants, Config, Locales
+local S = E:GetModule('Skins')
 -------------------------------------------------------------------------------------
 -- Credit Alleykat 
 -- Entering combat and allertrun function (can be used in anther ways)
 ------------------------------------------------------------------------------------
-
+function Thunx_DoWork_Combatallert()
+if not E.db.skins.thunx.enableca == true then return end
+ 
 local speed = .041 -- how fast the text appears
  
 local GetNextChar = function(word,num)
@@ -21,24 +24,25 @@ local GetNextChar = function(word,num)
 		end
 	return word:sub(num,num+shift-1),(num+shift)
 end
-function Thunx_DoWork_Combatallert() 
+
 local updaterun = CreateFrame("Frame")
 
 local flowingframe = CreateFrame("Frame",nil,UIParent)
 	flowingframe:SetFrameStrata("HIGH")
 	flowingframe:SetPoint("CENTER", 0, 170) -- where we want the textframe
 	flowingframe:SetHeight(64)
-	flowingframe:SetWidth(500)	
+	flowingframe:SetWidth(100)	
 	E.CreateMover(anchor, flowingframe, "Combatallert", "combatallert")
 
 local flowingtext = flowingframe:CreateFontString(nil,"OVERLAY")
 	local db = E.db.skins.thunx 
-	flowingtext:FontTemplate(E["media"].fdFont, 20, db.fdfontflags)
+	flowingtext:FontTemplate(E["media"].caFont, db.cafontsize, db.cafontflags)
 	flowingtext:SetShadowOffset(1,-1)
- 
+
+
 local rightchar = flowingframe:CreateFontString(nil,"OVERLAY")
 	local db = E.db.skins.thunx 
-	rightchar:FontTemplate(E["media"].fdFont, db.fdfontsize, db.fdfontflags)
+	rightchar:FontTemplate(E["media"].caFont, db.cafontsize, db.cafontflags)
 	rightchar:SetShadowOffset(1,-1)
 	rightchar:SetJustifyH("LEFT") -- left or right
  

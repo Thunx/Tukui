@@ -4,10 +4,12 @@
 	<Script file="defaults.lua"/>	
 	<Script file="layout\layout.lua"/>	
 	<Script file="media\sharedmedia.lua"/>	
+	<Script file="locales\english.lua"/>
 	
 	<Script file="modules\actionbars\actionbars.lua"/>
 	<Script file="modules\auras\auras.lua"/>
 	<Script file="modules\chat\chat.lua"/>
+	<Script file="modules\chat\WhisperWarning.lua"/>
 	<Script file='modules\classtimers\classtimers.lua'/>
 	<Script file="modules\maps\minimap.lua"/>
 	<Script file="modules\tooltip\tooltip.lua"/>
@@ -17,6 +19,7 @@
 	<Script file="modules\misc\spincam.lua"/>
 	<Script file="modules\misc\fdispelannounce.lua"/>
 	<Script file="modules\misc\combatallert.lua"/>
+	<Script file="modules\misc\mail.lua"/>
 	
 	<Include file="modules\unitframes\load_unitframes.xml"/>
 	<Include file="modules\datatexts\load_datatexts.xml"/>
