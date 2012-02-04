@@ -87,7 +87,7 @@ tab = CreateFrame("Frame", "tab", RightChatPanel) 	-- Tab creationif not E.db.sk
 		--tab[i]:SetAlpha(0)
 		tab[i].text = tab[i]:CreateFontString(nil, font, fontsize)
 		tab[i].text:SetPoint("CENTER", 0, 0)
-		
+
 		--Atlasloot
 		if E.db.skins.thunx.tableft == 'Atlasloot' then
 			atX = 4
@@ -138,7 +138,7 @@ tab = CreateFrame("Frame", "tab", RightChatPanel) 	-- Tab creationif not E.db.sk
 		elseif E.db.skins.thunx.tabright == 'Skada' then
 			skX = 1
 		end
-		
+
 		if i == atX then 		-- Atlasloot
 		
 				-- Set Texture

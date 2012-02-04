@@ -1,6 +1,6 @@
 ﻿local E, L, DF = unpack(ElvUI); --Engine
 local S = E:GetModule('Skins')
-
+local CH = E:GetModule('Chat')
 --Skins
 DF['skins'] = {
 	['thunx'] = {
@@ -61,5 +61,7 @@ DF['skins'] = {
 		['tableftmiddle'] = "Omen",
 		['tabrightmiddle'] = "Recount",
 		['tabright'] = "Atlasloot",
+	
 	},
 }
+

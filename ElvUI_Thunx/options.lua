@@ -1,10 +1,11 @@
 local E, L, DF = unpack(ElvUI); --Engine
 local S = E:GetModule('Skins')
-
+local CH = E:GetModule('Chat')
 _db = _db or true
 
 DF.skins.thunx = {}
 DF.skins.thunx.enable = _db or true
+
 
 E.Options.args.skins.args.thunx = {
 	order = 1,
@@ -116,7 +117,7 @@ E.Options.args.skins.args.thunx = {
 							['THICKOUTLINE'] = L["THICKOUTLINE"],
 						},
 						set = function(info, value) E.db.skins.thunx[ info[#info] ] = value; E:SetupThunxMedia(); E:Initializethunx(); end,
-					},					
+					},
 			},
 		},
 		aura = {
@@ -539,3 +540,4 @@ E.Options.args.skins.args.thunx = {
 		},		
 	},
 }
+

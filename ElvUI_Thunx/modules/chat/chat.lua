@@ -9,8 +9,11 @@ What it does:
 
 ]]--
 
+
 local E, L, DF = unpack(ElvUI); --Engine
 local CH = E:GetModule('Chat')
+
+
 
 local function StyleChat_Mods(frame)
 	local db = E.db.skins.thunx
@@ -35,4 +38,5 @@ function Thunx_DoWork_Chat()
 		local frame = _G[format("ChatFrame%s", i)]
 		StyleChat_Mods(frame)
 	end
+	
 end

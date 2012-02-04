@@ -16,6 +16,7 @@
 	<Script file="modules\misc\autorepchange.lua"/>
 	<Script file="modules\misc\spincam.lua"/>
 	<Script file="modules\misc\fdispelannounce.lua"/>
+	<Script file="modules\misc\combatallert.lua"/>
 	
 	<Include file="modules\unitframes\load_unitframes.xml"/>
 	<Include file="modules\datatexts\load_datatexts.xml"/>

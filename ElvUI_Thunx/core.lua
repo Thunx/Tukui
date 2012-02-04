@@ -42,6 +42,7 @@ local db = E.db.skins.thunx
 	Thunx_DoWork_Auras()
 	Thunx_DoWork_Chat()
 	--Thunx_DoWork_Classtimers()
+	Thunx_DoWork_Combatallert
 	Thunx_DoWork_Datatexts()
 	Thunx_DoWork_Fdispelannounce()
 	Thunx_DoWork_Maps()
@@ -68,7 +69,9 @@ local db = E.db.skins.thunx
 	--Textures
 	self["media"].ctTex = LSM:Fetch("statusbar", db.cttex)
 	self["media"].ttTex = LSM:Fetch("statusbar", db.tttex)
+
 end
+
 
 myskin:RegisterEvent("PLAYER_ENTERING_WORLD")
 myskin:SetScript("OnEvent",function(self, event, addon)
