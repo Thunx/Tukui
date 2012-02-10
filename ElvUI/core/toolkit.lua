@@ -193,11 +193,7 @@ local function FontTemplate(fs, font, fontSize, fontStyle)
 	if not font then font = LSM:Fetch("font", E.db["core"].font) end
 	if not fontSize then fontSize = E.db.core.fontsize end
 	fs:SetFont(font, fontSize, fontStyle)
-	if fontStyle then
-		fs:SetShadowColor(0, 0, 0, 0.2)
-	else
-		fs:SetShadowColor(0, 0, 0, 1)
-	end
+	fs:SetShadowColor(0, 0, 0, 1)
 	fs:SetShadowOffset((E.mult or 1), -(E.mult or 1))
 	
 	E["texts"][fs] = true
