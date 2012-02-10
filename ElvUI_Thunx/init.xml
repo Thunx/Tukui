@@ -20,6 +20,9 @@
 	<Script file="modules\misc\fdispelannounce.lua"/>
 	<Script file="modules\misc\combatallert.lua"/>
 	<Script file="modules\misc\mail.lua"/>
+	<Script file="modules\misc\RBR+.lua"/>
+	<Script file="modules\misc\addonmanager.lua"/>
+	
 	
 	<Include file="modules\unitframes\load_unitframes.xml"/>
 	<Include file="modules\datatexts\load_datatexts.xml"/>

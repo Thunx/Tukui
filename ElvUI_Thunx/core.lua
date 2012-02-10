@@ -36,7 +36,9 @@ local db = E.db.skins.thunx
 		Thunx_DoWork_Unitframes('player')
 		Thunx_DoWork_Unitframes('target')
 	end
-
+	if db.snaptoab then
+		Thunx_DoWork_UnitframesCastbar('player')
+	end	
 -- Module Init
 	Thunx_DoWork_Actionbars()
 	Thunx_DoWork_Auras()
@@ -72,7 +74,16 @@ local db = E.db.skins.thunx
 	self["media"].ttTex = LSM:Fetch("statusbar", db.tttex)
 
 end
-
+function E.SetModifiedBackdrop(self)
+	local color = RAID_CLASS_COLORS[E.myclass]
+	self:SetBackdropColor(color.r*.15, color.g*.15, color.b*.15)
+	self:SetBackdropBorderColor(color.r, color.g, color.b)
+end
+function E.SetOriginalBackdrop(self)
+	local color = RAID_CLASS_COLORS[E.myclass]
+	
+		self:SetTemplate()
+end
 
 myskin:RegisterEvent("PLAYER_ENTERING_WORLD")
 myskin:SetScript("OnEvent",function(self, event, addon)
