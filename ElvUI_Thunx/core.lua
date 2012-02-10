@@ -82,7 +82,7 @@ end
 function E.SetOriginalBackdrop(self)
 	local color = RAID_CLASS_COLORS[E.myclass]
 	
-		self:SetTemplate()
+		self:SetTemplate("Transparent")
 end
 
 myskin:RegisterEvent("PLAYER_ENTERING_WORLD")

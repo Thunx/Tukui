@@ -349,7 +349,7 @@ local bsize = ((fsize - 13) / 7)
 
 --Create the anchor
 raidbuff_anchor = CreateFrame("Frame", "RaidBuffAnchor", UIParent)
-raidbuff_anchor:SetTemplate()
+raidbuff_anchor:SetTemplate("Transparent")
 raidbuff_anchor:Size(fsize, bsize + 4)
 raidbuff_anchor:Point(unpack(posn))
 raidbuff_anchor:SetFrameStrata("Tooltip")
@@ -366,7 +366,7 @@ raidbuff_anchor.text:SetText("Moving RBR+")
 
 --Create the Main bar
 local raidbuff_reminder = CreateFrame("Frame", "RaidBuffReminder", UIParent)
-raidbuff_reminder:SetTemplate()
+raidbuff_reminder:SetTemplate("Transparent")
 raidbuff_reminder:SetAllPoints(raidbuff_anchor)
 raidbuff_reminder:SetFrameStrata("BACKGROUND")
 raidbuff_reminder:SetFrameLevel(Minimap:GetFrameLevel() + 2)
@@ -385,7 +385,7 @@ raidbuff_reminder:SetScript("OnMouseUp", microMenuGenerator)
 
 --edit box for the special buff
 specialconfig = CreateFrame("Frame", "SpecialBuffConfigFrame", raidbuff_reminder)
-specialconfig:SetTemplate()
+specialconfig:SetTemplate("Transparent")
 specialconfig:Size(150, raidbuff_reminder:GetHeight())
 specialconfig:Point("LEFT", raidbuff_reminder, "RIGHT", 3, 0)
 --label
@@ -395,7 +395,7 @@ specialconfig.text:FontTemplate()
 specialconfig.text:SetText("SpellID")
 --ok button
 specialconfig.ok = CreateFrame("Button", nil, specialconfig)
-specialconfig.ok:SetTemplate()
+specialconfig.ok:SetTemplate("Transparent")
 specialconfig.ok:Size(raidbuff_reminder:GetHeight()-6, raidbuff_reminder:GetHeight()-6)
 specialconfig.ok:Point("RIGHT", specialconfig, "RIGHT", -3, 0)
 specialconfig.t = specialconfig.ok:CreateFontString(nil, "OVERLAY")	
@@ -404,7 +404,7 @@ specialconfig.t:FontTemplate()
 specialconfig.t:SetText("OK")
 -- edit box
 specialconfig.edit = CreateFrame("EditBox", nil, specialconfig)
-specialconfig.edit:SetTemplate()
+specialconfig.edit:SetTemplate("Transparent")
 specialconfig.edit:Size(70, raidbuff_reminder:GetHeight()-6)
 specialconfig.edit:Point("RIGHT", specialconfig.ok, "LEFT", -3, 0)
 specialconfig.edit:SetNumeric()
@@ -418,11 +418,11 @@ specialconfig:Hide()
 local function CreateButton(name, relativeTo, firstbutton)
 	local button = CreateFrame("Frame", name, RaidBuffReminder)
 	if firstbutton == true then
-		button:SetTemplate()
+		button:SetTemplate("Transparent")
 		button:Size(bsize, bsize)
 		button:Point("LEFT", relativeTo, "LEFT", 2,0)
 	else
-		button:SetTemplate()
+		button:SetTemplate("Transparent")
 		button:Size(bsize, bsize)
 		button:Point("LEFT", relativeTo, "RIGHT", 1, 0)
 	end
@@ -638,7 +638,7 @@ end
 
 local raidbuffsummury = CreateFrame("Frame", "RaidBuffSummery", UIParent)
 raidbuffsummury:SetFrameStrata("HIGH")
-raidbuffsummury:SetTemplate()
+raidbuffsummury:SetTemplate("Transparent")
 raidbuffsummury:Size(435, 425)
 raidbuffsummury:Point("TOP", raidbuff_reminder, "BOTTOM", 0, -3)
 raidbuffsummury:SetClampedToScreen(true)
@@ -675,7 +675,7 @@ end
 
 local function CreateBuffArea(bufftype, relativeTo, column)
 	local bigButton = CreateFrame("Frame", bufftype.."Frame", raidbuffsummury)
-	bigButton:SetTemplate()
+	bigButton:SetTemplate("Transparent")
 	bigButton:Size(40, 40)
 	if column == 1 then
 		bigButton:Point("TOPLEFT", raidbuffsummury, "TOPLEFT", 14, -14)
@@ -739,7 +739,7 @@ CreateBuffArea("mp5", "pushbackFrame", nil)
 raidbuffsummury:Hide()
 
 local raidbuff_toggle = CreateFrame("Frame", "RaidBuffToggle", raidbuff_reminder)
-raidbuff_toggle:SetTemplate()
+raidbuff_toggle:SetTemplate("Transparent")
 raidbuff_toggle:Size(raidbuff_reminder:GetWidth(), 18)
 raidbuff_toggle:Point("TOP", raidbuff_reminder, "BOTTOM", 0, -1)
 raidbuff_toggle:SetFrameStrata("HIGH")
