@@ -1,11 +1,11 @@
 local E, L, DF = unpack(ElvUI); --Engine
 local S = E:GetModule('Skins')
 
-local db = E.db.skins.thunx 
+local data = ElvData
 
 -- inital settings
-if not db.specialbuff then
-	 E.db.skins.thunx .specialbuff = 80398
+if not data.specialbuff then
+	 ElvData.specialbuff = 80398
 end
 local posn = {"TOP", UIParent, "TOP", 0, -3}
 local posn = {"TOP", UIParent, "TOP", 0, -3}
@@ -263,15 +263,15 @@ local function OnAuraChange(self, event, arg1, unit)
 		Spell6Frame.id = Spell6Buff
 	end	
 	
-	local spellname = select(1, GetSpellInfo( E.db.skins.thunx .specialbuff))
+	local spellname = select(1, GetSpellInfo( ElvData.specialbuff))
 	if UnitAura("player", spellname) then
 		SpecialBuffFrame:SetAlpha(1)
-		SpecialBuffFrame.t:SetTexture(select(3, GetSpellInfo( E.db.skins.thunx .specialbuff)))
+		SpecialBuffFrame.t:SetTexture(select(3, GetSpellInfo( ElvData.specialbuff)))
 	else
 		SpecialBuffFrame:SetAlpha(0.2)
-		SpecialBuffFrame.t:SetTexture(select(3, GetSpellInfo( E.db.skins.thunx .specialbuff)))
+		SpecialBuffFrame.t:SetTexture(select(3, GetSpellInfo( ElvData.specialbuff)))
 	end
-	SpecialBuffFrame.id =  E.db.skins.thunx .specialbuff
+	SpecialBuffFrame.id =  ElvData.specialbuff
 end
 
 --Toggling functions
@@ -315,7 +315,7 @@ end
 -- Only called on the SpecialBuffFrame
 local function UpdateSpecialBuff(id)
 	if GetSpellInfo(id) then
-		 E.db.skins.thunx .specialbuff = id 
+		 ElvData.specialbuff = id 
 	elseif id == "" then
 		print("You did not enter anything")
 	else
