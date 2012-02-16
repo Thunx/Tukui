@@ -345,6 +345,47 @@ local sizes = {
 	":14",
 }
 
+
+local locale = GetLocale()
+function CH:CHAT_MSG_CHANNEL(...)
+	local isSpam = nil
+	if locale == 'enUS' or locale == 'enGB' then
+		isSpam = CH.SpamFilter(self, ...)
+	end
+	
+	if isSpam then
+		return true;
+	else
+		return CH.FindURL(self, ...)
+	end
+end
+
+function CH:CHAT_MSG_YELL(...)
+	local isSpam = nil
+	if locale == 'enUS' or locale == 'enGB' then
+		isSpam = CH.SpamFilter(self, ...)
+	end
+	
+	if isSpam then
+		return true;
+	else
+		return CH.FindURL(self, ...)
+	end
+end
+
+function CH:CHAT_MSG_SAY(...)
+	local isSpam = nil
+	if locale == 'enUS' or locale == 'enGB' then
+		isSpam = CH.SpamFilter(self, ...)
+	end
+	
+	if isSpam then
+		return true;
+	else
+		return CH.FindURL(self, ...)
+	end
+end
+
 function CH:Initialize()
 	self.db = E.db.chat
 	if self.db.enable ~= true then return end
