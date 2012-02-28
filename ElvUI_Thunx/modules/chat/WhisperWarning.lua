@@ -1,9 +1,9 @@
-local E, L, DF = unpack(ElvUI); --Engine
+local E, L, P, G = unpack(ElvUI); --Engine
 local WW = E:NewModule('WhisperWarning', 'AceEvent-3.0')
 local LSM = LibStub("LibSharedMedia-3.0")
 
 -- Options
-DF['chat'] = {
+G['chat'] = {
 	['whisperwarning'] = true,
 	['whispersound'] = 'ElvUI Whisper',
 }

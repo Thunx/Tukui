@@ -8,7 +8,7 @@ What it does:
 
 ]]--
 
-local E, L, DF = unpack(ElvUI); --Engine
+local E, L, P, G = unpack(ElvUI); --Engine
 local AB = E:GetModule('ActionBars')
 
 function Thunx_DoWork_Actionbars()

@@ -18,3 +18,6 @@ L["Actionbar 2"] = "Actionbar 2";
 L["Actionbar 3"] = "Actionbar 3";
 L["Actionbar 4"] = "Actionbar 4";
 L["Actionbar 5"] = "Actionbar 5";
+
+--AddonManager
+L["buttons_addons_d"] = "Open AddonManager window";

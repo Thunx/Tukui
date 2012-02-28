@@ -1,4 +1,4 @@
-local E, L, DF = unpack(ElvUI); -- Import Functions/Constants, Config, Locales
+local E, L, P, G = unpack(ElvUI); -- Import Functions/Constants, Config, Locales
 local S = E:GetModule('Skins')
 -------------------------------------------------------------------------------------
 -- Credit Alleykat 

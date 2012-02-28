@@ -6,7 +6,7 @@
 	Edited and rewritten by: Ecl?ps?, Elv and Thunx
 	
 ]]
-local E, L, DF = unpack(ElvUI); -- Import Functions/Constants, Config, Locales
+local E, L, P, G = unpack(ElvUI); -- Import Functions/Constants, Config, Locales
 local S = E:GetModule('Skins')
 function Thunx_DoWork_Spincam()
 	local db = E.db.skins.thunx 

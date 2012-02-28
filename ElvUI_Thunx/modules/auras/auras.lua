@@ -8,7 +8,7 @@ What it does:
 
 ]]--
 
-local E, L, DF = unpack(ElvUI); --Engine
+local E, L, P, G = unpack(ElvUI); --Engine
 local A = E:GetModule('Auras')
 
 local aurahook = CreateFrame("frame")

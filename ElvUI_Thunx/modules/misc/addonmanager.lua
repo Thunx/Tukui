@@ -1,4 +1,4 @@
-local E, L, DF = unpack(ElvUI); --Engine
+local E, L, P, G = unpack(ElvUI); --Engine
 local S = E:GetModule('Skins')
 
 local aList = CreateFrame('Frame', 'AddonManager', UIParent)
@@ -21,7 +21,7 @@ aList.header:Height(20)
 aList.header:SetTemplate()
 aList.header.text = aList.header:CreateFontString(nil, 'OVERLAY')
 aList.header.text:FontTemplate()
-aList.header.text:SetText(ADDONS..": ".. E.ValColor .. E.myname)
+aList.header.text:SetText(ADDONS..": ".. E["media"].hexvaluecolor .. E.myname)
 aList.header.text:SetPoint("CENTER")
 tinsert(UISpecialFrames,aList:GetName());
 
@@ -83,7 +83,9 @@ aList.raid_addons:SetFrameStrata(aList:GetFrameStrata())
 aList.raid_addons:SetFrameLevel(aList:GetFrameLevel() + 1)
 aList.raid_addons:RegisterForClicks("AnyUp") aList.raid_addons:SetScript("OnClick", function()
 	EnableAddOn("BigWigs")
-	EnableAddOn("alDamageMeter")
+	EnableAddOn("Recount")
+	EnableAddOn("Skada")
+	EnableAddOn("Omen")
 	ReloadUI()
 end)
 aList.raid_addons:HookScript("OnEnter", E.SetModifiedBackdrop)
@@ -102,11 +104,14 @@ aList.solo_addons:SetFrameStrata(aList:GetFrameStrata())
 aList.solo_addons:SetFrameLevel(aList:GetFrameLevel() + 1)
 aList.solo_addons:RegisterForClicks("AnyUp") aList.solo_addons:SetScript("OnClick", function()
 	DisableAddOn("BigWigs")
-	DisableAddOn("alDamageMeter")
+	DisableAddOn("Recount")
+	DisableAddOn("Skada")
+	DisableAddOn("Omen")
 	ReloadUI()
 end)
 aList.solo_addons:HookScript("OnEnter", E.SetModifiedBackdrop)
 aList.solo_addons:HookScript("OnLeave", E.SetOriginalBackdrop)
+
 
 local function UpdateAddons()
 	local addons = {}
@@ -166,3 +171,48 @@ SlashCmdList.ALOAD = function (msg)
 		AddonManager:Show()
 	end
 end
+
+function Thunx_DoWork_AddonManager()
+	-- Game Menu Button AddOns
+	local gmbAddOns = CreateFrame("Button", "GameMenuButtonAddOns", GameMenuFrame, "GameMenuButtonTemplate")
+	gmbAddOns:SetSize(GameMenuButtonMacros:GetWidth(), GameMenuButtonMacros:GetHeight())
+	GameMenuFrame:SetHeight(GameMenuFrame:GetHeight()+GameMenuButtonMacros:GetHeight());
+	GameMenuButtonLogout:SetPoint("TOP", gmbAddOns, "BOTTOM", 0, -1)
+	gmbAddOns:SetPoint("TOP", GameMenuButtonMacros, "BOTTOM", 0, -1)
+	gmbAddOns:SetText( E.StatColor .."AddonManager")
+	gmbAddOns:SetScript("OnClick", function()
+		HideUIPanel(GameMenuFrame);
+		AddonManager:Show()
+	end)
+	S:HandleButton(GameMenuButtonAddOns)	
+end
+
+--[[-- ADDONS BUTTON
+function Thunx_DoWork_Chat()
+	firstposition = ((chatheight-((tabheight*7)+(tabspacing*5)))/2)+tabheight/5 
+
+	local adbutton = CreateFrame("Button", "ElvAddonsButton", RightChatPanel, "SecureActionButtonTemplate")
+	adbutton:SetTemplate("Transparent")
+	adbutton:Size(19, 80)
+	adbutton:Point("TOPRIGHT", RightChatPanel, "TOPLEFT", 1, -3)
+	adbutton:SetAttribute("type", "macro")
+	adbutton:SetAttribute("macrotext", "/am")
+
+	adbutton.Text = adbutton:CreateFontString(nil, 'OVERLAY')
+	adbutton.Text:FontTemplate()
+	adbutton.Text:Point("CENTER", adbutton, "CENTER", 0, -1)
+	adbutton.Text:Size(10, 80)
+	adbutton.Text:SetText(E.StatColor .."A D D O N S")
+
+	adbutton:HookScript("OnEnter", function(self)
+		GameTooltip:SetOwner(self, "ANCHOR_TOPRIGHT", -22, 2)
+		GameTooltip:AddLine(ADDONS, 0, 0.7, 1)
+		GameTooltip:AddLine(L["buttons_addons_d"], 1, 1, 1)
+		GameTooltip:Show()
+	end)
+
+
+	adbutton:HookScript("OnLeave", function(self) GameTooltip:Hide() end)
+	return adbutton
+end
+]]	

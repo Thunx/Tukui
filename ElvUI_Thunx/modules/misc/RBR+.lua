@@ -1,6 +1,8 @@
-local E, L, DF = unpack(ElvUI); --Engine
+--[[local E, L, P, G = unpack(ElvUI); --Engine
 local S = E:GetModule('Skins')
+local RBR = E:GetModule('RaidBuffReminder', 'AceEvent-3.0');
 
+E.RaidBuffReminder = RBR
 local data = ElvData
 
 -- inital settings
@@ -780,4 +782,4 @@ raidbuff_toggle:SetScript("OnEvent", function(self, event)
 	elseif event == "PLAYER_REGEN_ENABLED" then
 		self:EnableMouse(true)
 	end
-end)
+end)  ]]--

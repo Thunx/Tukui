@@ -5,7 +5,7 @@ All rights reserved.
 
 ]]--
 
-local E, L, DF = unpack(ElvUI); --Engine
+local E, L, P, G = unpack(ElvUI); --Engine
 local LSM = LibStub("LibSharedMedia-3.0")
 
 local myskin = CreateFrame("frame")
@@ -40,6 +40,7 @@ local db = E.db.skins.thunx
 		Thunx_DoWork_UnitframesCastbar('player')
 	end	
 -- Module Init
+	Thunx_DoWork_AddonManager()
 	Thunx_DoWork_Actionbars()
 	Thunx_DoWork_Auras()
 	Thunx_DoWork_Chat()
@@ -47,16 +48,16 @@ local db = E.db.skins.thunx
 	Thunx_DoWork_Combatallert()
 	Thunx_DoWork_Datatexts()
 	Thunx_DoWork_Fdispelannounce()
-	Thunx_DoWork_Maps()
+	--Thunx_DoWork_Maps()
 	Thunx_DoWork_Spincam()
 	Thunx_DoWork_Tooltip()
 	--Thunx_DoWork_Tabtext()
 	Thunx_DoWork_Questtracker()
+	
 end
 
 function E:SetupThunxMedia()
 local db = E.db.skins.thunx
-
 	--Fonts
 	self["media"].abFont = LSM:Fetch("font", db.abfont)
 	self["media"].aFont = LSM:Fetch("font", db.afont)
@@ -72,13 +73,19 @@ local db = E.db.skins.thunx
 	--Textures
 	self["media"].ctTex = LSM:Fetch("statusbar", db.cttex)
 	self["media"].ttTex = LSM:Fetch("statusbar", db.tttex)
-
+	
+	--Colors
+	buttoncolor = { 0, 0.7, 1 }
+	E.StatColor = E:RGBToHex(unpack(buttoncolor))
+	E.ValColor = '|cff1784d1' -- DEPRECIATED SOON, REMEMBER TO REMOVE THIS AND CODE AROUND IT	
 end
+
 function E.SetModifiedBackdrop(self)
 	local color = RAID_CLASS_COLORS[E.myclass]
 	self:SetBackdropColor(color.r*.15, color.g*.15, color.b*.15)
 	self:SetBackdropBorderColor(color.r, color.g, color.b)
 end
+
 function E.SetOriginalBackdrop(self)
 	local color = RAID_CLASS_COLORS[E.myclass]
 	

@@ -8,7 +8,7 @@ What it does:
 
 ]]--
 
-local E, L, DF = unpack(ElvUI); --Engine
+local E, L, P, G = unpack(ElvUI); --Engine
 local TT = E:GetModule('Tooltip')
 
 function Thunx_DoWork_Tooltip()

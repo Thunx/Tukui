@@ -8,7 +8,7 @@ What it does:
 
 ]]--
 
-local E, L, DF = unpack(ElvUI); --Engine
+local E, L, P, G = unpack(ElvUI); --Engine
 local UF = E:GetModule('UnitFrames');
 local S = E:GetModule('Skins')
 

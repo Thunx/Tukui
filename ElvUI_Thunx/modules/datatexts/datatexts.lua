@@ -8,7 +8,7 @@ What it does:
 
 ]]--
 
-local E, L, DF = unpack(ElvUI); --Engine
+local E, L, P, G = unpack(ElvUI); --Engine
 local DT = E:GetModule('DataTexts')
 
 function Thunx_DoWork_Datatexts()

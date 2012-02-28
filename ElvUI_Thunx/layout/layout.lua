@@ -1,4 +1,4 @@
-local E, L, DF = unpack(ElvUI); --Engine
+local E, L, P, G = unpack(ElvUI); --Engine
 local LO = E:GetModule('Layout');
 
 local PANEL_HEIGHT = 22;
@@ -38,3 +38,4 @@ function SetupQuestTrackerPanel(top, bottom)
     qtpanel:Point("BOTTOMRIGHT", bottom, "BOTTOMRIGHT", 20, -10)
     qtpanel:SetTemplate('Transparent')
 end
+

@@ -1,49 +1,49 @@
-﻿local E, L, DF = unpack(ElvUI); --Engine
+﻿local E, L, P, G = unpack(ElvUI); --Engine
 local S = E:GetModule('Skins')
 local CH = E:GetModule('Chat')
 --Skins
-DF['skins'] = {
+P['skins'] = {
 	['thunx'] = {
 	-- General
 		['enable'] = true,
 		['upperpanel'] = false,
 		['lowerpanel'] = false,
 	-- Datatexts
-		['dtfont'] = E.db.core.font,
-		['dtfontsize'] = E.db.core.fontsize,
+		['dtfont'] = E.db.general.font,
+		['dtfontsize'] = E.db.general.fontsize,
 		['dtfontflags'] = "OUTLINE",
 	-- Chat
-		['chfont'] = E.db.core.font,
-		['chfontsize'] = E.db.core.fontsize,
+		['chfont'] = E.db.general.font,
+		['chfontsize'] = E.db.general.fontsize,
 		['chfontflags'] = "OUTLINE",
 	-- Aura
-		['afont'] = E.db.core.font,
-		['afontsize'] = E.db.core.fontsize,
+		['afont'] = E.db.general.font,
+		['afontsize'] = E.db.general.fontsize,
 		['afontflags'] = "OUTLINE",
 	-- Actionbars
-		['abfont'] = E.db.core.font,
+		['abfont'] = E.db.general.font,
 		['abfontsize'] = 0, -- if modified it overwrites elv config
 		['abfontflags'] = "OUTLINE",
 	-- ClassTimers
-		['ctfont'] = E.db.core.font,
-		['ctfontsize'] = E.db.core.fontsize,
+		['ctfont'] = E.db.general.font,
+		['ctfontsize'] = E.db.general.fontsize,
 		['ctfontflags'] = "OUTLINE",
-		['cttex'] = E.db.core.normTex,
+		['cttex'] = E.db.general.normTex,
 	-- Tooltip
-		['ttfont'] = E.db.core.font,
-		['ttfontsize'] = E.db.core.fontsize,
+		['ttfont'] = E.db.general.font,
+		['ttfontsize'] = E.db.general.fontsize,
 		['ttfontflags'] = "OUTLINE",		
 		['tthealth'] = 5, -- Taken from tooltip.lua
-		['tttex'] = E.db.core.normTex,
+		['tttex'] = E.db.general.normTex,
 	-- Minimap
-		['mfont'] = E.db.core.font,
-		['mfontsize'] = E.db.core.fontsize,
+		['mfont'] = E.db.general.font,
+		['mfontsize'] = E.db.general.fontsize,
 		['mfontflags'] = "OUTLINE",
 		['mcoords'] = true,
 		['mfade'] = true,
 	-- Questtracker
-		['qtfont'] = E.db.core.font,
-		['qtfontsize'] = E.db.core.fontsize,
+		['qtfont'] = E.db.general.font,
+		['qtfontsize'] = E.db.general.fontsize,
 		['qtfontflags'] = "OUTLINE",
 		['qtbackdrop'] = false,
 	-- Misc

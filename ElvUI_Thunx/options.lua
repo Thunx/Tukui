@@ -1,10 +1,10 @@
-local E, L, DF = unpack(ElvUI); --Engine
+local E, L, P, G = unpack(ElvUI); --Engine
 local S = E:GetModule('Skins')
 local CH = E:GetModule('Chat')
 _db = _db or true
 
-DF.skins.thunx = {}
-DF.skins.thunx.enable = _db or true
+P.skins.thunx = {}
+P.skins.thunx.enable = _db or true
 
 
 E.Options.args.skins.args.thunx = {
