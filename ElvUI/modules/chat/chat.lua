@@ -520,9 +520,6 @@ local sizes = {
 	":12:20",
 	":14",
 }
-
-<<<<<<< HEAD:ElvUI/modules/chat/chat.lua
-=======
 local function PrepareMessage(author, message)
 	return author:upper() .. message
 end
@@ -541,7 +538,7 @@ function CH:ChatThrottleHandler(event, ...)
 		end
 	end
 end
->>>>>>> upstream/master:modules/chat/chat.lua
+
 
 local locale = GetLocale()
 function CH:CHAT_MSG_CHANNEL(...)
@@ -641,21 +638,19 @@ function CH:Initialize()
 	
 	self:SetupChat()
 
-<<<<<<< HEAD:ElvUI/modules/chat/chat.lua
+
 	ChatFrame_AddMessageEventFilter("CHAT_MSG_CHANNEL", CH.FindURL)
 	ChatFrame_AddMessageEventFilter("CHAT_MSG_YELL", CH.FindURL)
-=======
+
 	ChatFrame_AddMessageEventFilter("CHAT_MSG_CHANNEL", CH.CHAT_MSG_CHANNEL)
 	ChatFrame_AddMessageEventFilter("CHAT_MSG_YELL", CH.CHAT_MSG_YELL)
 	ChatFrame_AddMessageEventFilter("CHAT_MSG_SAY", CH.CHAT_MSG_SAY)
-<<<<<<< HEAD:ElvUI/modules/chat/chat.lua
+
 	ChatFrame_AddMessageEventFilter("CHAT_MSG_WHISPER_INFORM", CH.CHAT_MSG_WHISPER_INFORM)
 	ChatFrame_AddMessageEventFilter("CHAT_MSG_WHISPER", CH.CHAT_MSG_WHISPER)	
->>>>>>> upstream/master:modules/chat/chat.lua
-=======
 	ChatFrame_AddMessageEventFilter("CHAT_MSG_WHISPER_INFORM", CH.FindURL)
 	ChatFrame_AddMessageEventFilter("CHAT_MSG_WHISPER", CH.FindURL)	
->>>>>>> upstream/master:modules/chat/chat.lua
+
 	ChatFrame_AddMessageEventFilter("CHAT_MSG_GUILD", CH.FindURL)
 	ChatFrame_AddMessageEventFilter("CHAT_MSG_OFFICER", CH.FindURL)
 	ChatFrame_AddMessageEventFilter("CHAT_MSG_PARTY", CH.FindURL)
@@ -664,13 +659,12 @@ function CH:Initialize()
 	ChatFrame_AddMessageEventFilter("CHAT_MSG_RAID_LEADER", CH.FindURL)
 	ChatFrame_AddMessageEventFilter("CHAT_MSG_BATTLEGROUND", CH.FindURL)
 	ChatFrame_AddMessageEventFilter("CHAT_MSG_BATTLEGROUND_LEADER", CH.FindURL)
-<<<<<<< HEAD:ElvUI/modules/chat/chat.lua
+
 	ChatFrame_AddMessageEventFilter("CHAT_MSG_SAY", CH.FindURL)
 	ChatFrame_AddMessageEventFilter("CHAT_MSG_WHISPER_INFORM", CH.FindURL)
 	ChatFrame_AddMessageEventFilter("CHAT_MSG_WHISPER", CH.FindURL)
 	ChatFrame_AddMessageEventFilter("CHAT_MSG_BN_WHISPER", CH.FindURL)
-=======
->>>>>>> upstream/master:modules/chat/chat.lua
+
 	ChatFrame_AddMessageEventFilter("CHAT_MSG_BN_CONVERSATION", CH.FindURL)	
 	ChatFrame_AddMessageEventFilter("CHAT_MSG_BN_WHISPER", CH.FindURL)
 	ChatFrame_AddMessageEventFilter("CHAT_MSG_BN_WHISPER_INFORM", CH.FindURL)
