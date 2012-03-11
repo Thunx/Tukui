@@ -442,7 +442,15 @@ E.Options.args.skins.args.thunx = {
 						},
 					set = function(info, value) E.db.skins.thunx[ info[#info] ] = value; E:SetupThunxMedia(); E:Initializethunx(); end,
 				},
-			},
+				--[[specialbuff = {
+					order = 14,
+					type = 'input',
+					width = '100',
+					name = L['Specialbuff'],
+					desc = L['Set what specialbuff you want to show'],
+					set = function(info, value) E.db.skins.thunx[ info[#info] ] = value; E:SetupThunxMedia(); E:Initializethunx(); StaticPopup_Show("CONFIG_RL") end,
+				},]]--
+			},	
 		},
 		fdispelannounce = {
 			order = 12,

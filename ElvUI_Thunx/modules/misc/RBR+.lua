@@ -1,320 +1,205 @@
---[[local E, L, P, G = unpack(ElvUI); --Engine
+local E, L, P, G = unpack(ElvUI); --Engine
 local S = E:GetModule('Skins')
 local RBR = E:GetModule('RaidBuffReminder', 'AceEvent-3.0');
-
+local M = E:GetModule('Maps');
 E.RaidBuffReminder = RBR
 local data = ElvData
-
+local db = E.db.skins.thunx 
 -- inital settings
 if not data.specialbuff then
 	 ElvData.specialbuff = 80398
 end
-local posn = {"TOP", UIParent, "TOP", 0, -3}
-local posn = {"TOP", UIParent, "TOP", 0, -3}
+RBR.Spell7Buffs = {
+	ElvData.specialbuff, --"Dark Intent"
+}
 
---Locals
-local flaskbuffs = {
-		94160, --"Flask of Flowing Water"
-		79469, --"Flask of Steelskin"
-		79470, --"Flask of the Draconic Mind"
-		79471, --"Flask of the Winds
-		79472, --"Flask of Titanic Strength"
-		79638, --"Flask of Enhancement-STR"
-		79639, --"Flask of Enhancement-AGI"
-		79640, --"Flask of Enhancement-INT"
-		92679, --Flask of battle
-	}
-local battleelixirbuffs = {
-		--Scrolls
-		89343, --Agility
-		63308, --Armor 
-		89347, --Int
-		89342, --Spirit
-		63306, --Stam
-		89346, --Strength
+local specialbuff = E.db.specialbuff
 
-		--Elixirs
-		79481, --Hit
-		79632, --Haste
-		79477, --Crit
-		79635, --Mastery
-		79474, --Expertise
-		79468, --Spirit
-	}
-local guardianelixirbuffs = {
-		79480, --Armor
-		79631, --Resistance+90
-	}
-local foodbuffs = {
-		87545, --90 STR
-		87546, --90 AGI
-		87547, --90 INT
-		87548, --90 SPI
-		87549, --90 MAST
-		87550, --90 HIT
-		87551, --90 CRIT
-		87552, --90 HASTE
-		87554, --90 DODGE
-		87555, --90 PARRY
-		87635, --90 EXP
-		87556, --60 STR
-		87557, --60 AGI
-		87558, --60 INT
-		87559, --60 SPI
-		87560, --60 MAST
-		87561, --60 HIT
-		87562, --60 CRIT
-		87563, --60 HASTE
-		87564, --60 DODGE
-		87634, --60 EXP
-		87554, --Seafood Feast
-	}
-	
-local battleelixired	
-local guardianelixired	
+function RBR:CreateButton(relativeTo, isFirst, isLast)
 
---Setup Caster Buffs
-local function SetCasterOnlyBuffs()
-	Spell3Buff = { --Total Stats
-		1126, -- "Mark of the wild"
-		90363, --"Embrace of the Shale Spider"
-		20217, --"Greater Blessing of Kings",
-	}
-	Spell4Buff = { --Total Stamina
-		469, -- Commanding
-		6307, -- Blood Pact
-		90364, -- Qiraji Fortitude
-		72590, -- Drums of fortitude
-		21562, -- Fortitude
-	}
-	Spell5Buff = { --Total Mana
-		61316, --"Dalaran Brilliance"
-		1459, --"Arcane Brilliance"
-	}
-	Spell6Buff = { --Mana Regen
-		5675, --"Mana Spring Totem"
-		19740, --"Blessing of Might"
-	}
-end
-
---Setup everyone else's buffs
-local function SetBuffs()
-	Spell3Buff = { --Total Stats
-		1126, -- "Mark of the wild"
-		90363, --"Embrace of the Shale Spider"
-		20217, --"Greater Blessing of Kings",
-	}
-	Spell4Buff = { --Total Stamina
-		469, -- Commanding
-		6307, -- Blood Pact
-		90364, -- Qiraji Fortitude
-		72590, -- Drums of fortitude
-		21562, -- Fortitude
-	}
-	Spell5Buff = { --Total Mana
-		61316, --"Dalaran Brilliance"
-		1459, --"Arcane Brilliance"
-	}
-	Spell6Buff = { --Total AP
-		19740, --"Blessing of Might" placing it twice because i like the icon better :D code will stop after this one is read, we want this first 
-		30808, --"Unleashed Rage"
-		53138, --Abom Might
-		19506, --Trushot
-		19740, --"Blessing of Might"
-	}
-end
-
-
--- we need to check if you have two differant elixirs if your not flasked, before we say your not flasked
-local function CheckElixir(unit)
-	if (battleelixirbuffs and battleelixirbuffs[1]) then
-		for i, battleelixirbuffs in pairs(battleelixirbuffs) do
-			local spellname = select(1, GetSpellInfo(battleelixirbuffs))
-			if UnitAura("player", spellname) then
-				FlaskFrame.t:SetTexture(select(3, GetSpellInfo(battleelixirbuffs)))
-				battleelixired = true
-				break
-			else
-				battleelixired = false
-			end
-		end
-	end
-	
-	if (guardianelixirbuffs and guardianelixirbuffs[1]) then
-		for i, guardianelixirbuffs in pairs(guardianelixirbuffs) do
-			local spellname = select(1, GetSpellInfo(guardianelixirbuffs))
-			if UnitAura("player", spellname) then
-				guardianelixired = true
-				if not battleelixired then
-					FlaskFrame.t:SetTexture(select(3, GetSpellInfo(guardianelixirbuffs)))
-				end
-				break
-			else
-				guardianelixired = false
-			end
-		end
-	end	
-	
-	if guardianelixired == true and battleelixired == true then
-		FlaskFrame:SetAlpha(1)
-		return
+	local button = CreateFrame("Frame", name, RaidBuffReminder)
+	button:SetTemplate('Default')
+	button:Size(E.RBRWidth - 4)
+	button:SetScript("OnMouseUp", microMenuGenerator)
+	if isFirst then
+		button:Point("TOP", relativeTo, "TOP", 0, -2)
 	else
-		FlaskFrame:SetAlpha(0.2)
-	end
-end
-
---Main Script
-local function OnAuraChange(self, event, arg1, unit)
-	if (event == "UNIT_AURA" and arg1 ~= "player") then 
-		return
+		button:Point("TOP", relativeTo, "BOTTOM", 0, -1)
 	end
 	
-	--If We're a caster we may want to see differant buffs
-	if E.Role == "Caster" then 
-		SetCasterOnlyBuffs() 
+	if isLast then
+		button:Point("BOTTOM", RaidBuffReminder, "BOTTOM", 0, 2)
+	end
+	
+	button.t = button:CreateTexture(nil, "OVERLAY")
+	button.t:SetTexCoord(unpack(E.TexCoords))
+	button.t:Point("TOPLEFT", 2, -2)
+	button.t:Point("BOTTOMRIGHT", -2, 2)
+	button.t:SetTexture("Interface\\Icons\\INV_Misc_QuestionMark")
+
+
+	local function SetupTooltip(self)
+		GameTooltip:SetOwner(self, "ANCHOR_BOTTOMRIGHT", 0, 0)
+		GameTooltip:SetSpellByID(ElvData.specialbuff)
+		if name == "frame.spell7" then
+			GameTooltip:AddLine(" ")
+			GameTooltip:AddLine("Set the SpellID in the RBR+.lua file ", 1,1,1)
+		end
+		GameTooltip:Show()
+	end
+	button:SetScript("OnEnter", SetupTooltip)
+	button:SetScript("OnLeave", GameTooltip_Hide)
+	
+	return button
+end
+
+function RBR:UpdateReminder(event, unit)
+	RBR.Spell7Buffs = {
+	ElvData.specialbuff, --"Dark Intent"
+}
+	if (event == "UNIT_AURA" and unit ~= "player") then return end
+	local frame = self.frame
+	
+	if E.role == 'Caster' then
+		self.Spell6Buffs = self.CasterSpell6Buffs
 	else
-		SetBuffs()
+		self.Spell6Buffs = self.MeleeSpell6Buffs
 	end
 	
-	--Start checking buffs to see if we can find a match from the list
-	if (flaskbuffs and flaskbuffs[1]) then
-		FlaskFrame.t:SetTexture(select(3, GetSpellInfo(flaskbuffs[1])))
-		for i, flaskbuffs in pairs(flaskbuffs) do
-			local spellname = select(1, GetSpellInfo(flaskbuffs))
-			if UnitAura("player", spellname) then
-				FlaskFrame.t:SetTexture(select(3, GetSpellInfo(flaskbuffs)))
-				FlaskFrame:SetAlpha(1)
-				FlaskFrame.id = flaskbuffs
-				break
-			else
-				CheckElixir()
-			end
-			FlaskFrame.id = flaskbuffs
-		end
-	end
-	
-	if (foodbuffs and foodbuffs[1]) then
-		FoodFrame.t:SetTexture(select(3, GetSpellInfo(foodbuffs[1])))
-		for i, foodbuffs in pairs(foodbuffs) do
-			local spellname = select(1, GetSpellInfo(foodbuffs))
-			if UnitAura("player", spellname) then
-				FoodFrame:SetAlpha(1)
-				FoodFrame.t:SetTexture(select(3, GetSpellInfo(foodbuffs)))
-				FoodFrame.id = foodbuffs
-				break
-			else
-				FoodFrame:SetAlpha(0.2)
-			end
-			FoodFrame.id = foodbuffs
-		end
-	end
-	
-	for i, Spell3Buff in pairs(Spell3Buff) do
-		local spellname = select(1, GetSpellInfo(Spell3Buff))
-		if UnitAura("player", spellname) then
-			Spell3Frame:SetAlpha(1)
-			Spell3Frame.t:SetTexture(select(3, GetSpellInfo(Spell3Buff)))
-			Spell3Frame.id = Spell3Buff
-			break
-		else
-			Spell3Frame:SetAlpha(0.2)
-			Spell3Frame.t:SetTexture(select(3, GetSpellInfo(Spell3Buff)))
-		end
-		Spell3Frame.id = Spell3Buff
-	end
-	
-	for i, Spell4Buff in pairs(Spell4Buff) do
-		local spellname = select(1, GetSpellInfo(Spell4Buff))
-		if UnitAura("player", spellname) then
-			Spell4Frame:SetAlpha(1)
-			Spell4Frame.t:SetTexture(select(3, GetSpellInfo(Spell4Buff)))
-			Spell4Frame.id = Spell4Buff
-			break
-		else
-			Spell4Frame:SetAlpha(0.2)
-			Spell4Frame.t:SetTexture(select(3, GetSpellInfo(Spell4Buff)))
-			Spell4Frame.id = Spell4Buff
-		end
-	end
-	
-	for i, Spell5Buff in pairs(Spell5Buff) do
-		local spellname = select(1, GetSpellInfo(Spell5Buff))
-		if UnitAura("player", spellname) then
-			Spell5Frame:SetAlpha(1)
-			Spell5Frame.t:SetTexture(select(3, GetSpellInfo(Spell5Buff)))
-			Spell5Frame.id = Spell5Buff
-			break
-		else
-			Spell5Frame:SetAlpha(0.2)
-			Spell5Frame.t:SetTexture(select(3, GetSpellInfo(Spell5Buff)))
-		end
-		Spell5Frame.id = Spell5Buff
-	end	
-	
-	for i, Spell6Buff in pairs(Spell6Buff) do
-		local spellname = select(1, GetSpellInfo(Spell6Buff))
-		if UnitAura("player", spellname) then
-			Spell6Frame:SetAlpha(1)
-			Spell6Frame.t:SetTexture(select(3, GetSpellInfo(Spell6Buff)))
-			Spell6Frame.id = Spell6Buff
-			break
-		else
-			Spell6Frame:SetAlpha(0.2)
-			Spell6Frame.t:SetTexture(select(3, GetSpellInfo(Spell6Buff)))
-		end
-		Spell6Frame.id = Spell6Buff
-	end	
-	
-	local spellname = select(1, GetSpellInfo( ElvData.specialbuff))
-	if UnitAura("player", spellname) then
-		SpecialBuffFrame:SetAlpha(1)
-		SpecialBuffFrame.t:SetTexture(select(3, GetSpellInfo( ElvData.specialbuff)))
+	local hasFlask, flaskTex = self:CheckFilterForActiveBuff(self.Spell1Buffs)
+	if hasFlask then
+		frame.spell1.t:SetTexture(flaskTex)
+		frame.spell1:SetAlpha(0.2)
 	else
-		SpecialBuffFrame:SetAlpha(0.2)
-		SpecialBuffFrame.t:SetTexture(select(3, GetSpellInfo( ElvData.specialbuff)))
-	end
-	SpecialBuffFrame.id =  ElvData.specialbuff
-end
+		local hasBattle, battleTex = self:CheckFilterForActiveBuff(self.BattleElixir)
+		local hasGuardian, guardianTex = self:CheckFilterForActiveBuff(self.GuardianElixir)
 
---Toggling functions
-local enable = true 
-local function ToggleLocked()	
-	
-	if enable then			
-		RaidBuffAnchor:EnableMouse(true)
-		RaidBuffAnchor:RegisterForDrag("LeftButton", "RightButton")
-		RaidBuffAnchor:SetScript("OnDragStart", function(self) 
-			origa1, origf, origa2, origx, origy = RaidBuffAnchor:GetPoint() 
-			self.moving = true 
-			self:SetUserPlaced(true) 
-			self:StartMoving() 
-		end)			
-		RaidBuffAnchor:SetScript("OnDragStop", function(self) 
-			self.moving = false 
-			self:StopMovingOrSizing() 
-		end)				
-		RaidBuffAnchor:Show() 
-	else			
-		RaidBuffAnchor:EnableMouse(false)
-		if RaidBuffAnchor.moving == true then
-			RaidBuffAnchor:StopMovingOrSizing()
-			RaidBuffAnchor:ClearAllPoints()
-			RaidBuffAnchor:SetPoint(origa1, origf, origa2, origx, origy)
+		if (hasBattle and hasGuardian) or not hasGuardian and hasBattle then
+			frame.spell1:SetAlpha(1)
+			frame.spell1.t:SetTexture(battleTex)				
+		elseif hasGuardian then
+			frame.spell1:SetAlpha(1)
+			frame.spell1.t:SetTexture(guardianTex)		
+		else
+			frame.spell1:SetAlpha(1)
+			frame.spell1.t:SetTexture(flaskTex)
 		end
-		RaidBuffAnchor:Hide()
-		RaidBuffAnchor.moving = false
+	end
+	
+	for i = 2, 7 do
+		local hasBuff, texture = self:CheckFilterForActiveBuff(self['Spell'..i..'Buffs'])
+		frame['spell'..i].t:SetTexture(texture)
+		if hasBuff then
+			frame['spell'..i]:SetAlpha(0.2)
+		else
+			frame['spell'..i]:SetAlpha(1)
+		end
+	end
+end
+
+function RBR:Initialize()
+
+	
+	local frame = CreateFrame('Frame', 'RaidBuffReminder', Minimap)
+	frame:SetTemplate('Default')
+	frame:Width(E.RBRWidth)
+	frame:Point('TOPLEFT', Minimap.backdrop, 'TOPRIGHT', 1, 0)
+	frame:Point('BOTTOMLEFT', Minimap.backdrop, 'BOTTOMRIGHT', 1, 0)
+	frame:SetClampedToScreen(true)
+	frame:SetScript("OnMouseUp", microMenuGenerator)
+	frame.spell1 = self:CreateButton(frame, true)
+	frame.spell2 = self:CreateButton(frame.spell1)
+	frame.spell3 = self:CreateButton(frame.spell2)
+	frame.spell4 = self:CreateButton(frame.spell3)
+	frame.spell5 = self:CreateButton(frame.spell4)
+	frame.spell6 = self:CreateButton(frame.spell5)
+	frame.spell7 = self:CreateButton(frame.spell6, nil, true)
+	
+	self.frame = frame
+	
+	if E.db.general.raidReminder then
+		self:EnableRBR()
+	else
+		self:DisableRBR()
+	end
+end
+
+
+function M:Minimap_UpdateSettings()
+	E.MinimapSize = E.db.general.minimapSize
+	
+	if E.db.general.raidReminder then
+		E.RBRWidth = ((E.MinimapSize - 6) / 7) + 4
+	else
+		E.RBRWidth = 0;
+	end
+	
+	E.MinimapWidth = E.MinimapSize
+	E.MinimapHeight = E.MinimapSize + 5
+	Minimap:Size(E.MinimapSize, E.MinimapSize)
+	
+	if MMHolder then
+		MMHolder:Width((Minimap:GetWidth() + 4) + E.RBRWidth)
+		MMHolder:Height(Minimap:GetHeight() + 27)	
+	end
+	
+	if Minimap.location then
+		Minimap.location:Width(E.MinimapSize)
+	end
+	
+	if MinimapMover then
+		MinimapMover:Size(MMHolder:GetSize())
 	end
 
-	if enable then enable = false else enable = true end
+	if AurasHolder then
+		AurasHolder:Height(E.MinimapHeight)
+		if AurasMover and not E:HasMoverBeenMoved('AurasMover') and not E:HasMoverBeenMoved('MinimapMover') then
+			AurasMover:ClearAllPoints()
+			AurasMover:Point("TOPRIGHT", E.UIParent, "TOPRIGHT", -((E.MinimapSize + 4) + E.RBRWidth + 7), -3)
+			E:SaveMoverDefaultPosition('AurasMover')
+		end
+		
+		if AurasMover then
+			AurasMover:Height(E.MinimapHeight)
+		end
+	end
+	
+	if UpperRepExpBarHolder then
+		E:GetModule('Misc'):UpdateExpRepBarAnchor()
+	end
+	
+	if ElvConfigToggle then
+		if E.db.general.raidReminder then
+			ElvConfigToggle:Show()
+			ElvConfigToggle:Width(E.RBRWidth)
+		else
+			ElvConfigToggle:Hide()
+		end
+	end
+	
+	if RaidBuffReminder then
+		RaidBuffReminder:Width(E.RBRWidth)
+		for i=1, 7 do
+			RaidBuffReminder['spell'..i]:Size(E.RBRWidth - 4)
+		end
+		
+		if E.db.general.raidReminder then
+			E:GetModule('RaidBuffReminder'):EnableRBR()
+		else
+			E:GetModule('RaidBuffReminder'):DisableRBR()
+		end
+	end
+end
+local optionsFrame = CreateFrame("Frame", "RBR_MenuFrame", UIParent, "UIDropDownMenuTemplate")
+function microMenuGenerator(self, button)
+	if button == "RightButton" then
+		local microMenu = {}
+		local opt = { text = "Set Buff", func = function() SpecialBuffConfigFrame:Show() end}
+		tinsert(microMenu, opt) 
+		EasyMenu(microMenu, optionsFrame, "cursor", xoff, 0, "MENU", 2)
+	end
 end
 
--- reset Position
-local function ResetPosition()
-	RaidBuffAnchor:ClearAllPoints()
-	RaidBuffAnchor:Point(unpack(posn))
-end
-
--- Only called on the SpecialBuffFrame
 local function UpdateSpecialBuff(id)
 	if GetSpellInfo(id) then
 		 ElvData.specialbuff = id 
@@ -323,463 +208,40 @@ local function UpdateSpecialBuff(id)
 	else
 		print(id.." is not a valid SpellID")
 	end
-	OnAuraChange()
+	RBR:UpdateReminder()
 end
 
-local optionsFrame = CreateFrame("Frame", "RBR_MenuFrame", UIParent, "UIDropDownMenuTemplate")
-local function microMenuGenerator(self, button)
-	if button == "RightButton" then
-		local microMenu = {
-			{text = "Toggle Locked",
-			func = ToggleLocked},
-			
-			{text = "Reset Position",
-			func = ResetPosition},
-		}
-		
-		if self:GetName() == "SpecialBuffFrame" then
-			local opt = { text = "Set Buff", func = function() SpecialBuffConfigFrame:Show() end}
-			tinsert(microMenu, opt) 
-		end
-		
-		EasyMenu(microMenu, optionsFrame, "cursor", xoff, 0, "MENU", 2)
-	end
-end
-
-local fsize = 164
-local bsize = ((fsize - 13) / 7)
-
---Create the anchor
-raidbuff_anchor = CreateFrame("Frame", "RaidBuffAnchor", UIParent)
-raidbuff_anchor:SetTemplate("Transparent")
-raidbuff_anchor:Size(fsize, bsize + 4)
-raidbuff_anchor:Point(unpack(posn))
-raidbuff_anchor:SetFrameStrata("Tooltip")
-raidbuff_anchor:SetBackdropBorderColor(1, 0, 0)
-raidbuff_anchor:SetClampedToScreen(true)
-raidbuff_anchor:SetMovable(true)
-raidbuff_anchor:SetScript("OnMouseUp", microMenuGenerator)
-raidbuff_anchor:Hide()
-
-raidbuff_anchor.text = raidbuff_anchor:CreateFontString(nil, UIParent)
-raidbuff_anchor.text:FontTemplate()
-raidbuff_anchor.text:SetPoint("CENTER", raidbuff_anchor, "CENTER", 0, 0)
-raidbuff_anchor.text:SetText("Moving RBR+")
-
---Create the Main bar
-local raidbuff_reminder = CreateFrame("Frame", "RaidBuffReminder", UIParent)
-raidbuff_reminder:SetTemplate("Transparent")
-raidbuff_reminder:SetAllPoints(raidbuff_anchor)
-raidbuff_reminder:SetFrameStrata("BACKGROUND")
-raidbuff_reminder:SetFrameLevel(Minimap:GetFrameLevel() + 2)
-
-raidbuff_reminder:RegisterEvent("ACTIVE_TALENT_GROUP_CHANGED")
-raidbuff_reminder:RegisterEvent("UNIT_INVENTORY_CHANGED")
-raidbuff_reminder:RegisterEvent("UNIT_AURA")
-raidbuff_reminder:RegisterEvent("PLAYER_REGEN_ENABLED")
-raidbuff_reminder:RegisterEvent("PLAYER_REGEN_DISABLED")
-raidbuff_reminder:RegisterEvent("PLAYER_ENTERING_WORLD")
-raidbuff_reminder:RegisterEvent("UPDATE_BONUS_ACTIONBAR")
-raidbuff_reminder:RegisterEvent("CHARACTER_POINTS_CHANGED")
-raidbuff_reminder:RegisterEvent("ZONE_CHANGED_NEW_AREA")
-raidbuff_reminder:SetScript("OnEvent", OnAuraChange)
-raidbuff_reminder:SetScript("OnMouseUp", microMenuGenerator)
 
 --edit box for the special buff
-specialconfig = CreateFrame("Frame", "SpecialBuffConfigFrame", raidbuff_reminder)
+specialconfig = CreateFrame("Frame", "SpecialBuffConfigFrame", E.UIParent)
 specialconfig:SetTemplate("Transparent")
-specialconfig:Size(150, raidbuff_reminder:GetHeight())
-specialconfig:Point("LEFT", raidbuff_reminder, "RIGHT", 3, 0)
+specialconfig:Size(139, 30)
+specialconfig:Point("TOPRIGHT", E.UIParent, "TOPRIGHT", -((E.MinimapSize + 4) + E.RBRWidth + 7), -180)
+
 --label
 specialconfig.text = specialconfig:CreateFontString(nil, "OVERLAY")	
 specialconfig.text:SetPoint("LEFT", specialconfig, "LEFT", 4, 0)
-specialconfig.text:FontTemplate()
+specialconfig.text:FontTemplate(E["media"].fdFont, 12, E.db.fdfontflags)
 specialconfig.text:SetText("SpellID")
 --ok button
 specialconfig.ok = CreateFrame("Button", nil, specialconfig)
 specialconfig.ok:SetTemplate("Transparent")
-specialconfig.ok:Size(raidbuff_reminder:GetHeight()-6, raidbuff_reminder:GetHeight()-6)
+specialconfig.ok:Size(20, 22)
 specialconfig.ok:Point("RIGHT", specialconfig, "RIGHT", -3, 0)
 specialconfig.t = specialconfig.ok:CreateFontString(nil, "OVERLAY")	
 specialconfig.t:SetPoint("CENTER", specialconfig.ok, "CENTER", 0, 0)
-specialconfig.t:FontTemplate()
+specialconfig.t:FontTemplate(E["media"].fdFont, 12, E.db.fdfontflags)
 specialconfig.t:SetText("OK")
 -- edit box
 specialconfig.edit = CreateFrame("EditBox", nil, specialconfig)
 specialconfig.edit:SetTemplate("Transparent")
-specialconfig.edit:Size(70, raidbuff_reminder:GetHeight()-6)
+specialconfig.edit:Size(70, 22)
 specialconfig.edit:Point("RIGHT", specialconfig.ok, "LEFT", -3, 0)
+specialconfig.edit:FontTemplate(E["media"].fdFont, 12, E.db.fdfontflags)
 specialconfig.edit:SetNumeric()
 specialconfig.edit:EnableMouse(true)
 specialconfig.edit:SetFontObject(ChatFontNormal)
 --ok button click
-specialconfig.ok:SetScript("OnClick", function(self, button, down) UpdateSpecialBuff(specialconfig.edit:GetText()) specialconfig:Hide() end)
+specialconfig.ok:SetScript("OnClick", function(self, button, down) UpdateSpecialBuff(specialconfig.edit:GetText()) specialconfig:Hide()  end)
 specialconfig:Hide()
 
---Function to create buttons
-local function CreateButton(name, relativeTo, firstbutton)
-	local button = CreateFrame("Frame", name, RaidBuffReminder)
-	if firstbutton == true then
-		button:SetTemplate("Transparent")
-		button:Size(bsize, bsize)
-		button:Point("LEFT", relativeTo, "LEFT", 2,0)
-	else
-		button:SetTemplate("Transparent")
-		button:Size(bsize, bsize)
-		button:Point("LEFT", relativeTo, "RIGHT", 1, 0)
-	end
-	button:SetFrameLevel(RaidBuffReminder:GetFrameLevel() + 2)
-	
-	button.t = button:CreateTexture(name..".t", "OVERLAY")
-	button.t:SetTexCoord(0.1, 0.9, 0.1, 0.9)
-	button.t:Point("TOPLEFT", 2, -2)
-	button.t:Point("BOTTOMRIGHT", -2, 2)
-	
-	local function SetupTooltip(self)
-		GameTooltip:SetOwner(self, "ANCHOR_BOTTOMRIGHT", 0, 0)
-		
-		GameTooltip:SetSpellByID(button.id)
-		if name == "SpecialBuffFrame" then
-			GameTooltip:AddLine(" ")
-			GameTooltip:AddLine("Set the SpellID in the RBR+.lua file ", 1,1,1)
-		end
-		GameTooltip:Show()
-	end
-	button:SetScript("OnEnter", SetupTooltip)
-	button:SetScript("OnLeave", GameTooltip_Hide)
-	button:SetScript("OnMouseUp", microMenuGenerator)
-end
-
---Create Buttons
-do
-	CreateButton("FlaskFrame", RaidBuffReminder, true)
-	CreateButton("FoodFrame", FlaskFrame, false)
-	CreateButton("Spell3Frame", FoodFrame, false)
-	CreateButton("Spell4Frame", Spell3Frame, false)
-	CreateButton("Spell5Frame", Spell4Frame, false)
-	CreateButton("Spell6Frame", Spell5Frame, false)
-	CreateButton("SpecialBuffFrame", Spell6Frame, false)
-end
-
--- Adding in ALL RAID BUFFS
-local AllBuffs = {
-	["melee10"] = {
-		8512,						-- Windfury
-		55610,						-- Imp Icy Talons
-		53290,						-- Hunting Party
-	},
-
-	["crit5"] = {
-		17007,						-- Leader of the Pack
-		51470,						-- Ele Oath
-		51701,						-- Honor Amoung Thieves
-		29801,						-- Rampage
-		24604,						-- Hunter Pet
-	},
-
-	["ap10"] = {
-		30808,						-- Unleashed Rage
-		19506,						-- Trueshot Aura
-		53138,						-- Abomination's Might
-		19740,						-- Blessing of Might
-	},
-
-	["spellhaste"] = {
-		24907,						-- Moonkin Form
-		49868,						-- Shadow Form
-		3738,						-- Wrath of Air
-	},
-
-	["sp10"] = {
-		47236,						-- Demonic Pact
-		77746,						-- Totemic Wrath
-	},
-
-	["sp6"] = {
-		8227,						-- Flametongue
-		1459,						-- AI
-		61316,						-- Dal Brill
-	},
-
-	["dmg3"] = {
-		82930,						-- Arcane Tactics
-		34460,						-- Ferocious Insperation
-		31876,						-- Communion
-	},
-
-	["base5"] = {
-		1126,						-- Mark
-		20217,						-- Kings
-	},
-
-	["str_agi"] = {
-		8076,						-- Strength of earth
-		57330,						-- Horn of Winter
-		6673,						-- Battle Shout
-	},
-
-	["stam"] = {
-		21562,						-- Fort
-		6307,						-- Imp
-		469,						-- Commanding
-	},
-
-	["mana"] = {
-		1459,						-- AI
-		61316,						-- Dal Brill
-		54424,						-- Fel
-	},
-
-	["armor"] = {
-		8072,						-- stoneskin
-		465,						-- devotion aura
-	},
-
-	-- make this a check list
-	-- local resist = {
-		-- Ele Resist Totem	--fire, frost nature
-		-- Aspect of the wild	--nature
-		-- Resistance Aura		--fire, frost, shadow
-		-- Kings				-- All
-		-- Shadow Protection	-- Shadow, Stacks with kings
-		-- Mark				-- All
-	-- }
-
-	["pushback"] = {
-		19746,						-- Conc aura
-		87717,						-- Totem of Tranq
-	},
-
-	["mp5"] = {
-		54424,						-- Fel
-		5677,						-- Mana Spring
-		19740,						-- Blessing of Might
-	},
-
-	--replenishment
-	-- local manaregen = {
-		-- Vampiric Touch
-		-- Enduring Winter
-		-- soul leach
-		-- Revitalize
-		-- Communion
-	-- }
-}
-
-local function LabelType(bufftype)
-	if bufftype == "melee10" then
-		return "10% Melee Attack Speed"
-	elseif bufftype == "crit5" then
-		return "5% Crit"
-	elseif bufftype == "ap10" then
-		return "20% Attack Power"
-	elseif bufftype == "spellhaste" then
-		return "5% Spell Haste"
-	elseif bufftype == "sp10" then
-		return "10% Spell Power"
-	elseif bufftype == "sp6" then
-		return "6% Spell Power"
-	elseif bufftype == "dmg3" then
-		return "3% Damage"
-	elseif bufftype == "base5" then
-		return "5% All Base Stats"
-	elseif bufftype == "str_agi" then
-		return "Strength and Agility"
-	elseif bufftype == "stam" then
-		return "Stamina"
-	elseif bufftype == "mana" then
-		return "Maximum Mana"
-	elseif bufftype == "armor" then
-		return "Armor"
-	elseif bufftype == "pushback" then
-		return "Spell Pushback"
-	elseif bufftype == "mp5" then
-		return "Mana Per 5s"
-	else
-		return "ERROR"
-	end
-end
--------------------------
--- Buff Check Functions
--------------------------
-local function AnotherOnAuraChange(self, event, arg1, unit)
-	for key, value in pairs(AllBuffs) do
-		for i, v in ipairs(value) do
-			local spellname = select(1, GetSpellInfo(v))
-			_G[key.."mini"..i].spell = v
-			if UnitAura("player", spellname) then
-				_G[key.."mini"..i]:SetAlpha(1)
-			else
-				_G[key.."mini"..i]:SetAlpha(0.2)
-			end
-		end
-		
-		for i, v in ipairs(value) do
-			local spellname = select(1, GetSpellInfo(v))
-			_G[key.."Frame"].spell = v
-			if UnitAura("player", spellname) then
-				_G[key.."Frame"]:SetAlpha(1)
-				_G[key.."Frame"].t:SetTexture(select(3, GetSpellInfo(v)))
-				break
-			else
-				_G[key.."Frame"]:SetAlpha(0.2)
-				_G[key.."Frame"].t:SetTexture(select(3, GetSpellInfo(v)))
-			end
-		end
-	end
-	
-	--fucking pallys
-	local percentmod = select(7, UnitDamage("player"))
-	if ceil(percentmod*100) >= 103 then
-		if _G["dmg3Frame"]:GetAlpha() == 0.2 then
-			_G["dmg3Frame"]:SetAlpha(1)
-			_G["dmg3Frame"].t:SetTexture(select(3, GetSpellInfo(31876)))
-		end
-	end
-end
-
-local raidbuffsummury = CreateFrame("Frame", "RaidBuffSummery", UIParent)
-raidbuffsummury:SetFrameStrata("HIGH")
-raidbuffsummury:SetTemplate("Transparent")
-raidbuffsummury:Size(435, 425)
-raidbuffsummury:Point("TOP", raidbuff_reminder, "BOTTOM", 0, -3)
-raidbuffsummury:SetClampedToScreen(true)
-raidbuffsummury:RegisterEvent("ACTIVE_TALENT_GROUP_CHANGED")
-raidbuffsummury:RegisterEvent("UNIT_INVENTORY_CHANGED")
-raidbuffsummury:RegisterEvent("UNIT_AURA")
-raidbuffsummury:RegisterEvent("UNIT_DAMAGE")
-raidbuffsummury:RegisterEvent("PLAYER_REGEN_ENABLED")
-raidbuffsummury:RegisterEvent("PLAYER_REGEN_DISABLED")
-raidbuffsummury:RegisterEvent("PLAYER_ENTERING_WORLD")
-raidbuffsummury:RegisterEvent("UPDATE_BONUS_ACTIONBAR")
-raidbuffsummury:RegisterEvent("CHARACTER_POINTS_CHANGED")
-raidbuffsummury:RegisterEvent("ZONE_CHANGED_NEW_AREA")
-raidbuffsummury:SetScript("OnEvent", AnotherOnAuraChange)
-
---DERP BLIZZ, cant make good spell id's
-local str = "spell:%s"
-local BadTotems = {
-	[8076] = 8075,
-	[8972] = 8071,
-	[5677] = 5675,
-}
-local SetupTooltip = function(self)
-	GameTooltip:SetOwner(self, "ANCHOR_BOTTOMRIGHT", 0, 0)
-	
-	if BadTotems[self.spell] then
-		GameTooltip:SetHyperlink(format(str, BadTotems[self.spell]))
-	else
-		GameTooltip:SetHyperlink(format(str, self.spell))
-	end
-	
-	GameTooltip:Show()
-end
-
-local function CreateBuffArea(bufftype, relativeTo, column)
-	local bigButton = CreateFrame("Frame", bufftype.."Frame", raidbuffsummury)
-	bigButton:SetTemplate("Transparent")
-	bigButton:Size(40, 40)
-	if column == 1 then
-		bigButton:Point("TOPLEFT", raidbuffsummury, "TOPLEFT", 14, -14)
-	elseif column == 2 then
-		bigButton:Point("TOPLEFT", raidbuffsummury, "TOPLEFT", 250, -14)
-	else
-		bigButton:Point("TOPLEFT", relativeTo, "BOTTOMLEFT", 0, -16)
-	end
-	bigButton.t = bigButton:CreateTexture(bufftype..".t", "OVERLAY")
-	bigButton.t:SetTexCoord(0.1, 0.9, 0.1, 0.9)
-	bigButton.t:Point("TOPLEFT", 2, -2)
-	bigButton.t:Point("BOTTOMRIGHT", -2, 2)
-	
-	local littlebutton = {}
-	for i, v in pairs(AllBuffs[bufftype]) do
-		littlebutton[i] = CreateFrame("Frame", bufftype.."mini"..i, raidbuffsummury)		
-		littlebutton[i]:SetTemplate()
-		littlebutton[i]:Size(20, 20)
-		if i == 1 then
-			littlebutton[i]:Point("BOTTOMLEFT", bigButton, "BOTTOMRIGHT", 3, 0)
-		else
-			littlebutton[i]:Point("LEFT", littlebutton[i-1], "RIGHT", 3, 0)
-		end
-		littlebutton[i].t = littlebutton[i]:CreateTexture(nil, "OVERLAY")
-		littlebutton[i].t:SetTexCoord(0.1, 0.9, 0.1, 0.9)
-		littlebutton[i].t:Point("TOPLEFT", 2, -2)
-		littlebutton[i].t:Point("BOTTOMRIGHT", -2, 2)
-		littlebutton[i].t:SetTexture(select(3, GetSpellInfo(v)))
-		
-		littlebutton[i]:EnableMouse(true)
-		littlebutton[i]:SetScript("OnEnter", SetupTooltip)
-		littlebutton[i]:SetScript("OnLeave", GameTooltip_Hide)
-	end
-	
-	bigButton.text = bigButton:CreateFontString(nil, "OVERLAY")
-	bigButton.text:SetPoint("TOPLEFT", bigButton, "TOPRIGHT", 3, -1)
-	bigButton.text:FontTemplate()
-	bigButton.text:SetText(LabelType(bufftype))
-	
-	bigButton:EnableMouse(true)
-	bigButton:SetScript("OnEnter", SetupTooltip)
-	bigButton:SetScript("OnLeave", GameTooltip_Hide)
-end
-
---ORDER MATTERS!
-CreateBuffArea("melee10", nil, 1)
-CreateBuffArea("crit5", "melee10Frame", nil)
-CreateBuffArea("ap10", "crit5Frame", nil)
-CreateBuffArea("spellhaste", "ap10Frame", nil)
-CreateBuffArea("sp10", "spellhasteFrame", nil)
-CreateBuffArea("sp6", "sp10Frame", nil)
-CreateBuffArea("dmg3", "sp6Frame", nil)
-CreateBuffArea("base5", "dmg3Frame", 2)
-CreateBuffArea("str_agi", "base5Frame", nil)
-CreateBuffArea("stam", "str_agiFrame", nil)
-CreateBuffArea("mana", "stamFrame", nil)
-CreateBuffArea("armor", "manaFrame", nil)
-CreateBuffArea("pushback", "armorFrame", nil)
-CreateBuffArea("mp5", "pushbackFrame", nil)
-
-raidbuffsummury:Hide()
-
-local raidbuff_toggle = CreateFrame("Frame", "RaidBuffToggle", raidbuff_reminder)
-raidbuff_toggle:SetTemplate("Transparent")
-raidbuff_toggle:Size(raidbuff_reminder:GetWidth(), 18)
-raidbuff_toggle:Point("TOP", raidbuff_reminder, "BOTTOM", 0, -1)
-raidbuff_toggle:SetFrameStrata("HIGH")
-
-raidbuff_toggle.text = raidbuff_toggle:CreateFontString(nil, "OVERLAY")
-raidbuff_toggle.text:SetPoint("CENTER")
-raidbuff_toggle.text:FontTemplate()
-raidbuff_toggle.text:SetText("View All Raid Buffs")
-raidbuff_toggle:SetAlpha(0)
-
-local function ToggleRaidBuffs()
-	if raidbuffsummury:IsShown() then
-		raidbuffsummury:Hide()
-		raidbuff_toggle:ClearAllPoints()
-		raidbuff_toggle:Point("TOP", raidbuff_reminder, "BOTTOM", 0, -1)
-		raidbuff_toggle.text:SetText("View All Raid Buffs")
-		raidbuff_toggle:SetScript("OnEnter", function(self) self:SetAlpha(1) end)
-		raidbuff_toggle:SetScript("OnLeave", function(self) self:SetAlpha(0) end)
-	else
-		raidbuffsummury:Show()
-		raidbuff_toggle:ClearAllPoints()
-		raidbuff_toggle:Point("BOTTOM", raidbuffsummury, "BOTTOM", 0, 5)
-		raidbuff_toggle.text:SetText("Minimize All Raid Buffs")
-		raidbuff_toggle:SetScript("OnEnter", nil)
-		raidbuff_toggle:SetScript("OnLeave", nil)
-	end
-end
-
-raidbuff_toggle:RegisterEvent("PLAYER_REGEN_DISABLED")
-raidbuff_toggle:RegisterEvent("PLAYER_REGEN_ENABLED")
-raidbuff_toggle:HookScript("OnEnter", function(self) self:SetAlpha(1) end)
-raidbuff_toggle:HookScript("OnLeave", function(self) self:SetAlpha(0) end)
-raidbuff_toggle:SetScript("OnMouseDown", ToggleRaidBuffs)
-raidbuff_toggle:SetScript("OnEvent", function(self, event)
-	if event == "PLAYER_REGEN_DISABLED" then
-		self:EnableMouse(false)
-		self:SetAlpha(0)
-	elseif event == "PLAYER_REGEN_ENABLED" then
-		self:EnableMouse(true)
-	end
-end)  ]]--

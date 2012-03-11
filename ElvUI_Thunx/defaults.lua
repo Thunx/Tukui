@@ -68,6 +68,8 @@ P['skins'] = {
 		['tableftmiddle'] = "Omen",
 		['tabrightmiddle'] = "Recount",
 		['tabright'] = "Atlasloot",
+	--RBR+
+		['specialbuff'] = 80398,
 	
 	},
 }
