@@ -192,7 +192,7 @@ E.Options.args.skins.args.thunx = {
 					},					
 			},
 		},
-		classtimers = {
+		--[[classtimers = {
 			order = 7,
 			type = "group",
 			name = L["ClassTimers !! EXPERIMENTAL !!"],
@@ -235,7 +235,7 @@ E.Options.args.skins.args.thunx = {
 						set = function(info, value) E.db.skins.thunx[ info[#info] ] = value; E:SetupThunxMedia(); E:Initializethunx(); StaticPopup_Show("CONFIG_RL") end,						
 					},	
 			},
-		},
+		},]]--
 		tooltip = {
 			order = 8,
 			type = "group",
@@ -288,7 +288,7 @@ E.Options.args.skins.args.thunx = {
 					},	
 			},
 		},
-		minimap = {
+		--[[minimap = {
 			order = 9,
 			type = "group",
 			name = L["Minimap"],
@@ -338,7 +338,7 @@ E.Options.args.skins.args.thunx = {
 						set = function(info, value) E.db.skins.thunx[ info[#info] ] = value; StaticPopup_Show("CONFIG_RL") end,					
 					},
 			},
-		},
+		},]]--
 		questtracker = {
 			order = 10,
 			type = "group",
