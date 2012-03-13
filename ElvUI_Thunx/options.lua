@@ -427,9 +427,17 @@ E.Options.args.skins.args.thunx = {
 						get = function(info) return E.db.skins.thunx[ info[#info] ] end,
 						set = function(info, value) E.db.skins.thunx[ info[#info] ] = value; StaticPopup_Show("CONFIG_RL") end,
 					},
+					autodez = {
+						order = 13,
+						type = "toggle",
+						name = L["Auto dez green items"],
+						desc = L['Auto dez green items'],
+						get = function(info) return E.db.skins.thunx[ info[#info] ] end,
+						set = function(info, value) E.db.skins.thunx[ info[#info] ] = value; StaticPopup_Show("CONFIG_RL") end,
+					},
 					snaptowab = {
 					type = 'select',
-					order = 13,
+					order = 14,
 					name = L['Snap To Actionbars'],
 					desc = L['Position the castbar above Actionbar 1, 2, 3, 4 or 5. Size is set automatically.'],
 					disabled = function() return not E.db.skins.thunx.snaptoab end,

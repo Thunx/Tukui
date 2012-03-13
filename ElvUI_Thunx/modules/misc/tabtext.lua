@@ -146,7 +146,7 @@ tab = CreateFrame("Frame", "tab", RightChatPanel) 	-- Tab creationif not E.db.sk
 				TTALoot:Point("TOPLEFT", tab[i], E:Scale(4), E:Scale(-4))
 				TTALoot:Point("BOTTOMRIGHT",tab[i], E:Scale(-4), E:Scale(4))
 				TTALoot:SetTexture("Interface\\AddOns\\ElvUI_Thunx\\media\\AL")
-				TTALoot:SetVertexColor(35/255,164/255,255/255)
+				TTALoot:SetVertexColor(unpack(E["media"].rgbvaluecolor))
 				
 				tab[i]:SetScript("OnEnter", function(self)
 					GameTooltip:SetOwner(self, "ANCHOR_TOP", 0, E:Scale(6));
@@ -190,7 +190,7 @@ tab = CreateFrame("Frame", "tab", RightChatPanel) 	-- Tab creationif not E.db.sk
 				TTOmen:Point("TOPLEFT", tab[i], E:Scale(4), E:Scale(-4))
 				TTOmen:Point("BOTTOMRIGHT",tab[i], E:Scale(-4), E:Scale(4))
 				TTOmen:SetTexture("Interface\\AddOns\\ElvUI_Thunx\\media\\Omen")
-				TTOmen:SetVertexColor(35/255,164/255,255/255)
+				TTOmen:SetVertexColor(unpack(E["media"].rgbvaluecolor))
 				
 				tab[i]:SetScript("OnEnter", function(self)
 					GameTooltip:SetOwner(self, "ANCHOR_TOP", 0, E:Scale(6));
@@ -232,6 +232,9 @@ tab = CreateFrame("Frame", "tab", RightChatPanel) 	-- Tab creationif not E.db.sk
 				TTSkada:Point("TOPLEFT", tab[i], E:Scale(4), E:Scale(-4))
 				TTSkada:Point("BOTTOMRIGHT",tab[i], E:Scale(-4), E:Scale(4))
 				TTSkada:SetTexture("Interface\\AddOns\\ElvUI_Thunx\\media\\Recount")
+				function E:UpdateMedia()
+				TTSkada:SetVertexColor(unpack(E["media"].rgbvaluecolor))
+				end
 				
 				tab[i]:SetScript("OnEnter", function(self)
 					GameTooltip:SetOwner(self, "ANCHOR_TOP", 0, E:Scale(6));
@@ -274,7 +277,7 @@ tab = CreateFrame("Frame", "tab", RightChatPanel) 	-- Tab creationif not E.db.sk
 				TTRecount:Point("TOPLEFT", tab[i], E:Scale(4), E:Scale(-4))
 				TTRecount:Point("BOTTOMRIGHT",tab[i], E:Scale(-4), E:Scale(4))
 				TTRecount:SetTexture("Interface\\AddOns\\ElvUI_Thunx\\media\\Recount")
-				TTRecount:SetVertexColor(35/255,164/255,255/255)
+				TTRecount:SetVertexColor(unpack(E["media"].rgbvaluecolor))
 				
 				tab[i]:SetScript("OnEnter", function()
 					GameTooltip:SetOwner(tab[i], "ANCHOR_TOP", 0, E:Scale(6));
@@ -317,7 +320,7 @@ tab = CreateFrame("Frame", "tab", RightChatPanel) 	-- Tab creationif not E.db.sk
 			TTEncJourn:Point("TOPLEFT", tab[i], E:Scale(4), E:Scale(-4))
 			TTEncJourn:Point("BOTTOMRIGHT",tab[i], E:Scale(-4), E:Scale(4))
 			TTEncJourn:SetTexture("Interface\\AddOns\\ElvUI_Thunx\\media\\EJ")
-			TTEncJourn:SetVertexColor(35/255,164/255,255/255)
+			TTEncJourn:SetVertexColor(unpack(E["media"].rgbvaluecolor))
 			
 			tab[i]:SetScript("OnEnter", function(self)
 				GameTooltip:SetOwner(self, "ANCHOR_TOP", 0, E:Scale(6));
@@ -359,7 +362,7 @@ tab = CreateFrame("Frame", "tab", RightChatPanel) 	-- Tab creationif not E.db.sk
 			-- TTName:SetPoint("TOPLEFT", tab[i], T.Scale(4), T.Scale(-4))
 			-- TTName:SetPoint("BOTTOMRIGHT",tab[i], T.Scale(-4), T.Scale(4))
 			-- TTName:SetTexture("Interface\\AddOns\\ElvUI_Thunx\\media\\ec") --Get icon in media folder
-			-- TTName:SetVertexColor(35/255,164/255,255/255)
+			-- TTName:SetVertexColor(unpack(E["media"].rgbvaluecolor))
 			
 			-- tab[i]:SetScript("OnEnter", function(self)
 				-- GameTooltip:SetOwner(self, "ANCHOR_TOP", 0, T.Scale(6));

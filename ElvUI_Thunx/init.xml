@@ -6,6 +6,8 @@
 	<Script file="media\sharedmedia.lua"/>	
 	<Script file="locales\english.lua"/>
 	
+	<Script file="modules\autodez.lua"/>
+	<Script file="modules\embedright.lua"/>
 	<Script file="modules\actionbars\actionbars.lua"/>
 	<Script file="modules\auras\auras.lua"/>
 	<Script file="modules\chat\chat.lua"/>
@@ -22,6 +24,8 @@
 	<Script file="modules\misc\mail.lua"/>
 	<Script file="modules\misc\RBR+.lua"/>
 	<Script file="modules\misc\addonmanager.lua"/>
+	<Script file="modules\misc\buffs.lua"/>
+	<Script file="modules\misc\weapons.lua"/>
 	
 	
 	<Include file="modules\unitframes\load_unitframes.xml"/>

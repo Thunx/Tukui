@@ -51,6 +51,7 @@ P['skins'] = {
 		['autorepchange'] = true,
 		['spincam'] = true,
 		['snaptoab'] = true,
+		['autodez'] = true,
 		['snaptowab'] = "ElvUI_Bar3",	-- Position the player castbar above actionbar 1 and size it automatically. This disables the 'width' option.
 	--fDispelAnnounce
 		['enablefd'] = true,
