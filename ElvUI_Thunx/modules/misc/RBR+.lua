@@ -1,7 +1,7 @@
 local E, L, P, G = unpack(ElvUI); --Engine
 local S = E:GetModule('Skins')
 local RBR = E:GetModule('RaidBuffReminder', 'AceEvent-3.0');
-local M = E:GetModule('Maps');
+local M = E:GetModule('Minimap');
 E.RaidBuffReminder = RBR
 local data = ElvData
 local db = E.db.skins.thunx 
@@ -125,7 +125,7 @@ function RBR:Initialize()
 end
 
 
-function M:Minimap_UpdateSettings()
+function M:UpdateSettings()
 	E.MinimapSize = E.db.general.minimapSize
 	
 	if E.db.general.raidReminder then

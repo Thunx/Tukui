@@ -179,7 +179,7 @@ function Thunx_DoWork_AddonManager()
 	GameMenuFrame:SetHeight(GameMenuFrame:GetHeight()+GameMenuButtonMacros:GetHeight());
 	GameMenuButtonLogout:SetPoint("TOP", gmbAddOns, "BOTTOM", 0, -1)
 	gmbAddOns:SetPoint("TOP", GameMenuButtonMacros, "BOTTOM", 0, -1)
-	gmbAddOns:SetText( E.StatColor .."AddonManager")
+	gmbAddOns:SetText( E["media"].hexvaluecolor .."AddonManager")
 	gmbAddOns:SetScript("OnClick", function()
 		HideUIPanel(GameMenuFrame);
 		AddonManager:Show()

@@ -54,22 +54,19 @@ end
 E.UpdateTabLock = function(skin,indexLock, id)
 	 if indexLock == true then
 		TLock[id] = false
-		skin:SetVertexColor(35/255,164/255,255/255)
+		skin:SetVertexColor(unpack(E["media"].rgbvaluecolor))
 	 else
 		TLock[id] = true;
-		skin:SetVertexColor(35/255,164/255,255/255)
+		skin:SetVertexColor(unpack(E["media"].rgbvaluecolor))
 	 end
 end
-
-
-
 
 local tab
 local LoadTab = function(self)
 tab = CreateFrame("Frame", "tab", RightChatPanel) 	-- Tab creationif not E.db.skins.thunx.enabletab == true then return end
 
 	if not E.db.skins.thunx.enabletab == true then return end
-	
+
 	for i = 1, 4 do
 		tab[i] = CreateFrame("Button", "tab"..i, tab)
 		tab[i]:SetFrameLevel(10)
@@ -147,6 +144,7 @@ tab = CreateFrame("Frame", "tab", RightChatPanel) 	-- Tab creationif not E.db.sk
 				TTALoot:Point("BOTTOMRIGHT",tab[i], E:Scale(-4), E:Scale(4))
 				TTALoot:SetTexture("Interface\\AddOns\\ElvUI_Thunx\\media\\AL")
 				TTALoot:SetVertexColor(unpack(E["media"].rgbvaluecolor))
+				
 				
 				tab[i]:SetScript("OnEnter", function(self)
 					GameTooltip:SetOwner(self, "ANCHOR_TOP", 0, E:Scale(6));
@@ -228,11 +226,12 @@ tab = CreateFrame("Frame", "tab", RightChatPanel) 	-- Tab creationif not E.db.sk
 		elseif i == skX then 	-- Skada
 			if IsAddOnLoaded("Skada") then
 				-- Set Texture
+				function Thunx_DoWork_Fdispelannounce()
 				TTSkada = tab[i]:CreateTexture(nil, "ARTWORK")
 				TTSkada:Point("TOPLEFT", tab[i], E:Scale(4), E:Scale(-4))
 				TTSkada:Point("BOTTOMRIGHT",tab[i], E:Scale(-4), E:Scale(4))
 				TTSkada:SetTexture("Interface\\AddOns\\ElvUI_Thunx\\media\\Recount")
-				function E:UpdateMedia()
+				
 				TTSkada:SetVertexColor(unpack(E["media"].rgbvaluecolor))
 				end
 				
@@ -394,7 +393,7 @@ tab = CreateFrame("Frame", "tab", RightChatPanel) 	-- Tab creationif not E.db.sk
 				-- end 
 				--<command to toggle the addon>
 				-- T.UpdateTabLock(TTName, TLock[i], 4); 
-			-- end)
+			-- end)	
 		end 
 	end 
     self:UnregisterEvent("PLAYER_ENTERING_WORLD")
