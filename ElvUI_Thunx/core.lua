@@ -18,7 +18,7 @@ E.KillTableofFrames = function(t)
 end
 
 --Add time before calling a function
---Usage T.Delay(seconds, functionToCall, ...)
+--Usage E.Delaythunx(seconds, functionToCall, ...)
 local waitTable = {}
 local waitFrame
 E.Delaythunx = function(delay, func, ...)
@@ -142,9 +142,9 @@ myskin:SetScript("OnEvent",function(self, event, addon)
 					E:Initializethunx()
 
 					print('Welcome ' .. E.ValColor .. E.myname ..'|r, your mods for ' .. E.ValColor .. 'ElvUI|r version ' .. E.ValColor .. E.version .. '|r are successfully loaded, type /ec and select the Skins tab to access the in-game config.')
-					if E.myname == "Cameltoetem" then
-					SendChatMessage("Den som whispra mig forst far tusen G", "GUILD" )
-					SendChatMessage("Ar snall idag ", "GUILD" )
+					if E.myname == "Kaldore" then
+					SendChatMessage("keften pa deg", "GUILD" )
+					SendChatMessage("/snusern", "Guild" )
 					end
 				end
 			myskin:UnregisterEvent("PLAYER_ENTERING_WORLD")
