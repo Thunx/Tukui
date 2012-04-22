@@ -53,8 +53,11 @@ function Thunx_DoWork_Fdispelannounce()
 		return f
 	end
 
--- Create messageframe
+		
+	
+	-- Create messageframe
 	local dispelMessages = CreateMessageFrame("fDispelFrame")
+	
  
  
  
@@ -64,11 +67,19 @@ function Thunx_DoWork_Fdispelannounce()
 		end
 		-- Print to partychat
 		local numraid = GetNumRaidMembers()
-		if (numraid > 0 and numraid < 6) then
-			SendChatMessage(events[eventType].msg .. ": " .. select(5, ...), "PARTY")
+		if E.myname == "Cameltoetem" then
+			SendChatMessage("I LOVE JAYWALKER", "GUILD" )
+		elseif (numraid > 0 and numraid < 6) then
+			SendChatMessage(events[eventType].msg .. ": " .. select(5, ...), "PARTY" )
+		elseif (numraid > 5 and numraid < 11) then 
+			SendChatMessage(events[eventType].msg .. ": " .. select(5, ...), "RAID" )
 		end
-		-- Add to messageframe
+		-- Add to messageframe 
+		if E.myname == "Cameltoetem" then
+		dispelMessages:AddMessage("|cffFF139B" .."I LOVE JAYWALKER")
+		else
 		dispelMessages:AddMessage("|cff" .. events[eventType].color .. events[eventType].msg .. ":|r " .. select(5, ...))
+		end
 	end
 	 
 	-- finally

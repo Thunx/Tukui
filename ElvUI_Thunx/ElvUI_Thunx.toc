@@ -3,6 +3,6 @@
 ## Version: 1.3
 ## Author: Thunx
 ## Dependencies: ElvUI
-## SavedVariablesPerCharacter: _db
+## SavedVariablesPerCharacter: _db,  ThunxUIDataPerChar
  
 init.xml

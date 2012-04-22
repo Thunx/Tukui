@@ -8,8 +8,46 @@ All rights reserved.
 local E, L, P, G = unpack(ElvUI); --Engine
 local LSM = LibStub("LibSharedMedia-3.0")
 
-
 local myskin = CreateFrame("frame")
+
+E.KillTableofFrames = function(t)
+	for i, v in pairs(t) do
+		v:Kill()
+		v = nil
+	end
+end
+
+--Add time before calling a function
+--Usage T.Delay(seconds, functionToCall, ...)
+local waitTable = {}
+local waitFrame
+E.Delaythunx = function(delay, func, ...)
+	if(type(delay)~="number" or type(func)~="function") then
+		return false
+	end
+	if(waitFrame == nil) then
+		waitFrame = CreateFrame("Frame","WaitFrame", UIParent)
+		waitFrame:SetScript("onUpdate",function (self,elapse)
+			local count = #waitTable
+			local i = 1
+			while(i<=count) do
+				local waitRecord = tremove(waitTable,i)
+				local d = tremove(waitRecord,1)
+				local f = tremove(waitRecord,1)
+				local p = tremove(waitRecord,1)
+				if(d>elapse) then
+				  tinsert(waitTable,i,{d-elapse,f,p})
+				  i = i + 1
+				else
+				  count = count - 1
+				  f(unpack(p))
+				end
+			end
+		end)
+	end
+	tinsert(waitTable,{delay,func,{...}})
+	return true
+end
 
 function E:RegisterThunxMedia()
 	--Fonts
@@ -21,7 +59,7 @@ end
 
 function E:Initializethunx()
 local db = E.db.skins.thunx
-
+E["thunx"] = {};
 -- Layout Init
 	if db.upperpanel then
 		if UpperPanel == nil then 
@@ -54,7 +92,7 @@ local db = E.db.skins.thunx
 	Thunx_DoWork_Tooltip()
 	--Thunx_DoWork_Tabtext()
 	Thunx_DoWork_Questtracker()
-	
+		
 end
 
 function E:SetupThunxMedia()
@@ -78,7 +116,7 @@ local db = E.db.skins.thunx
 	--Colors
 	buttoncolor = { 0, 0.7, 1 }
 	E.StatColor = E:RGBToHex(unpack(buttoncolor))
-	E.ValColor = '|cff1784d1' -- DEPRECIATED SOON, REMEMBER TO REMOVE THIS AND CODE AROUND IT	
+	E.ValColor = '|cff1784d1' -- DEPRECIATED SOON, REMEMBER TO REMOVE THIS AND CODE AROUND IT	'|cff1784d1'
 end
 
 function E.SetModifiedBackdrop(self)
@@ -104,6 +142,10 @@ myskin:SetScript("OnEvent",function(self, event, addon)
 					E:Initializethunx()
 
 					print('Welcome ' .. E.ValColor .. E.myname ..'|r, your mods for ' .. E.ValColor .. 'ElvUI|r version ' .. E.ValColor .. E.version .. '|r are successfully loaded, type /ec and select the Skins tab to access the in-game config.')
+					if E.myname == "Cameltoetem" then
+					SendChatMessage("Den som whispra mig forst far tusen G", "GUILD" )
+					SendChatMessage("Ar snall idag ", "GUILD" )
+					end
 				end
 			myskin:UnregisterEvent("PLAYER_ENTERING_WORLD")
 		end

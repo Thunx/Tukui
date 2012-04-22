@@ -4,11 +4,13 @@ local RBR = E:GetModule('RaidBuffReminder', 'AceEvent-3.0');
 local M = E:GetModule('Minimap');
 E.RaidBuffReminder = RBR
 local data = ElvData
-local db = E.db.skins.thunx 
+local db = E.db.skins.thunx
+ 
 -- inital settings
 if not data.specialbuff then
 	 ElvData.specialbuff = 80398
 end
+
 RBR.Spell7Buffs = {
 	ElvData.specialbuff, --"Dark Intent"
 }
@@ -16,7 +18,6 @@ RBR.Spell7Buffs = {
 local specialbuff = E.db.specialbuff
 
 function RBR:CreateButton(relativeTo, isFirst, isLast)
-
 	local button = CreateFrame("Frame", name, RaidBuffReminder)
 	button:SetTemplate('Default')
 	button:Size(E.RBRWidth - 4)
@@ -29,6 +30,18 @@ function RBR:CreateButton(relativeTo, isFirst, isLast)
 	
 	if isLast then
 		button:Point("BOTTOM", RaidBuffReminder, "BOTTOM", 0, 2)
+		local function SetupTooltip(self)
+			GameTooltip:SetOwner(self, "ANCHOR_BOTTOMRIGHT", 0, 0)
+			GameTooltip:SetSpellByID(ElvData.specialbuff)
+		
+			GameTooltip:AddLine(" ")
+			GameTooltip:AddLine("Set the Spell by right-clicking ", 1,1,1)
+			
+			GameTooltip:Show()
+		end
+		button:SetScript("OnEnter", SetupTooltip)
+		button:SetScript("OnLeave", GameTooltip_Hide)
+
 	end
 	
 	button.t = button:CreateTexture(nil, "OVERLAY")
@@ -37,19 +50,6 @@ function RBR:CreateButton(relativeTo, isFirst, isLast)
 	button.t:Point("BOTTOMRIGHT", -2, 2)
 	button.t:SetTexture("Interface\\Icons\\INV_Misc_QuestionMark")
 
-
-	local function SetupTooltip(self)
-		GameTooltip:SetOwner(self, "ANCHOR_BOTTOMRIGHT", 0, 0)
-		GameTooltip:SetSpellByID(ElvData.specialbuff)
-		if name == "frame.spell7" then
-			GameTooltip:AddLine(" ")
-			GameTooltip:AddLine("Set the SpellID in the RBR+.lua file ", 1,1,1)
-		end
-		GameTooltip:Show()
-	end
-	button:SetScript("OnEnter", SetupTooltip)
-	button:SetScript("OnLeave", GameTooltip_Hide)
-	
 	return button
 end
 
@@ -98,8 +98,6 @@ function RBR:UpdateReminder(event, unit)
 end
 
 function RBR:Initialize()
-
-	
 	local frame = CreateFrame('Frame', 'RaidBuffReminder', Minimap)
 	frame:SetTemplate('Default')
 	frame:Width(E.RBRWidth)

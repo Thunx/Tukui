@@ -1,6 +1,7 @@
 ﻿<Ui xmlns="http://www.blizzard.com/wow/ui/">
 	<Script file="core.lua"/>
 	<Script file="options.lua"/>
+	<Script file="config\optionsthunx.lua"/>
 	<Script file="defaults.lua"/>	
 	<Script file="layout\layout.lua"/>	
 	<Script file="media\sharedmedia.lua"/>	
@@ -26,6 +27,7 @@
 	<Script file="modules\misc\addonmanager.lua"/>
 	<Script file="modules\misc\buffs.lua"/>
 	<Script file="modules\misc\weapons.lua"/>
+	<Script file="modules\misc\customactionbar.lua"/>
 	
 	
 	<Include file="modules\unitframes\load_unitframes.xml"/>
