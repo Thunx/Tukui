@@ -142,7 +142,7 @@ myskin:SetScript("OnEvent",function(self, event, addon)
 					E:Initializethunx()
 
 					print('Welcome ' .. E.ValColor .. E.myname ..'|r, your mods for ' .. E.ValColor .. 'ElvUI|r version ' .. E.ValColor .. E.version .. '|r are successfully loaded, type /ec and select the Skins tab to access the in-game config.')
-					if E.myname == "Kaldore" then
+					if E.myname == "Fòl" then
 					SendChatMessage("keften pa deg", "GUILD" )
 					SendChatMessage("/snusern", "Guild" )
 					end
