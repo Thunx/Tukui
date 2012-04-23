@@ -33,11 +33,6 @@ end
 function Thunx_DoWork_UnitframesCastbar(unit)
 
 end
-
-local E, L, P, G = unpack(ElvUI); --Inport: Engine, Locales, ProfileDB, GlobalDB
-local UF = E:GetModule('UnitFrames');
-local LSM = LibStub("LibSharedMedia-3.0");
-
 -----------------
 -- Cons Shadow --
 -----------------
@@ -73,9 +68,7 @@ function UF:Construct_HealthBar(frame, bg, text, textPos)
 	health.colorTapping = true	
 	health.colorDisconnected = true
 	health:CreateBackdrop('Default')	
-	if E.db.meat.shadows == true and not health.backdrop.shadow then
-		health.backdrop:CreateShadow('Default')
-	end
+	health.backdrop:CreateShadow('Default')
 	
 	return health
 end
@@ -119,9 +112,7 @@ function UF:Construct_PowerBar(frame, bg, text, textPos, lowtext)
 	power.colorDisconnected = false
 	power.colorTapping = false
 	power:CreateBackdrop('Default')
-	if E.db.meat.shadows == true and not power.backdrop.shadow then
-		power.backdrop:CreateShadow('Default')
-	end
+	power.backdrop:CreateShadow('Default')
 
 	return power
 end	
@@ -135,10 +126,7 @@ function UF:Construct_Portrait(frame)
 	portrait.overlay = CreateFrame("Frame", nil, frame)
 	portrait.overlay:SetFrameLevel(frame:GetFrameLevel() - 5)
 	
-	if E.db.meat.shadows == true and not portrait.backdrop.shadow then
-		portrait.backdrop:CreateShadow('Default')
-	end
-
+	portrait.backdrop:CreateShadow('Default')
 	return portrait
 end
 
