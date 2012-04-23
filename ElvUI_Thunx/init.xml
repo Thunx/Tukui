@@ -28,7 +28,7 @@
 	<Script file="modules\misc\buffs.lua"/>
 	<Script file="modules\misc\weapons.lua"/>
 	<Script file="modules\misc\customactionbar.lua"/>
-	
+	<Script file="modules\misc\spam.lua"/>
 	
 	<Include file="modules\unitframes\load_unitframes.xml"/>
 	<Include file="modules\datatexts\load_datatexts.xml"/>
