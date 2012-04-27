@@ -235,6 +235,9 @@ function UF:Update_AllFrames()
 	if InCombatLockdown() then self:RegisterEvent('PLAYER_REGEN_ENABLED'); return end
 	if E.global["unitframe"].enable ~= true then return; end
 	self:UpdateColors()
+	self:Update_FontStrings()
+	self:Update_StatusBars()	
+	
 	for unit in pairs(self['handledunits']) do
 		if self.db['units'][unit].enable then
 			self[unit]:Enable()
@@ -659,4 +662,4 @@ function UF:MergeUnitSettings(fromUnit, toUnit)
 end
 
 
-E:RegisterModule(UF:GetName())
+E:RegisterInitialModule(UF:GetName())

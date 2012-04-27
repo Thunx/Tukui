@@ -33,7 +33,7 @@ BINDING_HEADER_ELVUI = GetAddOnMetadata(..., "Title")
 
 --Modules List
 E["RegisteredModules"] = {}
-
+E['RegisteredInitialModules'] = {}
 local registry = {}
 
 function E:RegisterDropdownButton(name, callback)
@@ -82,6 +82,11 @@ function E:UpdateMedia()
 	
 	self:ValueFuncCall()
 	self:UpdateBlizzardFonts()
+end
+
+function E:PLAYER_ENTERING_WORLD()
+	self:UpdateMedia()
+	self:UnregisterEvent('PLAYER_ENTERING_WORLD')
 end
 
 function E:ValueFuncCall()
@@ -197,6 +202,19 @@ function E:RegisterModule(name)
 		tinsert(self['RegisteredModules'], name)
 	else
 		tinsert(self['RegisteredModules'], name)
+	end
+end
+
+function E:RegisterInitialModule(name)
+	tinsert(self['RegisteredInitialModules'], name)
+end
+
+function E:InitializeInitialModules()
+	for _, module in pairs(E['RegisteredInitialModules']) do
+		local module = self:GetModule(module, true)
+		if module and module.Initialize then
+			module:Initialize()
+		end
 	end
 end
 
@@ -622,6 +640,11 @@ function E:Initialize()
 	self.data.RegisterCallback(self, "OnProfileChanged", "UpdateAll")
 	self.data.RegisterCallback(self, "OnProfileCopied", "UpdateAll")
 	self.data.RegisterCallback(self, "OnProfileReset", "OnProfileReset")
+	
+	if self.data and self.data.profile and self.data.profile.keybinds then
+		self.data.profile.keybinds = nil;
+	end
+	
 	self.db = self.data.profile;
 	self.global = self.data.global;
 
@@ -673,6 +696,7 @@ function E:Initialize()
 	self:RegisterEvent("PARTY_MEMBERS_CHANGED", "SendRecieve")
 	self:RegisterEvent("CHAT_MSG_ADDON", "SendRecieve")
 	self:RegisterEvent('UI_SCALE_CHANGED', 'UIScale')
+	self:RegisterEvent('PLAYER_ENTERING_WORLD')
 	--self:RegisterEvent('UPDATE_BINDINGS', 'SaveKeybinds')
 	--self:SaveKeybinds()
 	
