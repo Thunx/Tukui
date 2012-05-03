@@ -287,12 +287,8 @@ function AB:DisableBlizzard()
 			end
 		end
 	end
-	UIPARENT_MANAGED_FRAME_POSITIONS["MainMenuBar"] = nil
-	UIPARENT_MANAGED_FRAME_POSITIONS["ShapeshiftBarFrame"] = nil
-	UIPARENT_MANAGED_FRAME_POSITIONS["PossessBarFrame"] = nil
-	UIPARENT_MANAGED_FRAME_POSITIONS["PETACTIONBAR_YPOS"] = nil
-	UIPARENT_MANAGED_FRAME_POSITIONS["MultiCastActionBarFrame"] = nil
-	UIPARENT_MANAGED_FRAME_POSITIONS["MULTICASTACTIONBAR_YPOS"] = nil
+
+	MultiCastActionBarFrame.ignoreFramePositionManager = true
 	
 	MainMenuBar:UnregisterAllEvents()
 	MainMenuBar:Hide()
@@ -383,6 +379,8 @@ function AB:FixKeybindText(button)
 		text = gsub(text, 'MOUSEWHEELUP', L['KEY_MOUSEWHEELUP']);
 		text = gsub(text, 'MOUSEWHEELDOWN', L['KEY_MOUSEWHEELDOWN']);
 		text = gsub(text, 'NMULTIPLY', "*");
+		text = gsub(text, 'NMINUS', "N-");
+		text = gsub(text, 'NPLUS', "N+");
 		
 		hotkey:SetText(text);
 	end

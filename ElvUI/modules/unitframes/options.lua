@@ -620,6 +620,13 @@ local positionValues = {
 	BOTTOM = 'BOTTOM',
 };
 
+local lengthValues = {
+	["SHORT"] = L["Short"],
+	["MEDIUM"] = L["Medium"],
+	["LONG"] = L["Long"],
+	["LONGLEVEL"] = L["Long (Include Level)"],
+};
+
 local auraAnchors = {
 	TOPLEFT = 'TOPLEFT',
 	LEFT = 'LEFT',
@@ -4722,17 +4729,17 @@ E.Options.args.unitframe.args.party = {
 					desc = L['Show a incomming heal prediction bar on the unitframe. Also display a slightly different colored bar for incoming overheals.'],
 					type = 'toggle',
 				},		
-				--[[groupBy = {
+				groupBy = {
 					order = 16,
 					name = L['Group By'],
 					desc = L['Set the order that the group will sort.'],
 					type = 'select',		
 					values = {
 						['CLASS'] = CLASS,
-						['ROLE'] = ROLE,
+						['TANK'] = L["Tanks First"],
 						['GROUP'] = GROUP,
 					},
-				},]]
+				},
 				visibility = {
 					order = 200,
 					type = 'input',
@@ -4857,7 +4864,13 @@ E.Options.args.unitframe.args.party = {
 					order = 2,
 					name = L['Position'],
 					values = positionValues,
-				},					
+				},			
+				length = {
+					type = 'select',
+					order = 3,
+					name = L['Length'],
+					values = lengthValues,				
+				},
 			},
 		},
 		buffs = {
@@ -5346,17 +5359,17 @@ E.Options.args.unitframe.args.raid625 = {
 					desc = L['Show a incomming heal prediction bar on the unitframe. Also display a slightly different colored bar for incoming overheals.'],
 					type = 'toggle',
 				},	
-				--[[groupBy = {
+				groupBy = {
 					order = 16,
 					name = L['Group By'],
 					desc = L['Set the order that the group will sort.'],
 					type = 'select',		
 					values = {
 						['CLASS'] = CLASS,
-						['ROLE'] = ROLE,
+						['TANK'] = L["Tanks First"],
 						['GROUP'] = GROUP,
 					},
-				},]]				
+				},			
 				visibility = {
 					order = 200,
 					type = 'input',
@@ -5481,7 +5494,13 @@ E.Options.args.unitframe.args.raid625 = {
 					order = 2,
 					name = L['Position'],
 					values = positionValues,
-				},					
+				},		
+				length = {
+					type = 'select',
+					order = 3,
+					name = L['Length'],
+					values = lengthValues,				
+				},				
 			},
 		},
 		buffs = {
@@ -5890,17 +5909,17 @@ E.Options.args.unitframe.args.raid2640 = {
 					desc = L['Show a incomming heal prediction bar on the unitframe. Also display a slightly different colored bar for incoming overheals.'],
 					type = 'toggle',
 				},		
-				--[[groupBy = {
+				groupBy = {
 					order = 16,
 					name = L['Group By'],
 					desc = L['Set the order that the group will sort.'],
 					type = 'select',		
 					values = {
 						['CLASS'] = CLASS,
-						['ROLE'] = ROLE,
+						['TANK'] = L["Tanks First"],
 						['GROUP'] = GROUP,
 					},
-				},]]				
+				},		
 				visibility = {
 					order = 200,
 					type = 'input',
@@ -6025,7 +6044,13 @@ E.Options.args.unitframe.args.raid2640 = {
 					order = 2,
 					name = L['Position'],
 					values = positionValues,
-				},					
+				},	
+				length = {
+					type = 'select',
+					order = 3,
+					name = L['Length'],
+					values = lengthValues,				
+				},				
 			},
 		},
 		buffs = {
